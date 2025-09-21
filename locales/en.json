@@ -1,0 +1,111 @@
+{
+    "pageTitle": "JaydenCh-0v0 - Personal Homepage",
+    "nav": {
+        "logo": "Jayden Cheung",
+        "home": "Home",
+        "about": "About Me",
+        "experience": "Experience",
+        "skills": "Skills",
+        "projects": "Projects",
+        "contact": "Contact"
+    },
+    "hero": {
+        "title": "Hi, I'm <span class='highlight'>Jayden</span>",
+        "subtitle": "AI Engineer | Software Developer | Tech Enthusiast",
+        "description": "Passionate about programming, focused on creating excellent digital experiences. Possessing rich full-stack development experience, enthusiastic about game development and Web technologies.",
+        "learnMore": "Learn More",
+        "contactMe": "Contact Me",
+        "profileName": "Jayden Cheung",
+        "profileRole": "AI Engineer"
+    },
+    "about": {
+        "title": "About Me",
+        "p1": "I am a passionate AI engineer with years of software development experience. I love learning new technologies, solving complex technical problems, and am committed to creating user-friendly applications.",
+        "p2": "In addition to programming, I have a strong interest in game development, especially using the Godot engine for 2D and 3D game development. I believe technology can change the world, and my goal is to create value through code.",
+        "expYearsNum": "3+",
+        "expYearsText": "Years of Experience",
+        "projectsCompletedNum": "20+",
+        "projectsCompletedText": "Projects Completed",
+        "techStacksNum": "5+",
+        "techStacksText": "Tech Stacks"
+    },
+    "experience": {
+        "title": "Work Experience",
+
+        "fullstackTitle": "AI Engineer",
+        "company1": "Aviation Services Research Centre",
+        "date1": "07/2024 - Present",
+        "desc1": "Responsible for front-end and back-end development, using tech stacks like React, Node.js, Python. Participated in the development and maintenance of multiple large-scale projects, improving system performance and user experience.",
+        "li1_1": "Developed and maintained multiple web applications",
+        "li1_2": "Optimized database queries, improving system performance by 30%",
+        "li1_3": "Participated in code reviews and technical solution design",
+        
+        "frontendTitle": "Researcher",
+        "company2": "City University of Hong Kong with Prof LEUNG, K W",
+        "date2": "09/2021 - 06/2024",
+        "desc2": "Conducted research on GPS antenna optimization, specifically employing the Non-Dominated Sorting Genetic Algorithm II (NSGA-II).",
+        "li2_1": "Developed and implemented the NSGA-II algorithm for multi-objective optimization.",
+        "li2_2": "Applied the algorithm to enhance GPS antenna performance and design on High Frequency Structure Simulator (HFSS).",
+        "li2_3": "Utilized Python, MATLAB for simulations and machine learning for data analysis.",
+        
+        "gameDevInternTitle": "Engineer",
+        "company3": "Metron Hong Kong Limited",
+        "date3": "09/2019 - 12/2021",
+        "desc3": "Focused on back-end development, using computer vision and feature matching. Responsible for the design and implementation of system, ensuring a good user experience.",
+        "li3_1": "Developed NI LabVIEW device control system for Hong Kong Ocean Park Water World and Studio City Macau",
+        "li3_2": "Developed Road Scanning Vehicle with C# Control System for Freetech and HK Highways Department",
+        "li3_3": "Optimized database queries, improving system performance by 30%"
+    },
+    "skills": {
+        "title": "Skills & Expertise",
+        "frontendCategory": "Front-end Development",
+        "htmlCss": "HTML/CSS",
+        "javascript": "JavaScript",
+        "react": "React",
+        "vuejs": "Vue.js",
+        "backendCategory": "Back-end Development",
+        "nodejs": "Node.js",
+        "python": "Python",
+        "mysql": "MySQL",
+        "mongodb": "MongoDB",
+        "gameDevCategory": "Game Development",
+        "godotEngine": "Godot Engine",
+        "gdscript": "GDScript",
+        "csharp": "C#",
+        "unity": "Unity"
+    },
+    "projects": {
+        "title": "Featured Projects",
+        "proj": {
+            "rpgTitle": "Simple RPG Game",
+            "rpgDesc": "A 2D role-playing game developed using the Godot engine, featuring a complete game system.",
+            "rpgTechGodot": "Godot",
+            "rpgTechGDScript": "GDScript",
+            "rpgTech2D": "2D Game",
+            "ecommerceTitle": "E-commerce Management System",
+            "ecommerceDesc": "A full-stack e-commerce management platform, including user management, product management, order processing, and other functions.",
+            "ecommerceTechReact": "React",
+            "ecommerceTechNodejs": "Node.js",
+            "ecommerceTechMysql": "MySQL",
+            "taskAppTitle": "Task Management Application",
+            "taskAppDesc": "A modern task management application supporting team collaboration and real-time updates.",
+            "taskAppTechVuejs": "Vue.js",
+            "taskAppTechPython": "Python",
+            "taskAppTechMongodb": "MongoDB",
+            "viewProject": "View Project",
+            "githubLink": "GitHub"
+        }
+    },
+    "contact": {
+        "title": "Contact Me",
+        "subtitle": "Let's start a conversation",
+        "description": "If you are interested in my work or have any collaboration opportunities, feel free to contact me!",
+        "emailLabel": "Email",
+        "githubLabel": "GitHub",
+        "linkedinLabel": "LinkedIn",
+        "sendMessage": "Send Message"
+    },
+    "footer": {
+        "copyright": "&copy; 2024 Jayden Cheung. All rights reserved."
+    }
+}

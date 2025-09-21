@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN"> <!-- Default language, will be updated by JavaScript -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="pageTitle">JaydenCh-0v0 - Personal Homepage</title>
+    <link rel="icon" href="art/icon.jpg" type="image/jpeg"> <!-- Added favicon -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home" data-i18n-key="nav.logo">Jayden Cheung</a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link" data-i18n-key="nav.home">Home</a>
+                <a href="#about" class="nav-link" data-i18n-key="nav.about">About Me</a>
+                <a href="#experience" class="nav-link" data-i18n-key="nav.experience">Experience</a>
+                <a href="#skills" class="nav-link" data-i18n-key="nav.skills">Skills</a>
+                <a href="#projects" class="nav-link" data-i18n-key="nav.projects">Projects</a>
+                <a href="#contact" class="nav-link" data-i18n-key="nav.contact">Contact</a>
+            </div>
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <select id="language-selector">
+                    <option value="en">English</option>
+                    <option value="zh-CN">简体中文</option>
+                    <option value="zh-HK">繁體中文</option>
+                </select>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页部分 -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title" data-i18n-key="hero.title">Hi, I'm <span class="highlight">Jayden</span></h1>
+                <p class="hero-subtitle" data-i18n-key="hero.subtitle">Full-stack Developer | Game Developer | Tech Enthusiast</p>
+                <p class="hero-description" data-i18n-key="hero.description">
+                    Passionate about programming, focused on creating excellent digital experiences.
+                    Possessing rich full-stack development experience, enthusiastic about game development and Web technologies.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#about" class="btn btn-primary" data-i18n-key="hero.learnMore">Learn More</a>
+                    <a href="#contact" class="btn btn-secondary" data-i18n-key="hero.contactMe">Contact Me</a>
+                    <div class="social-links-hero">
+                        <a href="https://github.com/JaydenCh-0v0"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <div class="profile-avatar">
+                        <img src="art/icon.jpg" alt="Jayden Cheung">
+                    </div>
+                    <h3 data-i18n-key="hero.profileName">Jayden Cheung</h3>
+                    <div data-i18n-key="hero.profileRole">AI Engineer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我部分 -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title" data-i18n-key="about.title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p data-i18n-key="about.p1">
+                        I am a passionate full-stack developer with years of software development experience.
+                        I love learning new technologies, solving complex technical problems, and am committed to creating
+                        user-friendly applications.
+                    </p>
+                    <p data-i18n-key="about.p2">
+                        In addition to programming, I have a strong interest in game development, especially using the Godot engine
+                        for 2D and 3D game development. I believe technology can change the world, and my goal
+                        is to create value through code.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3 data-i18n-key="about.expYearsNum">3+</h3>
+                            <p data-i18n-key="about.expYearsText">Years of Experience</p>
+                        </div>
+                        <div class="stat">
+                            <h3 data-i18n-key="about.projectsCompletedNum">20+</h3>
+                            <p data-i18n-key="about.projectsCompletedText">Projects Completed</p>
+                        </div>
+                        <div class="stat">
+                            <h3 data-i18n-key="about.techStacksNum">5+</h3>
+                            <p data-i18n-key="about.techStacksText">Tech Stacks</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历部分 -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title" data-i18n-key="experience.title">Work Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n-key="exp.fullstackTitle">Full-stack Developer</h3>
+                        <h4 data-i18n-key="exp.company1">A Tech Company</h4>
+                        <span class="timeline-date" data-i18n-key="exp.date1">2022 - Present</span>
+                        <p data-i18n-key="exp.desc1">
+                            Responsible for front-end and back-end development, using tech stacks like React, Node.js, Python.
+                            Participated in the development and maintenance of multiple large-scale projects, improving system performance and user experience.
+                        </p>
+                        <ul>
+                            <li data-i18n-key="exp.li1_1">Developed and maintained multiple web applications</li>
+                            <li data-i18n-key="exp.li1_2">Optimized database queries, improving system performance by 30%</li>
+                            <li data-i18n-key="exp.li1_3">Participated in code reviews and technical solution design</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n-key="exp.frontendTitle">Front-end Developer</h3>
+                        <h4 data-i18n-key="exp.company2">An Internet Company</h4>
+                        <span class="timeline-date" data-i18n-key="exp.date2">2021 - 2022</span>
+                        <p data-i18n-key="exp.desc2">
+                            Focused on front-end development, using modern frameworks like Vue.js, React.
+                            Responsible for the design and implementation of user interfaces, ensuring a good user experience.
+                        </p>
+                        <ul>
+                            <li data-i18n-key="exp.li2_1">Developed responsive web applications</li>
+                            <li data-i18n-key="exp.li2_2">Collaborated with UI/UX designers</li>
+                            <li data-i18n-key="exp.li2_3">Optimized page loading speed</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 data-i18n-key="exp.gameDevInternTitle">Game Development Intern</h3>
+                        <h4 data-i18n-key="exp.company3">A Game Studio</h4>
+                        <span class="timeline-date" data-i18n-key="exp.date3">2020 - 2021</span>
+                        <p data-i18n-key="exp.desc3">
+                            Developed 2D games using the Godot engine, learning game development processes and best practices.
+                            Participated in the development of multiple small game projects.
+                        </p>
+                        <ul>
+                            <li data-i18n-key="exp.li3_1">Developed game logic using GDScript</li>
+                            <li data-i18n-key="exp.li3_2">Designed game levels and user interfaces</li>
+                            <li data-i18n-key="exp.li3_3">Participated in game testing and optimization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能部分 -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title" data-i18n-key="skills.title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 data-i18n-key="skills.frontendCategory">Front-end Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.htmlCss">HTML/CSS</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.javascript">JavaScript</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.react">React</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.vuejs">Vue.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 data-i18n-key="skills.backendCategory">Back-end Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.nodejs">Node.js</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.python">Python</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.mysql">MySQL</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.mongodb">MongoDB</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3 data-i18n-key="skills.gameDevCategory">Game Development</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.godotEngine">Godot Engine</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.gdscript">GDScript</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.csharp">C#</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <span data-i18n-key="skills.unity">Unity</span>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目部分 -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title" data-i18n-key="projects.title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n-key="proj.rpgTitle">Simple RPG Game</h3>
+                        <p data-i18n-key="proj.rpgDesc">A 2D role-playing game developed using the Godot engine, featuring a complete game system.</p>
+                        <div class="project-tech">
+                            <span data-i18n-key="proj.rpgTechGodot">Godot</span>
+                            <span data-i18n-key="proj.rpgTechGDScript">GDScript</span>
+                            <span data-i18n-key="proj.rpgTech2D">2D Game</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-small" data-i18n-key="proj.viewProject">View Project</a>
+                            <a href="#" class="btn btn-small btn-outline" data-i18n-key="proj.githubLink">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n-key="proj.ecommerceTitle">E-commerce Management System</h3>
+                        <p data-i18n-key="proj.ecommerceDesc">A full-stack e-commerce management platform, including user management, product management, order processing, and other functions.</p>
+                        <div class="project-tech">
+                            <span data-i18n-key="proj.ecommerceTechReact">React</span>
+                            <span data-i18n-key="proj.ecommerceTechNodejs">Node.js</span>
+                            <span data-i18n-key="proj.ecommerceTechMysql">MySQL</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-small" data-i18n-key="proj.viewProject">View Project</a>
+                            <a href="#" class="btn btn-small btn-outline" data-i18n-key="proj.githubLink">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n-key="proj.taskAppTitle">Task Management Application</h3>
+                        <p data-i18n-key="proj.taskAppDesc">A modern task management application supporting team collaboration and real-time updates.</p>
+                        <div class="project-tech">
+                            <span data-i18n-key="proj.taskAppTechVuejs">Vue.js</span>
+                            <span data-i18n-key="proj.taskAppTechPython">Python</span>
+                            <span data-i18n-key="proj.taskAppTechMongodb">MongoDB</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="btn btn-small" data-i18n-key="proj.viewProject">View Project</a>
+                            <a href="#" class="btn btn-small btn-outline" data-i18n-key="proj.githubLink">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我部分 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title" data-i18n-key="contact.title">Contact Me</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 data-i18n-key="contact.subtitle">Let's start a conversation</h3>
+                    <p data-i18n-key="contact.description">If you are interested in my work or have any collaboration opportunities, feel free to contact me!</p>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4 data-i18n-key="contact.emailLabel">Email</h4>
+                                <p>jayden.cheung@example.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <div>
+                                <h4 data-i18n-key="contact.githubLabel">GitHub</h4>
+                                <p>github.com/JaydenCh-0v0</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <div>
+                                <h4 data-i18n-key="contact.linkedinLabel">LinkedIn</h4>
+                                <p>linkedin.com/in/jayden-cheung</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" data-i18n-placeholder-key="contact.namePlaceholder" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" data-i18n-placeholder-key="contact.emailPlaceholder" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" data-i18n-placeholder-key="contact.subjectPlaceholder" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea rows="5" data-i18n-placeholder-key="contact.messagePlaceholder" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-i18n-key="contact.sendMessage">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p data-i18n-key="footer.copyright">&copy; 2024 Jayden Cheung. All rights reserved.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+{
+    "pageTitle": "JaydenCh-0v0 - 個人主頁",
+    "nav": {
+        "logo": "Jayden Cheung",
+        "home": "首頁",
+        "about": "關於我",
+        "experience": "工作經歷",
+        "skills": "技能",
+        "projects": "項目",
+        "contact": "聯絡我"
+    },
+    "hero": {
+        "title": "你好，我是 <span class='highlight'>Jayden</span>",
+        "subtitle": "全端開發者 | 遊戲開發者 | 技術愛好者",
+        "description": "熱愛編程，專注於創造優秀的數碼體驗。擁有豐富的全端開發經驗， 對遊戲開發和Web技術充滿熱情。",
+        "learnMore": "了解更多",
+        "contactMe": "聯絡我",
+        "profileName": "Jayden Cheung",
+        "profileRole": "全端開發者"
+    },
+    "about": {
+        "title": "關於我",
+        "p1": "我是一名熱情的全端開發者，擁有多年的軟件開發經驗。我熱愛學習新技術，解決複雜的技術問題，並致力於創建用戶友好的應用程式。",
+        "p2": "除了編程，我對遊戲開發也有濃厚的興趣，尤其是在Godot引擎上進行2D和3D遊戲開發。我相信技術可以改變世界，我的目標是透過程式碼創造價值。",
+        "expYearsNum": "3+",
+        "expYearsText": "年經驗",
+        "projectsCompletedNum": "20+",
+        "projectsCompletedText": "完成項目",
+        "techStacksNum": "5+",
+        "techStacksText": "技術棧"
+    },
+    "experience": {
+        "title": "工作經歷",
+        
+        "fullstackTitle": "全端開發者",
+        "company1": "某科技公司",
+        "date1": "2022 - 至今",
+        "desc1": "負責前端和後端開發，使用React、Node.js、Python等技術棧。參與多個大型項目的開發和維護，提高系統性能和用戶體驗。",
+        "li1_1": "開發和維護多個Web應用程式",
+        "li1_2": "優化資料庫查詢，提高系統性能30%",
+        "li1_3": "參與程式碼審查和技術方案設計",
+        
+        "frontendTitle": "前端開發者",
+        "company2": "某互聯網公司",
+        "date2": "2021 - 2022",
+        "desc2": "專注於前端開發，使用Vue.js、React等現代框架。負責用戶界面的設計和實現，確保良好的用戶體驗。",
+        "li2_1": "開發響應式Web應用程式",
+        "li2_2": "與UI/UX設計師合作",
+        "li2_3": "優化頁面載入速度",
+        
+        "gameDevInternTitle": "遊戲開發實習生",
+        "company3": "某遊戲工作室",
+        "date3": "2020 - 2021",
+        "desc3": "使用Godot引擎開發2D遊戲，學習遊戲開發流程和最佳實踐。參與多個小型遊戲項目的開發。",
+        "li3_1": "使用GDScript開發遊戲邏輯",
+        "li3_2": "設計遊戲關卡和用戶界面",
+        "li3_3": "參與遊戲測試和優化"
+    },
+    "skills": {
+        "title": "技能與專長",
+        
+        "frontendCategory": "前端開發",
+        "htmlCss": "HTML/CSS",
+        "javascript": "JavaScript",
+        "react": "React",
+        "vuejs": "Vue.js",
+        
+        "backendCategory": "後端開發",
+        "nodejs": "Node.js",
+        "python": "Python",
+        "mysql": "MySQL",
+        "mongodb": "MongoDB",
+        
+        "gameDevCategory": "遊戲開發",
+        "godotEngine": "Godot 引擎",
+        "gdscript": "GDScript",
+        "csharp": "C#",
+        "unity": "Unity"
+    },
+    "projects": {
+        "title": "精選項目",
+        "proj": {
+            "rpgTitle": "簡單 RPG 遊戲",
+            "rpgDesc": "使用Godot引擎開發的2D角色扮演遊戲，具有完整的遊戲系統。",
+            "rpgTechGodot": "Godot",
+            "rpgTechGDScript": "GDScript",
+            "rpgTech2D": "2D遊戲",
+            
+            "ecommerceTitle": "電子商務管理系統",
+            "ecommerceDesc": "一個全端電子商務管理平台，包括用戶管理、產品管理、訂單處理等功能。",
+            "ecommerceTechReact": "React",
+            "ecommerceTechNodejs": "Node.js",
+            "ecommerceTechMysql": "MySQL",
+            
+            "taskAppTitle": "任務管理應用程式",
+            "taskAppDesc": "一個現代任務管理應用程式，支援團隊協作和實時更新。",
+            "taskAppTechVuejs": "Vue.js",
+            "taskAppTechPython": "Python",
+            "taskAppTechMongodb": "MongoDB",
+            
+            "viewProject": "查看項目",
+            "githubLink": "GitHub"
+        }
+    },
+    "contact": {
+        "title": "聯絡我",
+        "subtitle": "讓我們開始對話",
+        "description": "如果您對我的工作感興趣或有任何合作機會，請隨時聯絡我！",
+        "emailLabel": "電子郵件",
+        "githubLabel": "GitHub",
+        "linkedinLabel": "LinkedIn",
+        "sendMessage": "傳送訊息"
+    },
+    "footer": {
+        "copyright": "&copy; 2024 Jayden Cheung. 保留所有權利。"
+    }
+}

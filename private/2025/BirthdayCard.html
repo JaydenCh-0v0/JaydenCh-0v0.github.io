@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生日快樂我嘅小麻糬BB ❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Georgia', serif; 
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { 
+            color: #d63384; 
+            font-size: 3rem; 
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .header p { color: #6f42c1; font-size: 1.2rem; }
+        .photo-gallery { display: grid; gap: 30px; }
+        .photo-card { 
+            background: white; 
+            border-radius: 20px; 
+            padding: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .photo-card:hover { transform: translateY(-5px); }
+        .photo-container { 
+            width: 100%; 
+            height: 300px; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .photo-container img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .photo-placeholder {
+            color: #6c757d;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        .caption { 
+            color: #495057; 
+            font-size: 1.1rem; 
+            line-height: 1.6; 
+            text-align: center;
+            font-style: italic;
+        }
+        .hearts { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: -1;
+        }
+        .heart { 
+            position: absolute; 
+            color: rgba(255, 182, 193, 0.7); 
+            font-size: 20px; 
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        .password-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .password-box {
+            background: white;
+            background-image: url('login_card_background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .password-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            z-index: -1;
+        }
+        .password-box h2 {
+            color: #d63384;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        .password-box p {
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+        .password-input {
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #d63384;
+            border-radius: 10px;
+            margin: 10px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .password-input:focus {
+            outline: none;
+            border-color: #b02a5b;
+            box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.2);
+        }
+        .password-btn {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .password-btn:hover {
+            background: #b02a5b;
+        }
+        .hidden {
+            display: none;
+        }
+        .single-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .date-display {
+            color: #d63384;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .title-display {
+            color: #6f42c1;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .image-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .nav-btn {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover {
+            background: #b02a5b;
+            transform: translateY(-2px);
+        }
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .image-counter {
+            color: #6f42c1;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Password Protection -->
+    <div class="password-overlay" id="passwordOverlay">
+        <div class="password-box">
+            <h2>🔒 請輸入生日</h2>
+            <p style="color: rgb(255, 115, 0); font-weight: bold;">這張生日卡片正小心被小麻雀保護著 ❤️</p>
+            <br>
+            <input type="password" class="password-input" id="passwordInput" placeholder="請輸入密碼">
+            <br>
+            <button class="password-btn" onclick="checkPassword()">解鎖盒子</button>
+            <p id="errorMsg" style="color: red; margin-top: 10px;"></p>
+        </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container" id="mainContent" style="display: none;">
+        <div class="header">
+            <h1>生日快樂我的愛！🎉</h1>
+            <p>我們美好回憶的珍藏 ❤️</p>
+        </div>
+        
+        <div class="single-card">
+            <div class="date-display" id="dateDisplay">載入中...</div>
+            <div class="title-display" id="titleDisplay">載入中...</div>
+            <div class="image-container">
+                <img id="currentImage" src="" alt="我們的回憶" style="display: none;">
+                <div id="loadingText" class="photo-placeholder">
+                    📷 載入我們的回憶中...
+                </div>
+            </div>
+            <div class="caption" id="imageCaption">
+                "與你的每一刻都是珍寶 ❤️"
+            </div>
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn" onclick="previousImage()">← 上一張</button>
+                <div class="image-counter" id="imageCounter">1 / 1</div>
+                <button class="nav-btn" id="nextBtn" onclick="nextImage()">下一張 →</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createHeart, 2000);
+        
+        // Image data with dates and captions
+        const imageData = [
+            { date: "2025-01-01", title: "新年第一天 - 與你一起迎接2025 ❤️", images: ["images/20250101-1.jpeg", "images/20250101-2.jpeg", "images/20250101-3.jpeg", "images/20250101-4.jpeg", "images/20250101-5.jpeg", "images/20250101-6.jpeg", "images/20250101-7.jpeg", "images/20250101-8.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-01-19", title: "美好的相處時光 💕", images: ["images/20250119-1.jpeg", "images/20250119-2.jpeg", "images/20250119-3.jpeg", "images/20250119-4.jpeg", "images/20250119-5.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-02-01", title: "二月的愛戀 💝", images: ["images/20250201-1.jpeg", "images/20250201-2.jpeg", "images/20250201-3.jpeg", "images/20250201-4.jpeg", "images/20250201-5.jpeg", "images/20250201-6.jpeg", "images/20250201-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-02-03", title: "甜蜜的回憶 🌹", images: ["images/20250203-1.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-04-28", title: "春日冒險 🌸", images: ["images/20250428-1.jpeg", "images/20250428-2.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-01", title: "五一勞動節慶祝 🎉", images: ["images/20250501-1.jpeg", "images/20250501-2.jpeg", "images/20250501-3.jpeg", "images/20250501-4.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-15", title: "五月中旬的魔法 ✨", images: ["images/20250515-1.jpeg", "images/20250515-2.jpeg", "images/20250515-3.jpeg", "images/20250515-4.jpeg", "images/20250515-6.jpeg", "images/20250515-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-20", title: "520 - 我愛你的日子 💖", images: ["images/20250520-1.jpeg", "images/20250520-2.jpeg", "images/20250520-3.jpeg", "images/20250520-4.jpeg", "images/20250520-5.jpeg", "images/20250520-6.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-26", title: "五月末的回憶 🌺", images: ["images/20250526-1.jpeg", "images/20250526-2.jpeg", "images/20250526-3.jpeg", "images/20250526-4.jpeg", "images/20250526-5.jpeg", "images/20250526-6.jpeg", "images/20250526-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-27", title: "又一個美好的日子 🌞", images: ["images/20250527-1.jpeg", "images/20250527-2.jpeg", "images/20250527-3.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-06-11", title: "六月的冒險 🌻", images: ["images/20250611-1.jpeg", "images/20250611-2.jpeg", "images/20250611-3.jpeg", "images/20250611-4.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-06-14", title: "六月中旬的時光 💫", images: ["images/20250614-1.jpeg", "images/20250614-2.jpeg", "images/20250614-3.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-06-22", title: "夏至的愛戀 ☀️", images: ["images/20250622-1.jpeg", "images/20250622-2.jpeg", "images/20250622-3.jpeg", "images/20250622-4.jpeg", "images/20250622-5.jpeg", "images/20250622-6.jpeg", "images/20250622-7.jpeg", "images/20250622-8.jpeg", "images/20250622-9.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-07-05", title: "七月的陽光 🌈", images: ["images/20250705-1.jpeg", "images/20250705-2.jpeg", "images/20250705-3.jpeg", "images/20250705-4.jpeg", "images/20250705-5.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-07-06", title: "週末的幸福 💕", images: ["images/20250706-1.jpeg", "images/20250706-2.jpeg", "images/20250706-3.jpeg", "images/20250706-4.jpeg", "images/20250706-5.jpeg", "images/20250706-6.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-07-12", title: "美妙的七月天 🎊", images: ["images/20250712-1.jpeg", "images/20250712-2.jpeg", "images/20250712-3.jpeg", "images/20250712-4.jpeg", "images/20250712-5.jpeg", "images/20250712-6.jpeg", "images/20250712-7.jpeg", "images/20250712-8.jpeg", "images/20250712-9.jpeg", "images/20250712-10.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-08-29", title: "夏末的回憶 🍃", images: ["images/20250829-1.jpeg", "images/20250829-2.jpeg", "images/20250829-3.jpeg", "images/20250829-4.jpeg", "images/20250829-5.jpeg", "images/20250829-6.jpeg", "images/20250829-7.jpeg", "images/20250829-8.jpeg", "images/20250829-9.jpeg", "images/20250829-11.jpeg", "images/20250829-12.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-09-06", title: "九月的寧靜 🍂", images: ["images/20250906-1.jpeg", "images/20250906-2.jpeg", "images/20250906-3.jpeg", "images/20250906-4.jpeg", "images/20250906-5.jpeg", "images/20250906-6.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-09-13", title: "幸運的13號 - 幸運的我們 🍀", images: ["images/20250913-1.jpeg", "images/20250913-2.jpeg", "images/20250913-3.jpeg", "images/20250913-4.jpeg", "images/20250913-5.jpeg", "images/20250913-6.jpeg", "images/20250913-7.jpeg", "images/20250913-8.jpeg", "images/20250913-9.jpeg", "images/20250913-10.jpeg", "images/20250913-11.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "Special", title: "我們最珍貴的時刻 💎", images: ["images/last-1.jpeg", "images/last-2.jpeg", "images/last-3.jpeg"], caption: "在這裡寫下你想對她說的話..." }
+        ];
+        
+        let currentDateIndex = 0;
+        let currentImageIndex = 0;
+        
+        // Password Protection
+        const correctPassword = "0928"; // Change this to your desired password
+        
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            if (input === correctPassword) {
+                document.getElementById('passwordOverlay').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                initializeGallery();
+            } else {
+                errorMsg.textContent = '密碼錯誤！請再試一次 💔';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+        
+        // Allow Enter key to submit password
+        document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // Image navigation functions
+        function updateDisplay() {
+            const currentData = imageData[currentDateIndex];
+            const currentImageSrc = currentData.images[currentImageIndex];
+            
+            // Update date display
+            document.getElementById('dateDisplay').textContent = formatDate(currentData.date);
+            
+            // Update title display
+            document.getElementById('titleDisplay').textContent = currentData.title;
+            
+            // Update image
+            const imgElement = document.getElementById('currentImage');
+            imgElement.src = currentImageSrc;
+            imgElement.style.display = 'block';
+            document.getElementById('loadingText').style.display = 'none';
+            
+            // Update caption
+            document.getElementById('imageCaption').textContent = currentData.caption;
+            
+            // Update counter
+            const totalImages = imageData.reduce((sum, data) => sum + data.images.length, 0);
+            const currentPosition = imageData.slice(0, currentDateIndex).reduce((sum, data) => sum + data.images.length, 0) + currentImageIndex + 1;
+            document.getElementById('imageCounter').textContent = `${currentPosition} / ${totalImages}`;
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = (currentDateIndex === 0 && currentImageIndex === 0);
+            document.getElementById('nextBtn').disabled = (currentDateIndex === imageData.length - 1 && currentImageIndex === imageData[currentDateIndex].images.length - 1);
+        }
+        
+        function formatDate(dateStr) {
+            if (dateStr === 'Special') return '💖 特別時刻 💖';
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('zh-TW', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        function nextImage() {
+            const currentData = imageData[currentDateIndex];
+            if (currentImageIndex < currentData.images.length - 1) {
+                currentImageIndex++;
+            } else if (currentDateIndex < imageData.length - 1) {
+                currentDateIndex++;
+                currentImageIndex = 0;
+            }
+            updateDisplay();
+        }
+        
+        function previousImage() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+            } else if (currentDateIndex > 0) {
+                currentDateIndex--;
+                currentImageIndex = imageData[currentDateIndex].images.length - 1;
+            }
+            updateDisplay();
+        }
+        
+        // Initialize display when password is correct
+        function initializeGallery() {
+            updateDisplay();
+        }
+        
+        // Add keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('mainContent').style.display !== 'none') {
+                if (e.key === 'ArrowLeft') {
+                    previousImage();
+                } else if (e.key === 'ArrowRight') {
+                    nextImage();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

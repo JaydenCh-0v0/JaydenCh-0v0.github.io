@@ -57,6 +57,10 @@
             line-height: 1.6; 
             text-align: center;
             font-style: italic;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
         }
         .hearts { 
             position: fixed; 
@@ -153,12 +157,28 @@
         }
         .single-card {
             background: white;
+            background-image: url('card_background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             text-align: center;
             max-width: 600px;
             margin: 0 auto;
+            position: relative;
+        }
+        .single-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9));
+            border-radius: 20px;
+            z-index: -1;
         }
         .date-display {
             color: #d63384;
@@ -182,6 +202,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+        }
+        .image-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 60%, rgba(255,255,255,0.8) 100%);
+            pointer-events: none;
         }
         .image-container img {
             max-width: 100%;
@@ -238,7 +269,7 @@
     <div class="container" id="mainContent" style="display: none;">
         <div class="header">
             <h1>生日快樂我嘅小麻糬BB！🎉</h1>
-            <p>我們美好回憶的珍藏 ❤️</p>
+            <p>我哋嘅回憶珍藏 ❤️</p>
         </div>
         
         <div class="single-card">
@@ -281,64 +312,64 @@
         
         // Image data with dates and captions
         const imageData = [
-            { date: "2025-01-01", title: "新年第一天 - 與你一起迎接2025 ❤️", 
+            { date: "2025-01-02", title: "新年第一日 - 同你一齊去西貢迎接2025 🩵", 
             images: ["images/20250101-1.jpeg", "images/20250101-2.jpeg", "images/20250101-3.jpeg", "images/20250101-4.jpeg", "images/20250101-5.jpeg", "images/20250101-6.jpeg", "images/20250101-7.jpeg", "images/20250101-8.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-01-19", title: "美好的相處時光 💕", 
+            caption: "西貢藝術節🖼️，我同你第一次去西貢睇Art Work，天氣好好個海都好藍，亦都打開咗我哋第一個共享相集去記住我哋嘅合照，仲記得我哋一上岸就將隻狗🐕當做係鹿🦌，後面我哋上山收集咗好多小藝術品嘅相，雖然無話儲得好齊🤣🤣，但我覺得有啲小遺憾先至更加印象深刻。😌😌" },
+            { date: "2025-01-19", title: "嘉道理農場 - 動物時光 🦜", 
             images: ["images/20250119-1.jpeg", "images/20250119-2.jpeg", "images/20250119-3.jpeg", "images/20250119-4.jpeg", "images/20250119-5.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-02-01", title: "二月的愛戀 💝", 
-            images: ["images/20250201-1.jpeg", "images/20250201-2.jpeg", "images/20250201-3.jpeg", "images/20250201-4.jpeg", "images/20250201-5.jpeg", "images/20250201-6.jpeg", "images/20250201-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-02-03", title: "甜蜜的回憶 🌹", 
-            images: ["images/20250203-1.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-04-28", title: "春日冒險 🌸", 
+            caption: "本來係去睇瀑布，點知天氣太乾，最後去咗嘉道理農場同小動物玩。嗰度有好多小動物，同雀仔。聽同白鸚鵡講Hello ByeBye，好搞笑🤣，第一次感受到鸚鵡嘅魅力，第二次已經係wtf😜。同埋見識到你對雀仔嘅熱愛😂" },
+            { date: "2025-02-01", title: "賽馬會復修軍火庫 🎯", 
+            images: ["images/20250201-1.jpeg", "images/20250201-2.jpeg", "images/20250201-3.jpeg", "images/20250201-4.jpeg", "images/20250201-5.jpeg", "images/20250201-6.jpeg", "images/20250201-7.jpeg"], caption: "估唔到我哋會去舊軍火庫度睇畫展，感覺好新鮮，天氣涼涼哋好舒服，照相散步都特別開心。同時我發現你對眼好大、好精靈、好靚☺️。" },
+            { date: "2025-02-03", title: "我哋第一個 ART DAY 🌹", 
+            images: ["images/20250203-1.jpeg"], caption: "一齊畫咗唔同風格嘅望海洞，仲有日落。我哋都幾有藝術天份" },
+            { date: "2025-04-28", title: "好呷潮州菜 🌸", 
             images: ["images/20250428-1.jpeg", "images/20250428-2.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-01", title: "五一勞動節慶祝 🎉", 
+            caption: "有你一齊食炒魚面好有鍋氣，正🤤" },
+            { date: "2025-05-01", title: "文化博物館 🎉", 
             images: ["images/20250501-1.jpeg", "images/20250501-2.jpeg", "images/20250501-3.jpeg", "images/20250501-4.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-15", title: "五月中旬的魔法 ✨", 
+            caption: "本來話溫書，點知去咗睇兵馬俑，青銅雞雞，然後夜晚行街街，想幫你放鬆下學業嘅壓力。" },
+            { date: "2025-05-15", title: "跑馬地歷史館、黃泥涌游船河 ✨", 
             images: ["images/20250515-1.jpeg", "images/20250515-2.jpeg", "images/20250515-3.jpeg", "images/20250515-4.jpeg", "images/20250515-6.jpeg", "images/20250515-7.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-20", title: "520 - 我愛你的日子 💖", 
+            caption: "喺歷史館學到跑馬地發展史(雖然唔知有咩用)，跑馬埸上嘅彩虹配啡色衫嘅我哋襯得幾好。再到黃泥涌邊游船河，邊睇Yellow捉魚(雖然一條都捉唔到)，等你仲特登引晒啲魚上水😂😂" },
+            { date: "2025-05-20", title: "長洲520 - 我愛你的日子 💖", 
             images: ["images/20250520-1.jpeg", "images/20250520-2.jpeg", "images/20250520-3.jpeg", "images/20250520-4.jpeg", "images/20250520-5.jpeg", "images/20250520-6.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-26", title: "五月末的回憶 🌺", 
+            caption: "第一次同你玩仙女棒煙花，第一次送碎冰藍玫瑰俾你，第一次正式告白(如果喺海灘度整到蠟燭心心就仲好)" },
+            { date: "2025-05-26", title: "五月尾ASMR展 🌺", 
             images: ["images/20250526-1.jpeg", "images/20250526-2.jpeg", "images/20250526-3.jpeg", "images/20250526-4.jpeg", "images/20250526-5.jpeg", "images/20250526-6.jpeg", "images/20250526-7.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-27", title: "又一個美好的日子 🌞", 
+            caption: "打卡肉桂狗~再一齊攤下，聽下，感受下奇怪嘅ASMR的作品，我幾鍾意呢D互動式展覽，可以同你同步親密咁感受個作品。夜晚仲有好nice嘅waiter送份好好味嘅炸雞同幫手影相記念~" },
+            { date: "2025-05-27", title: "KinBall and Cityu AC3 last day🌞", 
             images: ["images/20250527-1.jpeg", "images/20250527-2.jpeg", "images/20250527-3.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-06-11", title: "六月的冒險 🌻", 
+            caption: "估唔到你玩KinBall會係巧合咁搵到我嘅嗰隊，大概呢D就叫緣份吧☺️。仲有最好味嘅AC3都做唔住，好彩我哋係佢最後嗰日有去食~聽你講新嗰間好難食，只能說RIP~" },
+            { date: "2025-06-11", title: "油街藝術展 🌻", 
             images: ["images/20250611-1.jpeg", "images/20250611-2.jpeg", "images/20250611-3.jpeg", "images/20250611-4.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-06-14", title: "六月中旬的時光 💫", 
+            caption: "第一次同你行油街，睇古怪嘅裝置藝術，平時呢D嘢自己去睇，今次有你一齊行覺得好新鮮好有趣😂" },
+            { date: "2025-06-14", title: "啟德榴槤美食日 💫", 
             images: ["images/20250614-1.jpeg", "images/20250614-2.jpeg", "images/20250614-3.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-06-22", title: "夏至的愛戀 ☀️", 
+            caption: "食榴槤食甜品食到好飽😋" },
+            { date: "2025-06-22", title: "第一次Omakase 加 北上賞荷花 ☀️", 
             images: ["images/20250622-1.jpeg", "images/20250622-2.jpeg", "images/20250622-3.jpeg", "images/20250622-4.jpeg", "images/20250622-5.jpeg", "images/20250622-6.jpeg", "images/20250622-7.jpeg", "images/20250622-8.jpeg", "images/20250622-9.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-07-05", title: "七月的陽光 🌈", 
+            caption: "第一次北上賞荷花，好靚好上鏡(講你，not花)，仲有好多白鷺喺香港嘅N倍。第一次食Omakase，食到好鮮甜嘅海膽😂。" },
+            { date: "2025-07-05", title: "畫畫燈籠喔 🌈", 
             images: ["images/20250705-1.jpeg", "images/20250705-2.jpeg", "images/20250705-3.jpeg", "images/20250705-4.jpeg", "images/20250705-5.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-07-06", title: "週末的幸福 💕", 
+            caption: "畫好靚嘅角落生物燈籠，炸蝦炸魚尾可愛，希望可以中秋節燈籠展度搵返佢哋" },
+            { date: "2025-07-06", title: "藍屋之旅 💕", 
             images: ["images/20250706-1.jpeg", "images/20250706-2.jpeg", "images/20250706-3.jpeg", "images/20250706-4.jpeg", "images/20250706-5.jpeg", "images/20250706-6.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-07-12", title: "美妙的七月天 🎊", 
+            caption: "第一次行藍屋，好有香港舊樓嘅感覺。行好耐都唔會厭，不過附近都多嘢睇，又好chill。" },
+            { date: "2025-07-12", title: "海洋公園水上樂園 🎊", 
             images: ["images/20250712-1.jpeg", "images/20250712-2.jpeg", "images/20250712-3.jpeg", "images/20250712-4.jpeg", "images/20250712-5.jpeg", "images/20250712-6.jpeg", "images/20250712-7.jpeg", "images/20250712-8.jpeg", "images/20250712-9.jpeg", "images/20250712-10.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-08-29", title: "夏末的回憶 🍃", 
+            caption: "起好咗水上樂園咁耐，終於有機會去玩，仲要唔洗錢。咁啱陰天無咩人去同我哋排隊，所有野都排到好快。我哋玩個超高滑梯，嚇屎禾、超級刺激😂" },
+            { date: "2025-08-29", title: "我嘅生日 🍃",
             images: ["images/20250829-1.jpeg", "images/20250829-2.jpeg", "images/20250829-3.jpeg", "images/20250829-4.jpeg", "images/20250829-5.jpeg", "images/20250829-6.jpeg", "images/20250829-7.jpeg", "images/20250829-8.jpeg", "images/20250829-9.jpeg", "images/20250829-11.jpeg", "images/20250829-12.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-09-06", title: "九月的寧靜 🍂", 
+            caption: "好開心有你陪我過生日，有你送嘅卡同公仔，仲有你嘅生日祝福。我覺得最滿足嘅係你同我一齊去海洋公園，玩下海盜船睇下企鵝，覺得有你陪我已經好幸福😍" },
+            { date: "2025-09-06", title: "M+ museum 🍂", 
             images: ["images/20250906-1.jpeg", "images/20250906-2.jpeg", "images/20250906-3.jpeg", "images/20250906-4.jpeg", "images/20250906-5.jpeg", "images/20250906-6.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-09-13", title: "幸運的13號 - 幸運的我們 🍀", 
-            images: ["images/20250913-1.jpeg", "images/20250913-2.jpeg", "images/20250913-3.jpeg", "images/20250913-4.jpeg", "images/20250913-5.jpeg", "images/20250913-6.jpeg", "images/20250913-7.jpeg", "images/20250913-8.jpeg", "images/20250913-9.jpeg", "images/20250913-10.jpeg", "images/20250913-11.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." },
-            { date: "Special", title: "我們最珍貴的時刻 💎", 
+            caption: "行M+，火燒雲日落好紅🌅，令你髮絲發紅光，我開始分唔到係你襯托日落，定係日落襯托緊你，影出嚟都特別有feel。" },
+            { date: "2025-09-13", title: "大澳一日遊配青BB的我們 🍀", 
+            images: ["images/20250913-2.jpeg", "images/20250913-3.jpeg", "images/20250913-4.jpeg", "images/20250913-5.jpeg", "images/20250913-6.jpeg", "images/20250913-7.jpeg", "images/20250913-8.jpeg", "images/20250913-9.jpeg", "images/20250913-10.jpeg", "images/20250913-11.jpeg", "images/20250913-1.jpeg", ], 
+            caption: "不愧係香港小威尼斯，水鄉cafe望海係寫意。🚢游船河好正，估唔到仲可以見到好大條中華白海豚，會唔會其實你係我嘅幸運星。同埋喺大澳好多好西食，莎翁、芒果糯米糍、抹茶沙冰都好正。" },
+            { date: "Special", title: "最後我想對生日嘅你講... 💎", 
             images: ["images/last-1.jpeg", "images/last-2.jpeg", "images/last-3.jpeg"], 
-            caption: "在這裡寫下你想對她說的話..." }
+            caption: "眨下眼就9月尾，睇返過去呢段日子，我覺得時光過得好快，我哋一齊經歷咗好多個第一次，又去了好多地方，創造咗好多好多珍貴嘅回憶。無論行藝術展、食甜品、玩刺激嘅水上樂園，定係靜靜地欣賞日落，只要有你喺身邊，每個時刻都會變得特別而美好。多謝你帶俾我咁多歡樂同幸福。BB，生日快樂！希望你每天都開開心心，甜甜蜜蜜，未來我哋都要一齊，過節 畫畫 去旅行，創造更多屬於我哋嘅精彩故事，知唔知呀！^ ^" }
         ];
         
         let currentDateIndex = 0;

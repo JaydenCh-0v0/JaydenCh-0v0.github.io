@@ -237,7 +237,7 @@
     
     <div class="container" id="mainContent" style="display: none;">
         <div class="header">
-            <h1>生日快樂我的愛！🎉</h1>
+            <h1>生日快樂我嘅小麻糬BB！🎉</h1>
             <p>我們美好回憶的珍藏 ❤️</p>
         </div>
         
@@ -281,26 +281,64 @@
         
         // Image data with dates and captions
         const imageData = [
-            { date: "2025-01-01", title: "新年第一天 - 與你一起迎接2025 ❤️", images: ["images/20250101-1.jpeg", "images/20250101-2.jpeg", "images/20250101-3.jpeg", "images/20250101-4.jpeg", "images/20250101-5.jpeg", "images/20250101-6.jpeg", "images/20250101-7.jpeg", "images/20250101-8.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-01-19", title: "美好的相處時光 💕", images: ["images/20250119-1.jpeg", "images/20250119-2.jpeg", "images/20250119-3.jpeg", "images/20250119-4.jpeg", "images/20250119-5.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-02-01", title: "二月的愛戀 💝", images: ["images/20250201-1.jpeg", "images/20250201-2.jpeg", "images/20250201-3.jpeg", "images/20250201-4.jpeg", "images/20250201-5.jpeg", "images/20250201-6.jpeg", "images/20250201-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-02-03", title: "甜蜜的回憶 🌹", images: ["images/20250203-1.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-04-28", title: "春日冒險 🌸", images: ["images/20250428-1.jpeg", "images/20250428-2.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-01", title: "五一勞動節慶祝 🎉", images: ["images/20250501-1.jpeg", "images/20250501-2.jpeg", "images/20250501-3.jpeg", "images/20250501-4.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-15", title: "五月中旬的魔法 ✨", images: ["images/20250515-1.jpeg", "images/20250515-2.jpeg", "images/20250515-3.jpeg", "images/20250515-4.jpeg", "images/20250515-6.jpeg", "images/20250515-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-20", title: "520 - 我愛你的日子 💖", images: ["images/20250520-1.jpeg", "images/20250520-2.jpeg", "images/20250520-3.jpeg", "images/20250520-4.jpeg", "images/20250520-5.jpeg", "images/20250520-6.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-26", title: "五月末的回憶 🌺", images: ["images/20250526-1.jpeg", "images/20250526-2.jpeg", "images/20250526-3.jpeg", "images/20250526-4.jpeg", "images/20250526-5.jpeg", "images/20250526-6.jpeg", "images/20250526-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-05-27", title: "又一個美好的日子 🌞", images: ["images/20250527-1.jpeg", "images/20250527-2.jpeg", "images/20250527-3.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-06-11", title: "六月的冒險 🌻", images: ["images/20250611-1.jpeg", "images/20250611-2.jpeg", "images/20250611-3.jpeg", "images/20250611-4.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-06-14", title: "六月中旬的時光 💫", images: ["images/20250614-1.jpeg", "images/20250614-2.jpeg", "images/20250614-3.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-06-22", title: "夏至的愛戀 ☀️", images: ["images/20250622-1.jpeg", "images/20250622-2.jpeg", "images/20250622-3.jpeg", "images/20250622-4.jpeg", "images/20250622-5.jpeg", "images/20250622-6.jpeg", "images/20250622-7.jpeg", "images/20250622-8.jpeg", "images/20250622-9.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-07-05", title: "七月的陽光 🌈", images: ["images/20250705-1.jpeg", "images/20250705-2.jpeg", "images/20250705-3.jpeg", "images/20250705-4.jpeg", "images/20250705-5.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-07-06", title: "週末的幸福 💕", images: ["images/20250706-1.jpeg", "images/20250706-2.jpeg", "images/20250706-3.jpeg", "images/20250706-4.jpeg", "images/20250706-5.jpeg", "images/20250706-6.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-07-12", title: "美妙的七月天 🎊", images: ["images/20250712-1.jpeg", "images/20250712-2.jpeg", "images/20250712-3.jpeg", "images/20250712-4.jpeg", "images/20250712-5.jpeg", "images/20250712-6.jpeg", "images/20250712-7.jpeg", "images/20250712-8.jpeg", "images/20250712-9.jpeg", "images/20250712-10.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-08-29", title: "夏末的回憶 🍃", images: ["images/20250829-1.jpeg", "images/20250829-2.jpeg", "images/20250829-3.jpeg", "images/20250829-4.jpeg", "images/20250829-5.jpeg", "images/20250829-6.jpeg", "images/20250829-7.jpeg", "images/20250829-8.jpeg", "images/20250829-9.jpeg", "images/20250829-11.jpeg", "images/20250829-12.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-09-06", title: "九月的寧靜 🍂", images: ["images/20250906-1.jpeg", "images/20250906-2.jpeg", "images/20250906-3.jpeg", "images/20250906-4.jpeg", "images/20250906-5.jpeg", "images/20250906-6.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "2025-09-13", title: "幸運的13號 - 幸運的我們 🍀", images: ["images/20250913-1.jpeg", "images/20250913-2.jpeg", "images/20250913-3.jpeg", "images/20250913-4.jpeg", "images/20250913-5.jpeg", "images/20250913-6.jpeg", "images/20250913-7.jpeg", "images/20250913-8.jpeg", "images/20250913-9.jpeg", "images/20250913-10.jpeg", "images/20250913-11.jpeg"], caption: "在這裡寫下你想對她說的話..." },
-            { date: "Special", title: "我們最珍貴的時刻 💎", images: ["images/last-1.jpeg", "images/last-2.jpeg", "images/last-3.jpeg"], caption: "在這裡寫下你想對她說的話..." }
+            { date: "2025-01-01", title: "新年第一天 - 與你一起迎接2025 ❤️", 
+            images: ["images/20250101-1.jpeg", "images/20250101-2.jpeg", "images/20250101-3.jpeg", "images/20250101-4.jpeg", "images/20250101-5.jpeg", "images/20250101-6.jpeg", "images/20250101-7.jpeg", "images/20250101-8.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-01-19", title: "美好的相處時光 💕", 
+            images: ["images/20250119-1.jpeg", "images/20250119-2.jpeg", "images/20250119-3.jpeg", "images/20250119-4.jpeg", "images/20250119-5.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-02-01", title: "二月的愛戀 💝", 
+            images: ["images/20250201-1.jpeg", "images/20250201-2.jpeg", "images/20250201-3.jpeg", "images/20250201-4.jpeg", "images/20250201-5.jpeg", "images/20250201-6.jpeg", "images/20250201-7.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-02-03", title: "甜蜜的回憶 🌹", 
+            images: ["images/20250203-1.jpeg"], caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-04-28", title: "春日冒險 🌸", 
+            images: ["images/20250428-1.jpeg", "images/20250428-2.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-01", title: "五一勞動節慶祝 🎉", 
+            images: ["images/20250501-1.jpeg", "images/20250501-2.jpeg", "images/20250501-3.jpeg", "images/20250501-4.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-15", title: "五月中旬的魔法 ✨", 
+            images: ["images/20250515-1.jpeg", "images/20250515-2.jpeg", "images/20250515-3.jpeg", "images/20250515-4.jpeg", "images/20250515-6.jpeg", "images/20250515-7.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-20", title: "520 - 我愛你的日子 💖", 
+            images: ["images/20250520-1.jpeg", "images/20250520-2.jpeg", "images/20250520-3.jpeg", "images/20250520-4.jpeg", "images/20250520-5.jpeg", "images/20250520-6.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-26", title: "五月末的回憶 🌺", 
+            images: ["images/20250526-1.jpeg", "images/20250526-2.jpeg", "images/20250526-3.jpeg", "images/20250526-4.jpeg", "images/20250526-5.jpeg", "images/20250526-6.jpeg", "images/20250526-7.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-05-27", title: "又一個美好的日子 🌞", 
+            images: ["images/20250527-1.jpeg", "images/20250527-2.jpeg", "images/20250527-3.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-06-11", title: "六月的冒險 🌻", 
+            images: ["images/20250611-1.jpeg", "images/20250611-2.jpeg", "images/20250611-3.jpeg", "images/20250611-4.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-06-14", title: "六月中旬的時光 💫", 
+            images: ["images/20250614-1.jpeg", "images/20250614-2.jpeg", "images/20250614-3.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-06-22", title: "夏至的愛戀 ☀️", 
+            images: ["images/20250622-1.jpeg", "images/20250622-2.jpeg", "images/20250622-3.jpeg", "images/20250622-4.jpeg", "images/20250622-5.jpeg", "images/20250622-6.jpeg", "images/20250622-7.jpeg", "images/20250622-8.jpeg", "images/20250622-9.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-07-05", title: "七月的陽光 🌈", 
+            images: ["images/20250705-1.jpeg", "images/20250705-2.jpeg", "images/20250705-3.jpeg", "images/20250705-4.jpeg", "images/20250705-5.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-07-06", title: "週末的幸福 💕", 
+            images: ["images/20250706-1.jpeg", "images/20250706-2.jpeg", "images/20250706-3.jpeg", "images/20250706-4.jpeg", "images/20250706-5.jpeg", "images/20250706-6.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-07-12", title: "美妙的七月天 🎊", 
+            images: ["images/20250712-1.jpeg", "images/20250712-2.jpeg", "images/20250712-3.jpeg", "images/20250712-4.jpeg", "images/20250712-5.jpeg", "images/20250712-6.jpeg", "images/20250712-7.jpeg", "images/20250712-8.jpeg", "images/20250712-9.jpeg", "images/20250712-10.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-08-29", title: "夏末的回憶 🍃", 
+            images: ["images/20250829-1.jpeg", "images/20250829-2.jpeg", "images/20250829-3.jpeg", "images/20250829-4.jpeg", "images/20250829-5.jpeg", "images/20250829-6.jpeg", "images/20250829-7.jpeg", "images/20250829-8.jpeg", "images/20250829-9.jpeg", "images/20250829-11.jpeg", "images/20250829-12.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-09-06", title: "九月的寧靜 🍂", 
+            images: ["images/20250906-1.jpeg", "images/20250906-2.jpeg", "images/20250906-3.jpeg", "images/20250906-4.jpeg", "images/20250906-5.jpeg", "images/20250906-6.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "2025-09-13", title: "幸運的13號 - 幸運的我們 🍀", 
+            images: ["images/20250913-1.jpeg", "images/20250913-2.jpeg", "images/20250913-3.jpeg", "images/20250913-4.jpeg", "images/20250913-5.jpeg", "images/20250913-6.jpeg", "images/20250913-7.jpeg", "images/20250913-8.jpeg", "images/20250913-9.jpeg", "images/20250913-10.jpeg", "images/20250913-11.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." },
+            { date: "Special", title: "我們最珍貴的時刻 💎", 
+            images: ["images/last-1.jpeg", "images/last-2.jpeg", "images/last-3.jpeg"], 
+            caption: "在這裡寫下你想對她說的話..." }
         ];
         
         let currentDateIndex = 0;

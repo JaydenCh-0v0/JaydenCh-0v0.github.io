@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>賽博永生與 AI 墓碑專案提案</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #a855f7;
+            --dark: #0b0f19;
+            --light: #f1f5f9;
+            --accent: #10b981;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #030712;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .slide {
+            background: #ffffff;
+            width: 100%;
+            max-width: 960px;
+            height: 540px;
+            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+            position: relative;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+        }
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(99, 102, 241, 0.08));
+            border-radius: 0 0 0 100%;
+            z-index: 1;
+        }
+        .header {
+            position: relative;
+            z-index: 2;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+        .header h1 {
+            font-size: 26px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 13px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+            margin-top: 25px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            height: 100%;
+            column-gap: 25px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            height: 100%;
+            column-gap: 15px;
+        }
+        .card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        .card h3 {
+            font-size: 17px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card li {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: #334155;
+            list-style: none;
+            position: relative;
+            padding-left: 15px;
+        }
+        .card li::before {
+            content: "▪";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+        }
+        .badge {
+            background: #f3e8ff;
+            color: var(--secondary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .page-num {
+            background: #1f2937;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .dark-box {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .dark-box h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #c084fc;
+        }
+        .dark-box p {
+            font-size: 13px;
+            opacity: 0.85;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: 商業想法與永生市場 -->
+    <div class="slide">
+        <div class="header">
+            <p>Slide 01 // Cybernetic Immortality & DeathTech</p>
+            <h1>賽博永生：基於跨世代情感延續的 AI 智能墓碑</h1>
+        </div>
+        
+        <div class="content grid-2">
+            <div class="dark-box">
+                <h2>項目核心價值 (Value Prop)</h2>
+                <p>將「思念」由單向祭拜升級為雙向對話。利用大語言模型與語音複製技術，在雲端重構逝者的「數位靈魂」。線下結合嵌入式物聯網（IoT）硬體或 QR 入口，打造可互動的 AI 墓碑/牌位。解決現代人面對親人離世的創傷，填補跨世代家族記憶傳承的空白。</p>
+            </div>
+            
+            <div class="card">
+                <h3>多元商業變現模式 (Revenue)</h3>
+                <ul>
+                    <li><strong>B2C 生前訂閱 (Pre-need)</strong>：用戶生前付費訂閱，定時備份個人數據、寫日記，由 AI 學習其思維模式。</li>
+                    <li><strong>B2B2C 殯葬合作 (At-need)</strong>：與現代化墓園、骨灰龕位（如香港私營骨灰龕、台灣生命園區）合作，作為高端增值服務銷售。</li>
+                    <li><strong>雲端長尾續費 (SaaS)</strong>：數位靈魂雲端託管費（如每年續費維護數據與算力 API 成本）。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span>Cybernetic Immortality Project - Confidential</span>
+            <div class="page-num">1</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: 技術架構與精實驗證 -->
+    <div class="slide">
+        <div class="header">
+            <p>Slide 02 // Tech Stack & Phased Validation</p>
+            <h1>數位靈魂重構技術與三階段落地驗證</h1>
+        </div>
+        
+        <div class="content grid-3">
+            <div class="card">
+                <span class="badge">技術層 A：靈魂重構</span>
+                <h3>數據清洗與語音合成</h3>
+                <ul>
+                    <li><strong>RAG 知識庫</strong>：清洗逝者歷史聊天紀錄與文字，建立客製化向量資料庫。</li>
+                    <li><strong>語音/視覺複製</strong>：利用少樣本語音複製技術（如 XTTS/Fish Speech）與數位人技術（如 LivePortrait），還原逝者音容笑貌。</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <span class="badge">技術層 B：終端落地</span>
+                <h3>物聯網與邊緣運算</h3>
+                <ul>
+                    <li><strong>戶外硬體硬化</strong>：墓碑嵌入工業級防風雨、低功耗觸控屏，或採用戶外高對比度墨水屏。</li>
+                    <li><strong>邊緣喚醒</strong>：配備雷達感應器，當家屬靠近時自動喚醒 AI 分身，透過 5G/4G 模組聯網與雲端大模型交互。</li>
+                </ul>
+            </div>
+            
+            <div class="card" style="border: 1px solid var(--accent); background: #f0fdf4;">
+                <span class="badge" style="background: #dcfce7; color: var(--accent);">精實驗證</span>
+                <h3>三階段精實商模驗證</h3>
+                <ul>
+                    <li><strong>第一階段：微信/LINE 小程式</strong>：全線上測試。提供「AI 數位紀念館」，家屬上傳數據，在手機端進行對話，驗證情感剛需。</li>
+                    <li><strong>第二階段：室內牌位試點</strong>：與私營骨灰龕位或寺廟合作，先在室內環境（無風雨影響）測試硬體螢幕與語音對話。</li>
+                    <li><strong>第三階段：高端戶外 AI 墓碑</strong>：技術與供應鏈成熟後，與大型公墓合作推廣實體物聯網墓碑。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span>Tech Architecture & Validation Roadmap</span>
+            <div class="page-num">2</div>
+        </div>
+    </div>
+
+</body>
+</html>

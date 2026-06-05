@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories-to-3D 創業提案</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #f59e0b;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1e293b;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        .slide {
+            background: var(--light);
+            width: 100%;
+            max-width: 960px;
+            height: 540px; /* 16:9 比例 */
+            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+            position: relative;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+        /* 裝飾性背景 */
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(79, 70, 229, 0.1));
+            border-radius: 0 0 0 100%;
+            z-index: 1;
+        }
+        .header {
+            position: relative;
+            z-index: 2;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+        .header h1 {
+            font-size: 28px;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+        .header p {
+            font-size: 14px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+            grid-gap: 20px;
+            flex-grow: 1;
+            margin-top: 25px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100%;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            height: 100%;
+            column-gap: 15px;
+        }
+        .card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+        .card h3 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card ul {
+            list-style-type: none;
+        }
+        .card li {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: #334155;
+            position: relative;
+            padding-left: 15px;
+        }
+        .card li::before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        .badge {
+            background: #e0e7ff;
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+            font-size: 12px;
+            color: #94a3b8;
+            position: relative;
+            z-index: 2;
+        }
+        .page-num {
+            background: var(--dark);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .highlight-box h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        .highlight-box p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: 商業想法與多場景線上引流 -->
+    <div class="slide">
+        <div class="header">
+            <p>Slide 01 // Business Concept & Traffic Engine</p>
+            <h1>從線上情感迷因到實體3D記憶公仔</h1>
+        </div>
+        
+        <div class="content grid-2">
+            <div class="highlight-box" style="margin-right: 20px;">
+                <h2>核心商業想法 (O2O)</h2>
+                <p>打破傳統3D打印店缺乏前端流量與高昂建模成本的瓶頸。利用低門檻的 AI 趣味生成網頁吸引跨世代人群上傳照片，透過 AI 算法一鍵轉化為 3D 模型，最終引流至實體地舖進行「3D打印設備租賃體驗」，實現高溢價的情感消費閉環。</p>
+            </div>
+            
+            <div class="card">
+                <h3>多元線上引流場景（低門檻、高傳播）</h3>
+                <ul>
+                    <li><strong>毛孩經濟</strong>：上傳寵物照，生成皮克斯風或超級英雄公仔。</li>
+                    <li><strong>全家福紀念</strong>：打破傳統平面相片，將家族合照立體化為常駐客廳的擺設。</li>
+                    <li><strong>情侶與婚慶</strong>：客製化 Q 版情侶公仔、搞怪迷因互動模型，主打節慶送禮。</li>
+                    <li><strong>畢業與里程碑</strong>：上傳畢業照，將真人面孔與畢業熊、學士服AI完美融合打印。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span>AI + 3D Printing O2O Micro-SaaS Project</span>
+            <div class="page-num">1</div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: 技術實作與三階段驗證法 -->
+    <div class="slide">
+        <div class="header">
+            <p>Slide 02 // Technical Architecture & Lean Validation</p>
+            <h1>技術架構架設與精實商模驗證</h1>
+        </div>
+        
+        <div class="content grid-3">
+            <!-- 技術實作一 -->
+            <div class="card">
+                <span class="badge">技術模組 A</span>
+                <h3>AI 圖像生成與預覽</h3>
+                <ul>
+                    <li><strong>2D 風格化</strong>：雲端部署 Stable Diffusion + LoRA 微調模型，快速將人臉/寵物轉為特定主題風格。</li>
+                    <li><strong>單圖 3D 重建</strong>：串接 Tripo3D / Meshy API，或自主部署 InstantMesh，在 30 秒內將 2D 圖片輸出為帶紋理的 `.gltf` 模型。</li>
+                </ul>
+            </div>
+            
+            <!-- 技術實作二 -->
+            <div class="card">
+                <span class="badge">技術模組 B</span>
+                <h3>數據自動化與硬體</h3>
+                <ul>
+                    <li><strong>模型自動自動化修復</strong>：調用 Blender Python API 自動進行網格閉合（Make Solid）與一鍵加厚，確保模型符合打印規格。</li>
+                    <li><strong>全彩多色硬體</strong>：店面部署拓竹（Bambulab）X1C + AMS 自動色彩系統，降低消費者上手門檻。</li>
+                </ul>
+            </div>
+            
+            <!-- 階段驗證法 -->
+            <div class="card" style="border: 2px dashed var(--accent);">
+                <span class="badge" style="background: #fef3c7; color: #d97706;">精實創業驗證</span>
+                <h3>三階段市場驗證法</h3>
+                <ul>
+                    <li><strong>第一階段：線上接單（全輕資產）</strong>：上線網頁收集照片，在家用1台機器印製並郵寄，驗證客群付費意願與轉化率。</li>
+                    <li><strong>第二階段：文創快閃（體驗驗證）</strong>：進駐市集或寵物友善咖啡廳，測試現場等待經濟與機台租賃計費模式。</li>
+                    <li><strong>第三階段：地舖落地（規模化）</strong>：鎖定高坪效商圈，建立 AI 創客與情感文創空間。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span>Confidential - For Internal Use Only</span>
+            <div class="page-num">2</div>
+        </div>
+    </div>
+
+</body>
+</html>

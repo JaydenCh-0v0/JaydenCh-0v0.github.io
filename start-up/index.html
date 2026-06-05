@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 創業項目提案 · 香港落地展望</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080f1a;
+            --bg-stage: #0b1220;
+            --bg-card: #131f33;
+            --bg-card-hover: #172640;
+            --text: #d8e2ef;
+            --text-muted: #8496ad;
+            --title: #f4f7fb;
+            --accent: #4a9eff;
+            --accent-soft: rgba(74, 158, 255, 0.1);
+            --gold: #d4b06a;
+            --border: rgba(255, 255, 255, 0.07);
+            --border-strong: rgba(255, 255, 255, 0.12);
+            --positive: #52d49a;
+            --caution: #f0b44a;
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            --radius: 10px;
+            --radius-sm: 8px;
+            --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.22);
+            --bg-elevated: rgba(255, 255, 255, 0.035);
+            --footer-h: 48px;
+            --slide-x: clamp(28px, 4vw, 56px);
+            --slide-top: clamp(18px, 2.5vh, 32px);
+            --gap-panel: clamp(14px, 1.6vw, 20px);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+            font-weight: 500;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 55% at 0% 0%, rgba(74, 158, 255, 0.09), transparent 55%),
+                radial-gradient(ellipse 55% 45% at 100% 100%, rgba(212, 176, 106, 0.06), transparent 50%),
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: auto, auto, 48px 48px, 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 16:9 演示舞台 */
+        .presentation-stage {
+            position: fixed;
+            inset: 0;
+            bottom: var(--footer-h);
+            z-index: 1;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-stage);
+            overflow: hidden;
+        }
+
+        .slide-container::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.35);
+            z-index: 2;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            transition: width 0.35s ease;
+            z-index: 200;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            display: grid;
+            grid-template-rows: auto minmax(0, 1fr);
+            padding: var(--slide-top) var(--slide-x) clamp(12px, 1.8vh, 20px);
+            gap: clamp(12px, 1.5vh, 18px);
+            z-index: 1;
+        }
+
+        .slide.active { opacity: 1; visibility: visible; }
+
+        /* ── Title / Cover slide ── */
+        .slide.slide-cover {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-template-rows: 1fr;
+            padding: clamp(28px, 4vh, 48px) var(--slide-x);
+        }
+
+        .slide.slide-cover::before {
+            content: "";
+            position: absolute;
+            width: min(680px, 70vw);
+            height: min(680px, 55vh);
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 158, 255, 0.12) 0%, transparent 68%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -52%);
+            pointer-events: none;
+        }
+
+        .slide-cover-inner {
+            width: 100%;
+            max-width: 960px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(18px, 2.8vh, 28px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-eyebrow {
+            font-size: clamp(0.78rem, 1.05vw, 0.88rem);
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding: 6px 14px;
+            background: rgba(212, 176, 106, 0.08);
+            border: 1px solid rgba(212, 176, 106, 0.22);
+            border-radius: 4px;
+        }
+
+        .cover-title {
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
+            font-weight: 900;
+            color: var(--title);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .cover-title em {
+            font-style: normal;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cover-subtitle {
+            font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 640px;
+        }
+
+        .cover-topics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(12px, 1.5vw, 18px);
+            width: 100%;
+            margin-top: clamp(8px, 1vh, 16px);
+        }
+
+        .cover-topic {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2vw, 22px) clamp(14px, 1.8vw, 20px);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cover-topic::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .cover-topic:nth-child(2)::before {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .cover-topic:nth-child(3)::before {
+            background: linear-gradient(90deg, var(--positive), transparent);
+        }
+
+        .cover-topic-num {
+            display: block;
+            font-size: clamp(0.68rem, 0.9vw, 0.76rem);
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .cover-topic h2 {
+            font-size: clamp(1rem, 1.45vw, 1.15rem);
+            font-weight: 700;
+            color: var(--title);
+            line-height: 1.35;
+            margin-bottom: 6px;
+        }
+
+        .cover-topic p {
+            font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+            color: var(--text-muted);
+            line-height: 1.55;
+            font-weight: 500;
+        }
+
+        .cover-meta {
+            display: flex;
+            align-items: center;
+            gap: clamp(16px, 2vw, 28px);
+            font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+            font-weight: 600;
+            color: var(--text-muted);
+            padding-top: clamp(8px, 1vh, 12px);
+            border-top: 1px solid var(--border);
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cover-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cover-meta span::before {
+            content: "";
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.6;
+        }
+
+        /* ── End / Closing slide ── */
+        .slide.slide-end::before {
+            background: radial-gradient(circle, rgba(212, 176, 106, 0.14) 0%, transparent 68%);
+        }
+
+        .slide-end .cover-title em {
+            background: linear-gradient(90deg, var(--gold), var(--positive));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cover-recap .cover-topic {
+            text-align: center;
+        }
+
+        .cover-recap .cover-topic h2 {
+            font-size: clamp(0.95rem, 1.35vw, 1.08rem);
+            margin-bottom: 8px;
+        }
+
+        .cover-recap .cover-topic p {
+            font-size: clamp(0.78rem, 1vw, 0.88rem);
+            line-height: 1.5;
+        }
+
+        .cover-cta {
+            font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+            font-weight: 700;
+            color: var(--title);
+            letter-spacing: 0.06em;
+        }
+
+        /* ── Header ── */
+        .slide-header {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: clamp(16px, 2vw, 28px);
+            align-items: center;
+            padding-bottom: clamp(8px, 1vh, 12px);
+            flex-shrink: 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .slide-header::before {
+            content: "";
+            position: absolute;
+            left: 0; bottom: -1px;
+            width: 64px; height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .section-tag {
+            display: inline-block;
+            font-size: clamp(0.72rem, 1vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 10px;
+            padding: 4px 10px;
+            background: rgba(212, 176, 106, 0.08);
+            border: 1px solid rgba(212, 176, 106, 0.2);
+            border-radius: 4px;
+        }
+
+        .slide-title {
+            font-size: clamp(1.55rem, 2.9vw, 2.35rem);
+            font-weight: 900;
+            color: var(--title);
+            line-height: 1.28;
+            letter-spacing: -0.01em;
+        }
+
+        .slide-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .slide-meta {
+            text-align: right;
+            font-size: clamp(0.88rem, 1.25vw, 1rem);
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.7;
+            white-space: nowrap;
+            padding: 10px 14px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        /* ── Body ── */
+        .slide-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: stretch;
+            min-height: 0;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .slide-body > .hero-intro-layout,
+        .slide-body > .feature-layout,
+        .slide-body > .feature-grid,
+        .slide-body > .tech-stack-layout,
+        .slide-body > .analysis-grid,
+        .slide-body > .media-wrap {
+            flex: 1;
+            min-height: 0;
+        }
+
+        .slide-body > .feature-flow-hint {
+            flex: 0 0 auto;
+        }
+
+        .feature-layout {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1.2vh, 14px);
+            min-height: 0;
+        }
+
+        .feature-layout .feature-flow-hint {
+            flex: 0 0 auto;
+        }
+
+        .feature-layout .feature-grid {
+            flex: 1;
+            min-height: 0;
+        }
+
+        .slide-body.center {
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .lead {
+            font-size: clamp(0.95rem, 1.45vw, 1.12rem);
+            line-height: 1.8;
+            color: var(--text);
+            max-width: 56em;
+        }
+
+        .lead + .lead { margin-top: 14px; }
+
+        .value-box {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(74, 158, 255, 0.14), rgba(212, 176, 106, 0.07));
+            border: 1px solid rgba(74, 158, 255, 0.22);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2vw, 24px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .value-box-bg {
+            position: absolute;
+            inset: 0;
+            background-image: var(--value-bg, none);
+            background-size: auto 88%;
+            background-position: right 4% center;
+            background-repeat: no-repeat;
+            pointer-events: none;
+            z-index: 0;
+            -webkit-mask-image: radial-gradient(
+                ellipse 78% 92% at 78% 50%,
+                #000 28%,
+                rgba(0, 0, 0, 0.75) 58%,
+                transparent 100%
+            );
+            mask-image: radial-gradient(
+                ellipse 78% 92% at 78% 50%,
+                #000 28%,
+                rgba(0, 0, 0, 0.75) 58%,
+                transparent 100%
+            );
+        }
+
+        .value-box-bg::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(
+                    105deg,
+                    rgba(11, 18, 32, 0.92) 0%,
+                    rgba(11, 18, 32, 0.72) 38%,
+                    rgba(11, 18, 32, 0.2) 62%,
+                    transparent 82%
+                ),
+                linear-gradient(to top, rgba(11, 18, 32, 0.35) 0%, transparent 22%),
+                linear-gradient(to bottom, rgba(11, 18, 32, 0.35) 0%, transparent 22%),
+                linear-gradient(to right, transparent 55%, rgba(11, 18, 32, 0.25) 100%);
+        }
+
+        .value-box-content {
+            position: relative;
+            z-index: 1;
+            max-width: 66%;
+        }
+
+        .value-box h2 {
+            font-size: clamp(1rem, 1.5vw, 1.22rem);
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .value-box p {
+            font-size: clamp(0.92rem, 1.25vw, 1.05rem);
+            line-height: 1.68;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 3px 9px;
+            border-radius: 4px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .badge.gold {
+            background: rgba(212, 176, 106, 0.12);
+            color: var(--gold);
+        }
+
+        .badge.green {
+            background: rgba(82, 212, 154, 0.12);
+            color: var(--positive);
+        }
+
+        /* 開源進度子區 */
+        .opensource-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-strong);
+            border-left: 3px solid var(--gold);
+            border-radius: var(--radius);
+            padding: clamp(12px, 1.5vw, 18px) clamp(14px, 1.8vw, 20px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .opensource-header {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 8px 16px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+        }
+
+        .opensource-links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .opensource-updated {
+            font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+            font-weight: 600;
+            color: var(--positive);
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .opensource-updated time {
+            font-variant-numeric: tabular-nums;
+            color: var(--text);
+        }
+
+        .opensource-title-block {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .opensource-project-name {
+            font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+            font-weight: 800;
+            color: var(--title);
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .opensource-repo {
+            font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: "Consolas", "Monaco", monospace;
+        }
+
+        .opensource-repo:hover { text-decoration: underline; }
+
+        .opensource-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(8px, 1vw, 12px);
+            flex: 1;
+            align-content: stretch;
+        }
+
+        .opensource-item {
+            padding: clamp(10px, 1.2vw, 14px);
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        .opensource-item strong {
+            display: block;
+            font-size: clamp(0.78rem, 1vw, 0.88rem);
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 5px;
+            letter-spacing: 0.04em;
+        }
+
+        .opensource-item p {
+            font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+            line-height: 1.5;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .scenario-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .scenario-list li {
+            font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+            line-height: 1.6;
+            color: var(--text-muted);
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .scenario-list li::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0.55em;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+
+        .scenario-list li strong {
+            color: var(--title);
+            font-weight: 600;
+        }
+
+        /* 多元應用場景 · 子面板（保留舊版垂直排版） */
+        .scenario-panel {
+            grid-column: 2;
+            grid-row: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(14px, 1.8vw, 20px);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .scenario-panel-title {
+            font-size: clamp(0.78rem, 1vw, 0.88rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: clamp(10px, 1.2vh, 14px);
+            flex-shrink: 0;
+        }
+
+        .scenario-grid {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(8px, 1vh, 10px);
+            flex: 1;
+            min-height: 0;
+        }
+
+        .scenario-card {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            min-height: clamp(48px, 6.5vh, 68px);
+            background: var(--bg-stage);
+        }
+
+        .scenario-card-media {
+            width: 36%;
+            flex-shrink: 0;
+            background-color: #1a2740;
+            background-image: var(--scenario-bg, none);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .scenario-card-media::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent 40%, rgba(11, 18, 32, 0.15));
+            pointer-events: none;
+        }
+
+        .scenario-card-media.is-empty::before {
+            content: "背景圖待上傳";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(0.62rem, 0.85vw, 0.72rem);
+            font-weight: 600;
+            color: var(--text-muted);
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.03),
+                rgba(255, 255, 255, 0.03) 4px,
+                transparent 4px,
+                transparent 10px
+            );
+            letter-spacing: 0.06em;
+        }
+
+        .scenario-card-body {
+            flex: 1;
+            padding: clamp(8px, 1vh, 12px) clamp(12px, 1.4vw, 16px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(19, 31, 51, 0.85);
+        }
+
+        .scenario-card-body h4 {
+            font-size: clamp(0.92rem, 1.2vw, 1.05rem);
+            font-weight: 700;
+            color: var(--title);
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+
+        .scenario-card-body p {
+            font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+            line-height: 1.45;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero-intro-layout.layout-scenarios .hero-stat {
+            display: none;
+        }
+
+        .hero-intro-layout.layout-scenarios {
+            grid-template-columns: minmax(0, 1.05fr) minmax(300px, 1.15fr);
+        }
+
+
+        .validation-highlight {
+            border: 1px dashed rgba(82, 212, 154, 0.35) !important;
+            background: rgba(82, 212, 154, 0.04) !important;
+        }
+
+        /* Feature grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gap-panel);
+            width: 100%;
+            align-items: stretch;
+            min-height: 0;
+        }
+
+        .feature-grid.cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .feature-grid.cols-4 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2vw, 24px);
+            position: relative;
+            overflow: hidden;
+            min-height: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-item::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        .feature-num {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin-bottom: 12px;
+            opacity: 0.85;
+        }
+
+        .feature-item h3 {
+            font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+            font-weight: 700;
+            color: var(--title);
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+
+        .feature-item p {
+            font-size: clamp(0.88rem, 1.15vw, 0.98rem);
+            line-height: 1.6;
+            color: var(--text);
+            font-weight: 500;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .feature-item ul {
+            list-style: none;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        .feature-item li {
+            font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+            line-height: 1.55;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .feature-item li:last-child { margin-bottom: 0; }
+
+        .feature-item li::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0.55em;
+            width: 5px; height: 5px;
+            border-radius: 1px;
+            background: var(--accent);
+            opacity: 0.75;
+        }
+
+        .feature-item li strong {
+            color: var(--title);
+            font-weight: 600;
+        }
+
+        .feature-flow-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: clamp(8px, 1vh, 10px) clamp(12px, 1.5vw, 16px);
+            background: rgba(74, 158, 255, 0.06);
+            border: 1px solid rgba(74, 158, 255, 0.15);
+            border-radius: var(--radius-sm);
+            font-size: clamp(0.82rem, 1.05vw, 0.92rem);
+            font-weight: 600;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .feature-flow-hint span {
+            padding: 6px 14px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(74, 158, 255, 0.22);
+            border-radius: 20px;
+            color: var(--text);
+        }
+
+        .feature-flow-hint em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* Tags */
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .tag {
+            padding: 5px 12px;
+            background: var(--accent-soft);
+            border: 1px solid rgba(74, 158, 255, 0.22);
+            border-radius: 20px;
+            font-size: clamp(0.74rem, 1vw, 0.8rem);
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        /* Tech panels */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gap-panel);
+            width: 100%;
+            align-items: stretch;
+            min-height: 0;
+        }
+
+        .tech-panel {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2vw, 24px);
+            min-height: 0;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-panel::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--positive), transparent);
+        }
+
+        .tech-panel .tech-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .tech-panel h3 {
+            font-size: clamp(1.05rem, 1.5vw, 1.22rem);
+            font-weight: 700;
+            color: var(--title);
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+
+        .tech-panel p {
+            font-size: clamp(0.88rem, 1.15vw, 0.98rem);
+            line-height: 1.62;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .tech-panel ul {
+            list-style: none;
+            margin-top: 12px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .tech-panel li {
+            font-size: clamp(0.84rem, 1.08vw, 0.94rem);
+            line-height: 1.55;
+            color: var(--text);
+            font-weight: 500;
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 5px;
+        }
+
+        .tech-panel li::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0.55em;
+            width: 6px; height: 6px;
+            border-radius: 1px;
+            background: var(--accent);
+            opacity: 0.7;
+        }
+
+        .tech-stack-layout {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 1.5vh, 16px);
+            width: 100%;
+            height: 100%;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .tech-stack-layout .tech-grid {
+            flex: 1;
+            min-height: 0;
+        }
+
+        .tech-plain-banner {
+            flex-shrink: 0;
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            align-items: start;
+            gap: 12px 16px;
+            padding: clamp(10px, 1.2vw, 14px) clamp(14px, 1.8vw, 18px);
+            background: rgba(82, 212, 154, 0.07);
+            border: 1px solid rgba(82, 212, 154, 0.22);
+            border-radius: var(--radius);
+            border-left: 3px solid var(--positive);
+        }
+
+        .tech-plain-banner .badge {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+
+        .tech-plain-banner p {
+            flex: 1;
+            font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+            line-height: 1.65;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .plain-box {
+            margin-top: auto;
+            padding: clamp(8px, 1vw, 12px);
+            background: rgba(82, 212, 154, 0.06);
+            border: 1px solid rgba(82, 212, 154, 0.2);
+            border-radius: var(--radius-sm);
+            flex-shrink: 0;
+        }
+
+        .plain-box-label {
+            display: block;
+            font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--positive);
+            margin-bottom: 6px;
+        }
+
+        .plain-box p {
+            font-size: clamp(0.88rem, 1.15vw, 0.96rem);
+            line-height: 1.65;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Analysis */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.08fr;
+            gap: var(--gap-panel);
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .analysis-col {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2vw, 24px);
+            min-height: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .analysis-col h3 {
+            font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        .analysis-col.strength { border-top: 3px solid var(--positive); }
+        .analysis-col.gap { border-top: 3px solid var(--caution); }
+        .analysis-col.hk { border-top: 3px solid var(--accent); }
+
+        .analysis-col.strength h3 { color: var(--positive); }
+        .analysis-col.gap h3 { color: var(--caution); }
+        .analysis-col.hk h3 { color: var(--accent); }
+
+        .analysis-col ul {
+            list-style: none;
+            flex: 1;
+        }
+
+        .analysis-col li {
+            font-size: clamp(0.86rem, 1.1vw, 0.96rem);
+            line-height: 1.58;
+            color: var(--text);
+            font-weight: 500;
+            margin-bottom: 12px;
+            padding-left: 0;
+        }
+
+        .analysis-col li:last-child { margin-bottom: 0; }
+
+        .analysis-col li strong {
+            display: block;
+            color: var(--title);
+            font-weight: 700;
+            font-size: clamp(0.98rem, 1.25vw, 1.08rem);
+            margin-bottom: 4px;
+        }
+
+        /* Media */
+        .media-wrap {
+            width: 100%;
+            max-width: min(960px, 92%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .media-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .media-frame iframe,
+        .media-frame video {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+            object-fit: contain;
+        }
+
+        .media-caption {
+            margin-top: 12px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        /* Hero */
+        .hero-intro-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.12fr) minmax(240px, 0.88fr);
+            grid-template-rows: 1fr;
+            gap: var(--gap-panel);
+            width: 100%;
+            height: 100%;
+            align-content: stretch;
+        }
+
+        .hero-main {
+            grid-column: 1;
+            grid-row: 1;
+            display: grid;
+            grid-template-rows: minmax(0, 0.94fr) minmax(0, 1.06fr);
+            gap: clamp(10px, 1.2vh, 14px);
+            min-height: 0;
+            height: 100%;
+        }
+
+        .hero-main .opensource-panel,
+        .hero-main .value-box {
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-main .opensource-panel {
+            justify-content: flex-start;
+        }
+
+        .hero-stat {
+            grid-column: 2;
+            grid-row: 1;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--accent);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2vw, 24px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hero-stat dt {
+            font-size: clamp(0.72rem, 0.95vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            margin-top: 10px;
+        }
+
+        .hero-stat dt:first-of-type {
+            margin-top: 0;
+        }
+
+        .hero-stat dd {
+            font-size: clamp(0.92rem, 1.2vw, 1.02rem);
+            color: var(--title);
+            line-height: 1.48;
+            font-weight: 600;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .hero-stat dd .scenario-list { margin-top: 4px; }
+        .hero-stat dd .scenario-list li { font-size: clamp(0.92rem, 1.15vw, 1.02rem); font-weight: 500; }
+
+        /* Global deck footer */
+        .deck-footer {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: var(--footer-h);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 20px;
+            padding: 0 clamp(20px, 3vw, 40px);
+            background: rgba(8, 15, 26, 0.92);
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+        }
+
+        .deck-footer-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .deck-brand {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .part-pills {
+            display: flex;
+            gap: 6px;
+        }
+
+        .part-pill {
+            font-size: 0.68rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            transition: all 0.25s;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .part-pill:hover:not(.active) {
+            color: var(--title);
+            border-color: rgba(74, 158, 255, 0.28);
+            background: rgba(74, 158, 255, 0.06);
+        }
+
+        .part-pill.active {
+            color: var(--title);
+            border-color: rgba(74, 158, 255, 0.4);
+            background: var(--accent-soft);
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 440px;
+        }
+
+        .slide-dot {
+            width: 14px;
+            height: 3px;
+            border-radius: 2px;
+            background: var(--border-strong);
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+
+        .slide-dot.active {
+            width: 22px;
+            background: var(--accent);
+        }
+
+        .slide-dot:hover:not(.active) {
+            background: rgba(74, 158, 255, 0.35);
+        }
+
+        .deck-footer-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .page-num {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+        }
+
+        .nav-hint {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            opacity: 0.45;
+            white-space: nowrap;
+        }
+
+        .nav-zone {
+            position: fixed;
+            top: 0;
+            width: 22%;
+            height: calc(100% - var(--footer-h));
+            z-index: 5;
+            cursor: pointer;
+        }
+
+        .nav-zone.prev { left: 0; }
+        .nav-zone.next { right: 0; }
+
+        .nav-zone::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .nav-zone.prev::after {
+            background: linear-gradient(90deg, rgba(74, 158, 255, 0.08), transparent 70%);
+        }
+
+        .nav-zone.next::after {
+            background: linear-gradient(270deg, rgba(74, 158, 255, 0.08), transparent 70%);
+        }
+
+        .nav-zone:hover::after { opacity: 1; }
+
+        .opensource-repo {
+            transition: color 0.2s ease;
+        }
+
+        .slide-cover .cover-topic {
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .slide-cover .cover-topic:hover {
+            transform: translateY(-2px);
+            border-color: rgba(74, 158, 255, 0.25);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+        }
+
+        /* Custom cursor · desktop only */
+        @media (hover: hover) and (pointer: fine) {
+            body.has-custom-cursor,
+            body.has-custom-cursor * {
+                cursor: none !important;
+            }
+
+            .custom-cursor {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 9999;
+                transition: opacity 0.2s ease;
+            }
+
+            .custom-cursor.is-hidden {
+                opacity: 0;
+            }
+
+            .cursor-dot,
+            .cursor-ring {
+                position: fixed;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+                will-change: transform;
+            }
+
+            .cursor-dot {
+                width: 6px;
+                height: 6px;
+                margin: -3px 0 0 -3px;
+                background: var(--accent);
+                border-radius: 50%;
+                box-shadow: 0 0 10px rgba(74, 158, 255, 0.55);
+                z-index: 2;
+                transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+            }
+
+            .cursor-ring {
+                width: 34px;
+                height: 34px;
+                margin: -17px 0 0 -17px;
+                border: 1.5px solid rgba(74, 158, 255, 0.55);
+                border-radius: 50%;
+                transition: width 0.22s ease, height 0.22s ease, margin 0.22s ease,
+                    border-color 0.22s ease, background 0.22s ease;
+                z-index: 1;
+            }
+
+            .custom-cursor.is-hover .cursor-ring {
+                width: 52px;
+                height: 52px;
+                margin: -26px 0 0 -26px;
+                border-color: var(--gold);
+                background: rgba(212, 176, 106, 0.1);
+            }
+
+            .custom-cursor.is-hover .cursor-dot {
+                background: var(--gold);
+                box-shadow: 0 0 12px rgba(212, 176, 106, 0.55);
+                transform: scale(1.35);
+            }
+
+            .custom-cursor.is-click .cursor-ring {
+                width: 28px;
+                height: 28px;
+                margin: -14px 0 0 -14px;
+                background: rgba(74, 158, 255, 0.18);
+            }
+        }
+
+        .slide-body.center > * { flex: 0 0 auto; align-self: center; }
+
+        @media (max-width: 1100px) {
+            .hero-intro-layout { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+            .hero-main { grid-column: 1; grid-row: 1; grid-template-rows: auto auto; }
+            .hero-stat { grid-column: 1; grid-row: 2; border-left: none; border-top: 3px solid var(--accent); }
+            .opensource-grid { grid-template-columns: 1fr; }
+            .hero-intro-layout.layout-scenarios .scenario-panel {
+                grid-column: 1;
+                grid-row: 2;
+            }
+            .hero-intro-layout.layout-scenarios { grid-template-rows: auto auto; }
+            .hero-intro-layout.layout-scenarios .hero-main { grid-row: 1; }
+            .hero-intro-layout.layout-scenarios .scenario-card { min-height: 56px; }
+            .hero-intro-layout.layout-scenarios .scenario-card-media { width: 32%; }
+            .value-box-content { max-width: 100%; }
+            .tech-plain-banner { grid-template-columns: 1fr; }
+            .value-box-bg {
+                background-size: auto 70%;
+                background-position: right bottom;
+                -webkit-mask-image: radial-gradient(
+                    ellipse 90% 85% at 85% 75%,
+                    #000 22%,
+                    rgba(0, 0, 0, 0.7) 55%,
+                    transparent 100%
+                );
+                mask-image: radial-gradient(
+                    ellipse 90% 85% at 85% 75%,
+                    #000 22%,
+                    rgba(0, 0, 0, 0.7) 55%,
+                    transparent 100%
+                );
+            }
+            .slide-meta { display: none; }
+            .analysis-grid { grid-template-columns: 1fr; }
+            .tech-grid { grid-template-columns: 1fr; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .deck-brand { display: none; }
+            .cover-topics { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="custom-cursor is-hidden" id="customCursor" aria-hidden="true">
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    </div>
+
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="nav-zone prev" onclick="changeSlide(-1)" aria-label="上一頁"></div>
+    <div class="nav-zone next" onclick="changeSlide(1)" aria-label="下一頁"></div>
+
+    <div class="presentation-stage">
+    <div class="slide-container">
+
+        <!-- 00 標題頁 -->
+        <div class="slide slide-cover active" data-project="cover">
+            <div class="slide-cover-inner">
+                <span class="cover-eyebrow">AI Startup Proposal · Hong Kong</span>
+                <h1 class="cover-title"><em>AI 創業項目</em>提案</h1>
+                <p class="cover-subtitle">三個已驗證GitHub Star 數千的開源 AI 項目 · 面向香港市場的落地展望與商業路徑</p>
+                <div class="cover-topics">
+                    <div class="cover-topic">
+                        <span class="cover-topic-num">Part I</span>
+                        <h2>個性化私教</h2>
+                        <p>DeepTutor · Agent 驅動因材施教</p>
+                    </div>
+                    <div class="cover-topic">
+                        <span class="cover-topic-num">Part II</span>
+                        <h2>數位人</h2>
+                        <p>AIGCPanel · AI 分身與音容重構</p>
+                    </div>
+                    <div class="cover-topic">
+                        <span class="cover-topic-num">Part III</span>
+                        <h2>3D 記憶打印</h2>
+                        <p>TripoSR · 相片到實體公仔 O2O</p>
+                    </div>
+                </div>
+                <div class="cover-meta">
+                    <span>開源可行性驗證</span>
+                    <span>香港三階段落地</span>
+                    <span>2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 01 個性化私教 介紹 -->
+        <div class="slide" data-project="0">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 01 · Business Concept & EdTech</div>
+                    <h1 class="slide-title">個性化私教：打破「一刀切」的 <em>AI 因材施教</em> 平台</h1>
+                </div>
+                <div class="slide-meta">香港教育市場<br>DSE · 補習 · 自主學習</div>
+            </header>
+            <div class="slide-body">
+                <div class="hero-intro-layout">
+                    <div class="hero-main">
+                        <div class="opensource-panel">
+                            <div class="opensource-header">
+                                <div class="opensource-title-block">
+                                    <span class="badge gold">開源進度 · Open Source Feasibility</span>
+                                    <h3 class="opensource-project-name">DeepTutor</h3>
+                                </div>
+                                <div class="opensource-links">
+                                    <span class="opensource-updated">最近更新 · <time datetime="2026-05-29">2026-05-29</time></span>
+                                    <a class="opensource-repo" href="https://github.com/HKUDS/DeepTutor" target="_blank">github.com/HKUDS/DeepTutor</a>
+                                </div>
+                            </div>
+                            <div class="opensource-grid">
+                                <div class="opensource-item">
+                                    <strong>項目狀態</strong>
+                                    <p>港大 HKUDS 活躍維護，社群持續迭代更新</p>
+                                </div>
+                                <div class="opensource-item">
+                                    <strong>已驗證能力</strong>
+                                    <p>五模式教學管線、RAG 解題、動態書籍引擎均已跑通</p>
+                                </div>
+                                <div class="opensource-item">
+                                    <strong>部署成熟度</strong>
+                                    <p>支援 Docker 本地部署，已有官方 Demo 可現場展示</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value-box" style="--value-bg: url('images/AI 施教.png')">
+                            <div class="value-box-bg" aria-hidden="true"></div>
+                            <div class="value-box-content">
+                                <h2>核心項目價值（Value Prop）</h2>
+                                <p>將傳統「大班灌輸」升級為 Agent 驅動的個性化教學閉環。AI 導師可因應每位學生的節奏，同步提供對話輔導、解題引導、測驗反饋與研究探索，讓補底、拔尖與自主學習在同一平台完成，降低優質教學對明星導師的依賴。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <dl class="hero-stat">
+                        <dt>目標客群</dt>
+                        <dd>DSE 備考學生、補習社、大專自主學習者</dd>
+                        <dt>市場痛點</dt>
+                        <dd>師生比高、個別差異難照顧、教材更新慢</dd>
+                        <dt>商業模式</dt>
+                        <dd>B2C 訂閱 · B2B 校本授權 · 補習機構 SaaS</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- 02 個性化私教 功能 -->
+        <div class="slide" data-project="0">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 02 · Product Architecture</div>
+                    <h1 class="slide-title">教學閉環：<em>從對話到動態教材</em> 的三層能力</h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="feature-layout">
+                <div class="feature-flow-hint">
+                    <span>第一層 · 即時交互</span>
+                    <em>→</em>
+                    <span>第二層 · 知識沉澱</span>
+                    <em>→</em>
+                    <span>第三層 · 動態教材</span>
+                </div>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <span class="badge">第一層 · 即時交互層</span>
+                        <h3>五種教育模式</h3>
+                        <p>Chat / Solve / Quiz / Research / Visualize 五模式共享同一學習上下文與引用歷史，學生無需在不同工具間切換，導師可全程追蹤學習軌跡。</p>
+                        <ul>
+                            <li><strong>聊天（Chat）：</strong>引導式提問，釐清概念盲點</li>
+                            <li><strong>解題（Solve）：</strong>逐步拆解思路，附引用出處</li>
+                            <li><strong>測驗（Quiz）：</strong>自動出題與即時評分反饋</li>
+                            <li><strong>研究（Research）：</strong>延伸閱讀與跨章節知識串聯</li>
+                            <li><strong>視覺化（Visualize）：</strong>圖表、幾何與動態演示輔助理解</li>
+                        </ul>
+                    </div>
+                    <div class="feature-item">
+                        <span class="badge">第二層 · 知識沉澱層</span>
+                        <h3>共同編劇 Markdown 筆記</h3>
+                        <p>雙欄分屏工作區讓師生同步編輯筆記，AI 可因應指令重寫、擴寫或精簡段落，將零散輔導對話轉化為結構化、可搜尋的個人知識庫。</p>
+                        <ul>
+                            <li><strong>協作編輯：</strong>教師與學生同屏修訂，保留修訂歷史</li>
+                            <li><strong>AI 輔助改寫：</strong>一鍵調整語氣、難度或篇幅</li>
+                            <li><strong>錯題沉澱：</strong>解題過程自動歸檔為個人錯題本</li>
+                            <li><strong>教案複用：</strong>優質筆記可分享至班級或機構模板庫</li>
+                        </ul>
+                    </div>
+                    <div class="feature-item">
+                        <span class="badge">第三層 · 動態教材層</span>
+                        <h3>圖書引擎 · 動態書籍</h3>
+                        <p>多智能體管道將靜態教材（PDF、Markdown、講義）自動編譯為可互動的「動態圖書」，內嵌測驗、閃卡與視覺化元件，實現名師經驗的規模化複製。</p>
+                        <ul>
+                            <li><strong>自動編譯：</strong>上傳材料後一鍵生成章節化互動讀物</li>
+                            <li><strong>內嵌測驗：</strong>每章附自動生成練習題與解析</li>
+                            <li><strong>閃卡複習：</strong>關鍵概念抽取為間隔重複記憶卡</li>
+                            <li><strong>幾何視覺化：</strong>整合 GeoGebra 等工具展示立體圖形</li>
+                        </ul>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 03 個性化私教 演示 -->
+        <div class="slide" data-project="0">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 03 · Live Demo</div>
+                    <h1 class="slide-title">現場演示：<em>Agent 導師</em> 實際教學流程</h1>
+                </div>
+            </header>
+            <div class="slide-body center">
+                <div class="media-wrap">
+                    <div class="media-frame">
+                        <iframe src="https://www.youtube.com/embed/nWJ3FJZxZ9c" title="DeepTutor Official Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="media-caption">個性化私教產品演示 · 基於 DeepTutor 開源方案</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04 個性化私教 AI 技術 -->
+        <div class="slide" data-project="0">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 04 · Tech Stack</div>
+                    <h1 class="slide-title">技術底座：<em>Agent + RAG</em> 如何支撐因材施教</h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="tech-stack-layout">
+                    <div class="tech-plain-banner">
+                        <span class="badge green">白話解說</span>
+                        <p>AI 私教並非「聊天機器人」這麼簡單。它背後靠兩招：<strong>一支 AI 助教團隊</strong>負責記住每位學生、分工教學；加上<strong>開卷查資料</strong>機制，確保每個答案都有課本依據，而非憑空捏造。</p>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-panel">
+                            <span class="badge">技術層 A · 教學代理</span>
+                            <h3>多智能體協同（Multi-Agent）</h3>
+                            <p>持久化 TutorBot 可衍生背景子智能體，自主規劃教學大綱、生成測驗與追蹤學習進度，實現「有記憶的導師」而非一次性問答。</p>
+                            <ul>
+                                <li>三層記憶架構保障跨節學習連貫性</li>
+                                <li>子智能體並行處理長週期教學任務</li>
+                                <li>教學過程可審計、可追溯</li>
+                            </ul>
+                            <div class="plain-box">
+                                <span class="plain-box-label">💬 解說</span>
+                                <p>想像僱了一隊 AI 助教：前台導師跟學生聊天，背後還有專人負責出卷、排課、記錯題。重點是<strong>記得住</strong>這位學生上週問過什麼，不會每次見面都從零開始。</p>
+                            </div>
+                        </div>
+                        <div class="tech-panel">
+                            <span class="badge">技術層 B · 知識引擎</span>
+                            <h3>檢索增強生成（RAG）</h3>
+                            <p>版本化文檔庫支援多源教材自動路由，解題與答疑均可引用原始出處，適合接入 DSE 真題、評卷標準等權威資料。</p>
+                            <ul>
+                                <li>多源文檔自動索引與路由</li>
+                                <li>安全引用與事實核查機制</li>
+                                <li>可對接校本教材與考評局資料</li>
+                            </ul>
+                            <div class="plain-box">
+                                <span class="plain-box-label">💬 解說</span>
+                                <p>就像<strong>開卷考試</strong>——AI 回答前先翻課本、講義和 Past Paper 找依據，還能告訴你「答案出自第幾題、哪份 Marking Scheme」，避免胡亂編造。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 05 個性化私教 分析與香港落地 -->
+        <div class="slide" data-project="0">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 05 · Gap Analysis & HK Roadmap</div>
+                    <h1 class="slide-title">競爭力評估與 <em>香港三階段落地</em></h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="analysis-grid">
+                    <div class="analysis-col strength">
+                        <h3>現有優勢</h3>
+                        <ul>
+                            <li><strong>完整教學閉環</strong>五模式串聯，非單點問答工具，產品護城河清晰</li>
+                            <li><strong>港大學術背書</strong>DeepTutor 已驗證核心管線，降低從零研發風險</li>
+                            <li><strong>教材沉澱能力</strong>動態書籍引擎可將名師經驗規模化複製</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-col gap">
+                        <h3>待補短板</h3>
+                        <ul>
+                            <li><strong>本地化不足</strong>港式粵語、DSE 評卷標準尚未內建</li>
+                            <li><strong>部署門檻</strong>開源方案對非技術機構不夠友好</li>
+                            <li><strong>合規與私隱</strong>學生數據治理需符合香港教育場景要求</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-col hk validation-highlight">
+                        <h3>香港三階段驗證</h3>
+                        <ul>
+                            <li><strong>第一階段：補習社試點</strong>接入 DSE 真題庫，以 1–2 間補習社驗證付費轉化與 AI 閱卷準確度</li>
+                            <li><strong>第二階段：校本 SaaS</strong>推出輕量化雲端版，服務中小學自主學習與功課輔導場景</li>
+                            <li><strong>第三階段：三語深度適配</strong>強化廣東話、港式中文及中英夾雜語境，覆蓋全港補教市場</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 06 數位人 介紹 -->
+        <div class="slide" data-project="1">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 06 · Digital Human & DeathTech</div>
+                    <h1 class="slide-title">數位人：跨場景 <em>AI 分身</em> 與情感交互基礎設施</h1>
+                </div>
+                <div class="slide-meta">內容生產 · 數位生命<br>AR/VR · 機器人</div>
+            </header>
+            <div class="slide-body">
+                <div class="hero-intro-layout layout-scenarios">
+                    <div class="hero-main">
+                        <div class="opensource-panel">
+                            <div class="opensource-header">
+                                <div class="opensource-title-block">
+                                    <span class="badge gold">開源進度 · Open Source Feasibility</span>
+                                    <h3 class="opensource-project-name">AIGCPanel</h3>
+                                </div>
+                                <div class="opensource-links">
+                                    <span class="opensource-updated">最近更新 · <time datetime="2026-06-03">2026-06-03</time></span>
+                                    <a class="opensource-repo" href="https://github.com/modstart-lib/aigcpanel" target="_blank">github.com/modstart-lib/aigcpanel</a>
+                                </div>
+                            </div>
+                            <div class="opensource-grid">
+                                <div class="opensource-item">
+                                    <strong>項目狀態</strong>
+                                    <p>跨平台桌面應用持續更新，社群活躍度高</p>
+                                </div>
+                                <div class="opensource-item">
+                                    <strong>已驗證能力</strong>
+                                    <p>對口型、TTS 克隆、ASR 字幕、高清化等 25+ 模組可用</p>
+                                </div>
+                                <div class="opensource-item">
+                                    <strong>部署成熟度</strong>
+                                    <p>GUI 一鍵操作，非技術用戶亦可完成數位人成片</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value-box" style="--value-bg: url('images/AI 分身.png')">
+                            <div class="value-box-bg" aria-hidden="true"></div>
+                            <div class="value-box-content">
+                                <h2>核心項目價值（Value Prop）</h2>
+                                <p>將高門檻的語音克隆、對口型與視頻生成封裝為一站式生產力工具，讓個人與機構以極低成本擁有可互動的 AI 分身。從自媒體口播、電商帶貨到虛擬教學，並延伸至數位生命（緬懷親人）及實體機器人情感面板——與「賽博永生」項目的靈魂重構形成技術互補。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="scenario-panel">
+                        <h3 class="scenario-panel-title">多元應用場景</h3>
+                        <div class="scenario-grid">
+                            <div class="scenario-card">
+                                <div class="scenario-card-media is-empty" style="--scenario-bg: url('images/scenario-media.png')"></div>
+                                <div class="scenario-card-body">
+                                    <h4>自媒體口播</h4>
+                                    <p>知識科普、部落客低成本量產</p>
+                                </div>
+                            </div>
+                            <div class="scenario-card">
+                                <div class="scenario-card-media is-empty" style="--scenario-bg: url('images/scenario-live.png')"></div>
+                                <div class="scenario-card-body">
+                                    <h4>電商直播</h4>
+                                    <p>24 小時 AI 帶貨主播</p>
+                                </div>
+                            </div>
+                            <div class="scenario-card">
+                                <div class="scenario-card-media is-empty" style="--scenario-bg: url('images/scenario-edu.png')"></div>
+                                <div class="scenario-card-body">
+                                    <h4>教育教學</h4>
+                                    <p>虛擬講師與多語言授課</p>
+                                </div>
+                            </div>
+                            <div class="scenario-card">
+                                <div class="scenario-card-media is-empty" style="--scenario-bg: url('images/scenario-life.png')"></div>
+                                <div class="scenario-card-body">
+                                    <h4>數位生命</h4>
+                                    <p>逝者音容重構，結合 AR/VR 沉浸緬懷</p>
+                                </div>
+                            </div>
+                            <div class="scenario-card">
+                                <div class="scenario-card-media is-empty" style="--scenario-bg: url('images/scenario-robot.png')"></div>
+                                <div class="scenario-card-body">
+                                    <h4>實體機器人</h4>
+                                    <p>數位人技術賦能情感交互面板</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 07 數位人 功能 -->
+        <div class="slide" data-project="1">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 07 · Production Pipeline</div>
+                    <h1 class="slide-title">內容生產管線：<em>從文案到成片</em> 的四步閉環</h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="feature-grid cols-4">
+                    <div class="feature-item">
+                        <span class="badge">模組 01</span>
+                        <h3>對口型（Lip-Sync）</h3>
+                        <p>整合 MuseTalk、LatentSync、Wav2Lip 等模型，將音頻與人物視頻精準對齊，實現自然的口型同步效果。</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="badge">模組 02</span>
+                        <h3>文案提取（ASR）</h3>
+                        <p>基於 FunASR 語音識別引擎，支援帶時間戳的文字輸出與字幕一鍵導出，加速內容後期製作。</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="badge">模組 03</span>
+                        <h3>高清化（Upscaling）</h3>
+                        <p>內建視頻超分辨率處理能力，提升數位人視頻的畫質與細節表現，滿足專業發佈需求。</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="badge">模組 04</span>
+                        <h3>文本轉語音（TTS）</h3>
+                        <p>支援 CosyVoice、FishSpeech、GPT-SoVITS 等引擎，可基於少量參考音頻完成高保真聲音克隆。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 08 數位人 演示 -->
+        <div class="slide" data-project="1">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 08 · Live Demo</div>
+                    <h1 class="slide-title">現場演示：<em>AI 數位人</em> 成片效果</h1>
+                </div>
+            </header>
+            <div class="slide-body center">
+                <div class="media-wrap">
+                    <div class="media-frame">
+                        <video id="digitalHumanVideo" controls>
+                            <source src="數位人_demo.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="media-caption">數位人內容生產演示 · 對口型 + TTS 合成流程</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 09 數位人 AI 技術 -->
+        <div class="slide" data-project="1">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 09 · Tech Stack</div>
+                    <h1 class="slide-title">技術底座：<em>音容重構</em> 與流式口型對齊</h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="tech-stack-layout">
+                    <div class="tech-plain-banner">
+                        <span class="badge green">白話解說</span>
+                        <p>數位人影片其實只做兩件事：一是讓<strong>嘴巴動作對準聲音</strong>（對口型）；二是用幾秒鐘錄音<strong>模仿你的聲線</strong>念任意台詞（聲音克隆）。其餘都是這兩步的自動化流水線。</p>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-panel">
+                            <span class="badge">技術層 A · 視覺合成</span>
+                            <h3>音視頻生成與口型對齊</h3>
+                            <p>採用擴散模型（Diffusion）或生成對抗網絡（GAN）對面部區域進行 Inpainting 重繪，配合音頻特徵矩陣在潛在空間完成流式口型同步。</p>
+                            <ul>
+                                <li>多模型可切換（MuseTalk / Wav2Lip 等）</li>
+                                <li>支援即時預覽與批量處理</li>
+                                <li>視頻超分提升輸出畫質</li>
+                            </ul>
+                            <div class="plain-box">
+                                <span class="plain-box-label">💬 解說</span>
+                                <p>你提供一段<strong>靜態人像照片 + 一段錄音</strong>，AI 逐幀修改嘴部像素，讓嘴唇開合與聲音節拍一致——就像給照片裡的人「配嘴型」，而非從零生成整個人。</p>
+                            </div>
+                        </div>
+                        <div class="tech-panel">
+                            <span class="badge">技術層 B · 靈魂重構</span>
+                            <h3>零樣本 / 少樣本聲音克隆</h3>
+                            <p>僅需 3–5 秒參考音頻即可還原語調與情感，為數位生命、虛擬主播及「賽博永生」項目的逝者音容重構提供底層能力。</p>
+                            <ul>
+                                <li>多 TTS 引擎可切換比較效果</li>
+                                <li>ASR 提取 → TTS 克隆 → 對口型一條龍</li>
+                                <li>支援節點式工作流批量生產</li>
+                            </ul>
+                            <div class="plain-box">
+                                <span class="plain-box-label">💬 解說</span>
+                                <p>錄<strong>3–5 秒</strong>你的聲音，AI 就能用「你的聲線」朗讀任意文字稿，無需逐句重錄。配合對口型，一段文字 → 你的聲音 → 你的臉在說話，全程自動完成。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10 數位人 分析與香港落地 -->
+        <div class="slide" data-project="1">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 10 · Gap Analysis & HK Roadmap</div>
+                    <h1 class="slide-title">競爭力評估與 <em>香港三階段落地</em></h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="analysis-grid">
+                    <div class="analysis-col strength">
+                        <h3>現有優勢</h3>
+                        <ul>
+                            <li><strong>全鏈路工具箱</strong>從文案到成片一站式完成，大幅降低內容生產成本</li>
+                            <li><strong>開源已驗證</strong>AIGCPanel 社群活躍，核心模組可直接複用</li>
+                            <li><strong>場景延展性</strong>同一技術棧可服務自媒體、電商、教育與數位生命</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-col gap">
+                        <h3>待補短板</h3>
+                        <ul>
+                            <li><strong>粵語品質</strong>港式發音及中英夾雜語境克隆效果仍不自然</li>
+                            <li><strong>平台適配</strong>缺乏對 YouTube Live、Twitch 等香港主流平台的原生整合</li>
+                            <li><strong>倫理合規</strong>數位生命場景需明確的使用邊界與知情同意框架</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-col hk validation-highlight">
+                        <h3>香港三階段驗證</h3>
+                        <ul>
+                            <li><strong>第一階段：KOL / 自媒體試點</strong>以港式粵語 TTS 服務本地知識科普口播，驗證內容付費意願</li>
+                            <li><strong>第二階段：電商直播整合</strong>對接 YouTube Live、Facebook Live 等本地平台，測試 AI 帶貨轉化率</li>
+                            <li><strong>第三階段：數位紀念館</strong>與私營骨灰龕、生命禮儀機構合作，推出手機端 AI 緬懷對話服務</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11 3D 記憶打印 介紹 -->
+        <div class="slide" data-project="2">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 11 · O2O Business Concept</div>
+                    <h1 class="slide-title">3D 記憶打印：從線上迷因到 <em>實體情感公仔</em> 的 O2O 閉環</h1>
+                </div>
+                <div class="slide-meta">Memories-to-3D<br>Micro-SaaS · 地舖體驗</div>
+            </header>
+            <div class="slide-body">
+                <div class="hero-intro-layout">
+                    <div class="hero-main">
+                        <div class="opensource-panel">
+                            <div class="opensource-header">
+                                <div class="opensource-title-block">
+                                    <span class="badge gold">開源進度 · Open Source Feasibility</span>
+                                    <h3 class="opensource-project-name">TripoSR</h3>
+                                </div>
+                                <div class="opensource-links">
+                                    <span class="opensource-updated">最近更新 · <time datetime="2026-06-03">2026-06-03</time></span>
+                                    <a class="opensource-repo" href="https://github.com/VAST-AI-Research/TripoSR" target="_blank">github.com/VAST-AI-Research/TripoSR</a>
+                                </div>
+                            </div>
+                            <div class="opensource-grid">
+                                <div class="opensource-item">
+                                    <strong>項目狀態</strong>
+                                    <p>Tripo AI × Stability AI 聯合發布，GitHub Star 數萬級</p>
+                                </div>
+                                <div class="opensource-item">
+                                    <strong>已驗證能力</strong>
+                                    <p>單圖 0.5 秒生成 3D 網格，支援紋理烘焙與 .obj 輸出</p>
+                                </div>
+                                <div class="opensource-item">
+                                    <strong>部署成熟度</strong>
+                                    <p>6GB 顯存即可運行，消費級 RTX 3060/4060 可本地推理</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="value-box" style="--value-bg: url('images/AI 打印.png')">
+                            <div class="value-box-bg" aria-hidden="true"></div>
+                            <div class="value-box-content">
+                                <h2>核心商業想法（O2O）</h2>
+                                <p>打破傳統 3D 打印店缺乏前端流量與高昂建模成本的瓶頸。用戶上傳寵物照、全家福或情侶合照，AI 一鍵生成 3D 模型，線上預覽後引流至實體地舖完成打印體驗，實現高溢價的情感消費閉環——與「Memories-to-3D」創業提案同一商業邏輯。</p>
+                            </div>
+                        </div>
+                    </div>
+                    <dl class="hero-stat">
+                        <dt>多元引流場景</dt>
+                        <dd>
+                            <ul class="scenario-list">
+                                <li><strong>毛孩經濟</strong>寵物照生成 Q 版立體公仔</li>
+                                <li><strong>全家福紀念</strong>將平面合照立體化為客廳擺設</li>
+                                <li><strong>情侶與婚慶</strong>客製化迷因互動模型，節慶送禮</li>
+                                <li><strong>畢業里程碑</strong>畢業照融合學士熊 AI 打印</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <!-- 12 3D 記憶打印 功能 -->
+        <div class="slide" data-project="2">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 12 · Product Pipeline</div>
+                    <h1 class="slide-title">產品管線：<em>上傳 → 預覽 → 打印</em> 兩步核心能力</h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="feature-grid cols-2">
+                    <div class="feature-item">
+                        <span class="badge">產品模組 A</span>
+                        <h3>相片轉數位 3D 模型</h3>
+                        <p>用戶上傳單張照片，AI 在 30 秒內輸出帶紋理的三維網格，線上 360° 預覽確認後再下單——消除傳統建模「先付錢、後看效果」的信任成本。</p>
+                    </div>
+                    <div class="feature-item">
+                        <span class="badge">產品模組 B</span>
+                        <h3>數位模型轉實體立體打印</h3>
+                        <p>標準 .obj 格式自動導入切片軟件，配合全彩多色打印硬件（如 Bambu X1C + AMS），實現從手機上傳到手中實物的完整 O2O 轉化。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13 3D 記憶打印 演示 -->
+        <div class="slide" data-project="2">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 13 · Live Demo</div>
+                    <h1 class="slide-title">現場演示：<em>相片 → 3D 模型</em> 生成流程</h1>
+                </div>
+            </header>
+            <div class="slide-body center">
+                <div class="media-wrap">
+                    <div class="media-frame">
+                        <iframe id="tripoDemoVideo" src="https://www.youtube.com/embed/nhRnU2Go648" title="2D 相片轉 3D 模型演示" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <p class="media-caption">2D 相片轉 3D 模型演示 · YouTube Shorts</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 14 3D 記憶打印 AI 技術 -->
+        <div class="slide" data-project="2">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 14 · Tech Stack</div>
+                    <h1 class="slide-title">技術架構：<em>AI 重建</em> 與打印自動化</h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="tech-stack-layout">
+                    <div class="tech-plain-banner">
+                        <span class="badge green">白話解說</span>
+                        <p>從手機相片到手中公仔，技術上分兩步：AI 先<strong>「猜」出立體形狀</strong>（單圖 3D 重建），再由軟件<strong>「修」成能打印的文件</strong>（補洞、加厚、切片）。全程無需專業建模師。</p>
+                    </div>
+                    <div class="tech-grid">
+                        <div class="tech-panel">
+                            <span class="badge">技術模組 A · AI 重建</span>
+                            <h3>單圖 3D 重建（LRM）</h3>
+                            <p>基於 TripoSR 前饋 Transformer 架構，單張圖片一步到位預測 3D 結構，無需傳統 NeRF 數小時優化，滿足 C 端用戶「上傳即預覽」的即時體驗需求。</p>
+                            <ul>
+                                <li>0.5 秒級推理，適合 Web 端即時預覽</li>
+                                <li>6GB 顯存，消費級顯卡可本地部署</li>
+                                <li>支援紋理烘焙，輸出可打印網格</li>
+                            </ul>
+                            <div class="plain-box">
+                                <span class="plain-box-label">💬 解說</span>
+                                <p>給 AI 看一張平面照片，它在<strong>半秒內</strong>腦補出沒拍到的背面和厚度，吐出一個可旋轉的 3D 模型——像資深雕塑師看一眼物件，就知道立體長什麼樣。</p>
+                            </div>
+                        </div>
+                        <div class="tech-panel">
+                            <span class="badge">技術模組 B · 打印自動化</span>
+                            <h3>模型修復與硬件對接</h3>
+                            <p>調用 Blender API 自動網格閉合與加厚，確保模型符合打印規格；店面部署全彩多色打印機，降低消費者上手門檸，完成最後一公里實體交付。</p>
+                            <ul>
+                                <li>自動 Make Solid 修復可打印性</li>
+                                <li>標準 .obj 對接切片軟件</li>
+                                <li>全彩 AMS 系統支援多色情感公仔</li>
+                            </ul>
+                            <div class="plain-box">
+                                <span class="plain-box-label">💬 解說</span>
+                                <p>3D 打印機只能印<strong>實心、封閉</strong>的物件。軟件自動把模型上的破洞補好、壁加厚，再轉成打印機語言——就像把一張紙折的模型，改成可以倒模出蠟像的模具。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 15 3D 記憶打印 分析與香港落地 -->
+        <div class="slide" data-project="2">
+            <header class="slide-header">
+                <div>
+                    <div class="section-tag">Slide 15 · Lean Validation & HK Roadmap</div>
+                    <h1 class="slide-title">精實驗證與 <em>香港三階段落地</em></h1>
+                </div>
+            </header>
+            <div class="slide-body">
+                <div class="analysis-grid">
+                    <div class="analysis-col strength">
+                        <h3>商業可行性</h3>
+                        <ul>
+                            <li><strong>情感剛需明確</strong>寵物、全家福、婚慶場景付費意願高，客單價可達傳統打印 3–5 倍</li>
+                            <li><strong>技術門檻已破</strong>TripoSR 驗證單圖重建可行，無需專業建模師</li>
+                            <li><strong>O2O 模式清晰</strong>線上引流 + 線下體驗，符合香港地舖經濟特性</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-col gap">
+                        <h3>待補短板</h3>
+                        <ul>
+                            <li><strong>單視角品質</strong>背面細節缺失，複雜姿態需人工補全</li>
+                            <li><strong>運營能力</strong>缺乏前端流量引擎與品牌包裝</li>
+                            <li><strong>打印成本</strong>全彩打印耗材與機台折舊需精算單位經濟</li>
+                        </ul>
+                    </div>
+                    <div class="analysis-col hk validation-highlight">
+                        <h3>香港三階段驗證</h3>
+                        <ul>
+                            <li><strong>第一階段：線上接單（輕資產）</strong>上線 Web 頁收集照片，家用打印機郵寄成品，驗證客群付費意願</li>
+                            <li><strong>第二階段：文創快閃（體驗驗證）</strong>進駐寵物友善咖啡廳或市集，測試現場等待經濟與租賃計費</li>
+                            <li><strong>第三階段：地舖落地（規模化）</strong>鎖定高坪效商圈，建立 AI 創客與情感文創體驗空間</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 16 完結頁 -->
+        <div class="slide slide-cover slide-end" data-project="end">
+            <div class="slide-cover-inner">
+                <span class="cover-eyebrow">Thank You · Q & A</span>
+                <h1 class="cover-title">謝謝<em>聆聽</em></h1>
+                <div class="cover-topics cover-recap">
+                    <div class="cover-topic">
+                        <span class="cover-topic-num">Part I</span>
+                        <h2>個性化私教</h2>
+                        <p>補習社試點 · DSE 真題接入</p>
+                    </div>
+                    <div class="cover-topic">
+                        <span class="cover-topic-num">Part II</span>
+                        <h2>數位人</h2>
+                        <p>自媒體 / 緬懷場景 MVP</p>
+                    </div>
+                    <div class="cover-topic">
+                        <span class="cover-topic-num">Part III</span>
+                        <h2>3D 記憶打印</h2>
+                        <p>線上接單 · 地舖體驗驗證</p>
+                    </div>
+                </div>
+                <p class="cover-cta">Q & A · 歡迎交流與討論</p>
+                <div class="cover-meta">
+                    <span>開源可行性已驗證</span>
+                    <span>香港三階段落地</span>
+                    <span>2026</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <footer class="deck-footer">
+        <div class="deck-footer-left">
+            <span class="deck-brand">AI 創業項目提案 · 香港落地展望</span>
+            <div class="part-pills">
+                <span class="part-pill" data-part="0">個性化私教</span>
+                <span class="part-pill" data-part="1">數位人</span>
+                <span class="part-pill" data-part="2">3D 記憶打印</span>
+            </div>
+        </div>
+        <div class="slide-dots" id="slideDots"></div>
+        <div class="deck-footer-right">
+            <span class="nav-hint">← → 翻頁</span>
+            <span class="page-num" id="pageNum">1 / 17</span>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const pageNum = document.getElementById('pageNum');
+        const slideDots = document.getElementById('slideDots');
+        const partPills = document.querySelectorAll('.part-pill');
+        const total = slides.length;
+
+        const partRanges = [
+            { start: 1, end: 5 },
+            { start: 6, end: 10 },
+            { start: 11, end: 15 }
+        ];
+
+        function buildDots() {
+            for (let i = 0; i < total; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'slide-dot';
+                dot.dataset.idx = i;
+                dot.title = '第 ' + (i + 1) + ' 頁';
+                dot.addEventListener('click', () => goToSlide(i));
+                slideDots.appendChild(dot);
+            }
+        }
+
+        function getPartIndex(slideIdx) {
+            return partRanges.findIndex(r => slideIdx >= r.start && slideIdx <= r.end);
+        }
+
+        function pauseVideos() {
+            const dh = document.getElementById('digitalHumanVideo');
+            if (dh) dh.pause();
+        }
+
+        function goToSlide(idx) {
+            currentSlide = Math.max(0, Math.min(total - 1, idx));
+            updateSlide();
+        }
+
+        function updateSlide() {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === currentSlide);
+            });
+
+            progressBar.style.width = ((currentSlide + 1) / total * 100) + '%';
+            pageNum.textContent = (currentSlide + 1) + ' / ' + total;
+
+            document.querySelectorAll('.slide-dot').forEach(dot => {
+                dot.classList.toggle('active', +dot.dataset.idx === currentSlide);
+            });
+
+            const partIdx = getPartIndex(currentSlide);
+            partPills.forEach((pill, i) => {
+                pill.classList.toggle('active', i === partIdx);
+            });
+
+            pauseVideos();
+            const dh = document.getElementById('digitalHumanVideo');
+            if (currentSlide === 8 && dh) dh.play().catch(() => {});
+        }
+
+        function changeSlide(dir) {
+            goToSlide(currentSlide + dir);
+        }
+
+        partPills.forEach(pill => {
+            pill.addEventListener('click', () => {
+                const part = +pill.dataset.part;
+                const range = partRanges[part];
+                if (range) goToSlide(range.start);
+            });
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                changeSlide(-1);
+            } else if (e.key === 'Home') {
+                goToSlide(0);
+            } else if (e.key === 'End') {
+                goToSlide(total - 1);
+            }
+        });
+
+        function initScenarioBackgrounds() {
+            document.querySelectorAll('.scenario-card-media').forEach(el => {
+                const bg = getComputedStyle(el).getPropertyValue('--scenario-bg').trim();
+                const match = bg.match(/url\(["']?([^"')]+)["']?\)/);
+                if (!match) return;
+                const img = new Image();
+                img.onload = () => el.classList.remove('is-empty');
+                img.onerror = () => el.classList.add('is-empty');
+                img.src = match[1];
+            });
+        }
+
+        function initCustomCursor() {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+            const cursor = document.getElementById('customCursor');
+            const ring = cursor.querySelector('.cursor-ring');
+            const dot = cursor.querySelector('.cursor-dot');
+            const hoverSelector = 'a, .nav-zone, .part-pill, .slide-dot, button, [role="button"]';
+
+            document.body.classList.add('has-custom-cursor');
+
+            let mx = -100;
+            let my = -100;
+            let rx = -100;
+            let ry = -100;
+            let visible = false;
+
+            function setVisible(show) {
+                visible = show;
+                cursor.classList.toggle('is-hidden', !show);
+            }
+
+            document.addEventListener('mousemove', e => {
+                mx = e.clientX;
+                my = e.clientY;
+                dot.style.left = mx + 'px';
+                dot.style.top = my + 'px';
+
+                const target = document.elementFromPoint(mx, my);
+                cursor.classList.toggle('is-hover', !!target?.closest(hoverSelector));
+
+                if (!visible) setVisible(true);
+            });
+
+            document.addEventListener('mousedown', () => cursor.classList.add('is-click'));
+            document.addEventListener('mouseup', () => cursor.classList.remove('is-click'));
+
+            document.addEventListener('mouseleave', () => setVisible(false));
+            document.addEventListener('mouseenter', () => setVisible(true));
+
+            function tick() {
+                rx += (mx - rx) * 0.16;
+                ry += (my - ry) * 0.16;
+                ring.style.left = rx + 'px';
+                ring.style.top = ry + 'px';
+                requestAnimationFrame(tick);
+            }
+            tick();
+        }
+
+        buildDots();
+        initScenarioBackgrounds();
+        initCustomCursor();
+        updateSlide();
+    </script>
+</body>
+</html>

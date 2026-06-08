@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>P104-ABICS 專案設計 Wiki</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --surface2: #243044;
+      --text: #e7ecf3;
+      --muted: #8b9cb3;
+      --accent: #3d9cf5;
+      --accent2: #5eead4;
+      --warn: #fbbf24;
+      --ok: #34d399;
+      --border: #2d3a4f;
+      --max: 1280px;
+      --sidebar-w: 252px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    .layer[id],
+    .content-block[id],
+    section[id] { scroll-margin-top: 1.25rem; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 15px;
+    }
+    .wiki-shell { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      align-self: flex-start;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 40;
+    }
+    .sidebar-brand {
+      padding: 1.1rem 1rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .sidebar-brand a {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .sidebar-brand a:hover { color: var(--accent); }
+    .sidebar-brand span {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .sidebar-nav {
+      flex: 1;
+      padding: 0.65rem 0 1rem;
+      overflow-y: auto;
+    }
+    .sidebar-nav .nav-group { margin-bottom: 0.5rem; }
+    .sidebar-nav .nav-group-title {
+      display: block;
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .sidebar-nav .nav-group-title:hover {
+      color: var(--accent2);
+      background: rgba(61, 156, 245, 0.06);
+    }
+    .sidebar-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0.15rem;
+    }
+    .sidebar-nav ul a {
+      display: block;
+      padding: 0.28rem 1rem 0.28rem 1.35rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+    .sidebar-nav ul a:hover {
+      color: var(--text);
+      background: rgba(61, 156, 245, 0.06);
+    }
+    .sidebar-nav ul a.is-active {
+      color: var(--accent2);
+      border-left-color: var(--accent);
+      background: rgba(61, 156, 245, 0.1);
+    }
+    .sidebar-nav .nav-label {
+      padding: 0.35rem 1rem 0.1rem 1.35rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--accent2);
+      opacity: 0.85;
+    }
+    .sidebar-nav .nav-nested a {
+      padding-left: 1.65rem;
+      font-size: 0.78rem;
+    }
+    .wiki-main {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .sidebar-toggle {
+      display: none;
+      position: fixed;
+      bottom: 1.25rem;
+      left: 1rem;
+      z-index: 50;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--accent);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 35;
+      background: rgba(0, 0, 0, 0.55);
+    }
+    @media (max-width: 960px) {
+      .sidebar {
+        position: fixed;
+        left: 0;
+        transform: translateX(-100%);
+        transition: transform 0.22s ease;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+      }
+      .sidebar.is-open { transform: translateX(0); }
+      .sidebar-toggle { display: block; }
+      .sidebar-overlay.is-visible { display: block; }
+      body.sidebar-open { overflow: hidden; }
+    }
+    header {
+      background: linear-gradient(135deg, #1a2a44 0%, #0f1419 60%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 2rem 1.75rem;
+    }
+    header .wrap { max-width: var(--max); }
+    h1 { margin: 0 0 0.5rem; font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); font-size: 1.05rem; max-width: 52em; }
+    .badge {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--surface2);
+      color: var(--accent2);
+      border: 1px solid var(--border);
+    }
+    main { max-width: var(--max); padding: 2rem 2rem 4rem; }
+    .layer {
+      margin-bottom: 3.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .layer:last-child { border-bottom: none; margin-bottom: 0; }
+    .layer-head {
+      margin-bottom: 1.75rem;
+      padding: 1.25rem 1.35rem;
+      background: linear-gradient(90deg, rgba(61, 156, 245, 0.12) 0%, transparent 70%);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent);
+    }
+    .layer-num {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .layer-title {
+      font-size: 1.5rem;
+      margin: 0 0 0.35rem;
+      padding: 0;
+      border: none;
+      display: block;
+      color: var(--text);
+    }
+    .layer-desc {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .layer-body { padding-left: 0.25rem; }
+    .content-block {
+      margin: 2rem 0 2.5rem;
+      padding: 1.25rem 1.25rem 0.5rem;
+      background: rgba(26, 35, 50, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .content-block .block-title {
+      font-size: 1.15rem;
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--accent2);
+    }
+    .layer-body > section,
+    .content-block > section {
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px dashed rgba(45, 58, 79, 0.8);
+    }
+    .layer-body > section:last-child,
+    .content-block > section:last-child { border-bottom: none; margin-bottom: 1rem; }
+    section > h2 {
+      font-size: 1.25rem;
+      margin: 0 0 1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+    h3 { font-size: 1.05rem; margin: 1.5rem 0 0.75rem; color: var(--accent2); }
+    p { margin: 0 0 1rem; }
+    ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+    li { margin-bottom: 0.35rem; }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.2rem;
+    }
+    .card h4 { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--accent); }
+    .card p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+    .card code { font-size: 0.8rem; color: var(--accent2); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.55rem 0.75rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: var(--surface2); color: var(--accent2); font-weight: 600; }
+    tr:nth-child(even) td { background: rgba(26, 35, 50, 0.5); }
+    code, .path {
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 0.85em;
+      background: var(--surface2);
+      padding: 0.12em 0.4em;
+      border-radius: 3px;
+    }
+    .diagram {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: "Cascadia Code", "Consolas", monospace;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: var(--muted);
+      white-space: pre;
+    }
+    .flow-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: stretch;
+      margin: 1rem 0;
+    }
+    .flow-box {
+      flex: 1;
+      min-width: 140px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      text-align: center;
+    }
+    .flow-box strong { display: block; color: var(--accent); margin-bottom: 0.25rem; }
+    .flow-box span { font-size: 0.82rem; color: var(--muted); }
+    .arrow { align-self: center; color: var(--accent); font-size: 1.2rem; }
+    .docs-list a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .docs-list a:hover { text-decoration: underline; }
+    .docs-list li { margin-bottom: 0.5rem; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .tag-ok { color: var(--ok); }
+    .tag-warn { color: var(--warn); }
+    details {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 0.75rem 0;
+      padding: 0.5rem 1rem;
+    }
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--accent);
+      padding: 0.35rem 0;
+    }
+    details[open] summary { margin-bottom: 0.5rem; }
+    pre.json {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      overflow-x: auto;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: #b8c5d6;
+      margin: 0.75rem 0;
+    }
+    table.compact td, table.compact th { padding: 0.4rem 0.55rem; font-size: 0.82rem; }
+    .mono-list { font-family: "Cascadia Code", Consolas, monospace; font-size: 0.82rem; color: var(--muted); }
+    h4 { font-size: 0.95rem; margin: 1rem 0 0.5rem; color: var(--text); }
+    .ai-chip {
+      display: inline-block;
+      margin: 0.2rem 0.35rem 0.2rem 0;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(61, 156, 245, 0.15);
+      border: 1px solid rgba(61, 156, 245, 0.35);
+      color: var(--accent2);
+    }
+    .ai-pipeline {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      padding: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .ai-pipeline .step {
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
+      padding: 0.65rem 0.5rem;
+      background: var(--surface2);
+      border-radius: 6px;
+      font-size: 0.82rem;
+    }
+    .ai-pipeline .step strong { display: block; color: var(--accent); font-size: 0.88rem; }
+    .ai-pipeline .arr { color: var(--muted); font-size: 1rem; }
+    .task-demo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.35rem;
+      margin: 1.25rem 0;
+    }
+    .task-demo-card .task-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .task-demo-card h3 { margin-top: 0; }
+    .slot-hint {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0 0 0.65rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--surface2);
+      border-radius: 6px;
+      border-left: 3px solid var(--accent);
+    }
+    .slot-hint code { color: var(--accent2); }
+    .youtube-slot {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-width: 720px;
+      background: var(--surface2);
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 0.75rem 0;
+    }
+    .youtube-slot iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .youtube-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    .youtube-placeholder strong { color: var(--text); margin-bottom: 0.5rem; }
+    a.youtube-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      inset: 0;
+      text-decoration: none;
+      color: var(--text);
+      background: var(--surface2);
+    }
+    a.youtube-fallback img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+    }
+    a.youtube-fallback span {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0.65rem 0.85rem;
+      font-size: 0.82rem;
+      text-align: center;
+      background: linear-gradient(transparent, rgba(15, 20, 25, 0.95));
+    }
+    a.youtube-fallback:hover span { color: var(--accent2); }
+    .youtube-file-hint {
+      font-size: 0.82rem;
+      color: var(--warn);
+      margin: 0 0 1rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(251, 191, 36, 0.08);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      border-radius: 6px;
+    }
+    .youtube-file-hint code { color: var(--accent2); }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .gallery figure {
+      margin: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .gallery .img-wrap {
+      aspect-ratio: 4 / 3;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .gallery figcaption {
+      padding: 0.55rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    .gallery figure.missing .img-wrap::after {
+      content: "放置圖片於 wiki/images/…";
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding: 1rem;
+      text-align: center;
+    }
+    .gallery figure.missing img { display: none; }
+  </style>
+</head>
+<body>
+  <div class="wiki-shell">
+    <aside class="sidebar" id="sidebar" aria-label="目錄">
+      <div class="sidebar-brand">
+        <a href="#layer-intro">P104-ABICS</a>
+        <span>專案設計 Wiki</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-group">
+          <a href="#layer-intro" class="nav-group-title">01 系統總覽</a>
+          <ul>
+            <li><a href="#overview">概覽</a></li>
+            <li><a href="#stations">工位與托盤</a></li>
+            <li><a href="#architecture">系統架構</a></li>
+            <li><a href="#startup">啟動與初始化</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <a href="#layer-stack" class="nav-group-title">02 系統組成</a>
+          <ul>
+            <li><a href="#hardware">硬體模組</a></li>
+            <li><a href="#software">軟體模組</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <a href="#layer-flow" class="nav-group-title">03 流程與任務</a>
+          <ul>
+            <li><a href="#messages">任務訊息</a></li>
+            <li><a href="#tasks">三任務 FSM</a></li>
+            <li><a href="#motion">運動規劃</a></li>
+            <li><a href="#demos">演示影片</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <a href="#layer-vision" class="nav-group-title">04 視覺與 AI</a>
+          <ul class="nav-nested">
+            <li class="nav-label">3D · Task A</li>
+            <li><a href="#ai-3d">SAM / PCA / ICP</a></li>
+            <li><a href="#gallery-3d">識別結果圖</a></li>
+            <li class="nav-label">2D · Task C</li>
+            <li><a href="#ai-2d">YOLO 模型</a></li>
+            <li><a href="#inspection">ZMQ 服務</a></li>
+            <li><a href="#gallery-2d">標註結果圖</a></li>
+          </ul>
+        </div>
+        <div class="nav-group">
+          <a href="#layer-ref" class="nav-group-title">05 參考資料</a>
+          <ul>
+            <li><a href="#data">資料結構</a></li>
+            <li><a href="#repo">程式庫</a></li>
+            <li><a href="#docs">延伸文件</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <div class="wiki-main">
+      <header>
+        <div class="wrap">
+          <h1>P104-ABICS</h1>
+          <p class="subtitle">
+            工業視覺 × 協作機器臂 × AI 檢測 — 端到端自動化螺栓分揀產線系統設計說明
+          </p>
+          <span class="badge">System Design · P104-ABICS</span>
+        </div>
+      </header>
+
+      <main><main>
+
+    <div class="layer" id="layer-intro">
+      <header class="layer-head">
+        <span class="layer-num">01</span>
+        <h2 class="layer-title">系統總覽</h2>
+        <p class="layer-desc">專案目標、工位配置、整體架構與啟動流程</p>
+      </header>
+      <div class="layer-body">
+
+<section id="overview">
+      <h2>專案概覽</h2>
+      <p>
+        ABICS 將進料托盤上的螺栓經立體空間識別及抓取系統與識別引擎定位後，由 ABB GoFa 協作機器臂與 Hand-E 夾爪
+        完成拾取、清潔、卡盤對位與多視角物件表面與螺紋檢查，最後依檢測結果分揀至輸出托盤或廢料箱。
+        周邊軸系（卡盤、清潔、振動送料、工具切換等）由三菱 FX5 PLC 透過 G-code 執行器統一編排。
+      </p>
+      <p>系統以 <strong>三個並行循環任務</strong>（Task A / B / C）協同運作，透過訊息佇列與互鎖機制串接整體 Job 生命週期。</p>
+      <h3>典型 Job 資料流</h3>
+      <div class="diagram">進料托盤 ──振動A──► 識別托盤 ──Zivid+3D引擎──► 拾取佇列
+                                              │
+                    Task A ◄──BoltComplete────┼────BoltReady──► Task B
+                                              │                    │
+                                              │    清潔/水平/垂直/軸向工位
+                                              │                    │
+                    Task C ◄─InspectionStart─┘    InspectionComplete
+                         Lucid + 2D引擎/ZMQ
+                                              │
+                    輸出托盤 / 廢料箱 ◄── Task B 分揀
+</div>
+    </section>
+
+<section id="stations">
+      <h2>物理工位與托盤</h2>
+      <table>
+        <thead><tr><th>工位 / 區域</th><th>用途</th><th>主要參與者</th></tr></thead>
+        <tbody>
+          <tr><td>進料托盤 (Input Tray)</td><td>螺栓初始堆放；振動器 A 將料推至識別托盤</td><td>PLC 振動 A、G-code</td></tr>
+          <tr><td>識別托盤 (Detection Tray)</td><td>3D 掃描與螺栓分割；評分後產生拾取姿態</td><td>Zivid、detector、Task A</td></tr>
+          <tr><td>空氣清潔器 (Cleaner)</td><td>螺栓軸線垂直、頭朝上，高壓氣清除表面</td><td>Task B、G-code</td></tr>
+          <tr><td>頭部水平檢查工位</td><td>螺栓軸線水平，頭部朝向雷射/距離感測；測 head offset 後頂視 2D</td><td>PLC 感測、Task B/C</td></tr>
+          <tr><td>回转卡盤檢查工位</td><td>螺栓垂直插入卡盤；六角頭夾持、旋轉 60°/120° 多視角</td><td>卡盤軸、Lucid、Task B/C</td></tr>
+          <tr><td>輸出托盤 / 廢料</td><td>合格螺栓按槽位放置；不合格進 discard pose</td><td>Task B、UI 槽位計數</td></tr>
+        </tbody>
+      </table>
+      <h3>Task B 機器人位姿鏈（設計文檔）</h3>
+      <p class="mono-list">standby → pick prepare → pick → clean prepare → clean → horizontal prepare → horizontal inspect → vertical prepare → vertical inspect (×2 輪側面) → shaft inspect → output prepare → output / discard → standby</p>
+    </section>
+
+<section id="architecture">
+      <h2>系統架構</h2>
+      <div class="diagram">┌──────────────────────────────────────────────────────────────────────────┐
+│                         ABICS 主控 (C# / WPF)                             │
+│  hk.asrc.abics.main.UI  ←→  hk.asrc.abics.flow (AbicsFlowManager)         │
+│         │                        │         │         │                    │
+│         │                   Task A    Task B    Task C                    │
+│         │                   進料識別   機器人PnP   螺栓檢查                  │
+└─────────┼────────────────────────┼─────────┼─────────┼────────────────────┘
+          │                        │         │         │
+    MongoDB 配置              Zivid RGBD   GoFa+RRC   Lucid 2D + Hik 光源
+          │                        │         │         │
+          │                   client.detect  gripper   client.inspect ──ZMQ──┐
+          │                        │    motion/planner    │                  │
+          │                        └─────────┬─────────────┘                  │
+          │                                  │                                ▼
+          │                            hk.asrc.abics.gcode.engine ◄──► PLC (FX5)
+          │                                  │                         卡盤/振動/清潔
+          └──────────────────────────────────┴──────────────────────────────────┘
+                                              │
+                              Bolt_Inspection_System (Python / Docker)
+                              capture_server.py · inspection_manager · ONNX/YOLO
+</div>
+
+      <h3>分層說明</h3>
+      <table>
+        <thead>
+          <tr><th>層級</th><th>職責</th><th>主要實作</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>展示與操作</td>
+            <td>Job 啟停、托盤視覺化、狀態與統計</td>
+            <td><code>hk.asrc.abics.main.UI</code></td>
+          </tr>
+          <tr>
+            <td>流程編排</td>
+            <td>FSM、任務訊息、共享資料、模組生命週期</td>
+            <td><code>hk.asrc.abics.flow</code></td>
+          </tr>
+          <tr>
+            <td>硬體適配</td>
+            <td>RbbModule 介面：機器人、相機、PLC、夾爪</td>
+            <td><code>hk.asrc.abics.robot.gofa</code>、<code>camera.*</code>、<code>plc</code>、<code>gripper</code></td>
+          </tr>
+          <tr>
+            <td>演算法服務</td>
+            <td>3D 螺栓分割與姿態；2D 缺陷/螺紋/鏽蝕檢測</td>
+            <td><code>client.detect</code>、<code>Bolt_Inspection_System</code></td>
+          </tr>
+          <tr>
+            <td>運動與副軸</td>
+            <td>路徑規劃、RRC 腳本、參數化 G-code</td>
+            <td><code>client.planner</code>、<code>motion</code>、<code>gcode.engine</code>、<code>gcode.generator</code></td>
+          </tr>
+          <tr>
+            <td>持久化</td>
+            <td>系統名、模組連線、Job 與標定資料</td>
+            <td><code>hk.asrc.rbb.db</code> (MongoDB)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Rbb 模組實例（MongoDB <code>AbicsSystemInfo</code>）</h3>
+      <p><code>AbicsFlowManager.StartService</code> 從資料庫載入系統項後，依下表建立 <code>RbbModuleManager</code> 連線（可設 <code>IsAllowBypass</code> 略過故障模組）：</p>
+      <table class="compact">
+        <thead><tr><th>實例名</th><th>設備</th><th>典型職責</th></tr></thead>
+        <tbody>
+          <tr><td><code>robot</code></td><td>GoFa</td><td>RRC 腳本執行、關節/位姿、腕部力/重量</td></tr>
+          <tr><td><code>gripper</code></td><td>Hand-E</td><td>開合寬度、夾持確認</td></tr>
+          <tr><td><code>plc</code></td><td>FX5</td><td>Modbus/通訊、感測器讀取</td></tr>
+          <tr><td><code>cam3d</code></td><td>Zivid</td><td>識別托盤 RGB-D 擷取</td></tr>
+          <tr><td><code>cam2d</code></td><td>Lucid</td><td>檢查工位 2D 影像</td></tr>
+          <tr><td><code>light</code></td><td>Hik</td><td>檢查照明控制</td></tr>
+          <tr><td><code>planner</code></td><td>外部規劃服務</td><td>碰撞模型、ServoJ 路徑</td></tr>
+          <tr><td><code>detector</code></td><td>3D 識別服務</td><td>螺栓分割與姿態</td></tr>
+          <tr><td><code>inspector</code></td><td><code>AbicsInspectClient</code></td><td>ZMQ 2D 檢測</td></tr>
+        </tbody>
+      </table>
+      <p>各設備可配置 <code>CalibrationData</code>、路徑規劃用 <code>CollisionModelId</code> / <code>CollisionModelPose</code>（見 <code>db.system.cs</code>）。</p>
+    </section>
+
+<section id="startup">
+      <h2>啟動與初始化序列</h2>
+      <h3>系統初始化（<code>AbicsFlowManager.StartService</code>）</h3>
+      <ol>
+        <li>解析啟動參數（MongoDB 連線字串 / 系統名）。</li>
+        <li><code>RbbMongoDb.ConnectAsync</code> → 命令 <code>LoadSystem</code> 取得 <code>AbicsSystemInfo</code>。</li>
+        <li>遍歷 <code>GetEquipInfos()</code> 建立模組並 <code>ConnectAllModules</code>。</li>
+        <li>UI 載入預設 Job、渲染輸出托盤，等待使用者啟動。</li>
+      </ol>
+      <h3>任務初始化（Job 開始前）</h3>
+      <ol>
+        <li>確認各模組無錯誤/警告，硬體回到準備姿態。</li>
+        <li>夾爪：未初始化則初始化；若持有螺栓則放回識別托盤。</li>
+        <li>機器人回到 standby。</li>
+        <li>PLC 執行初始化 G-code：Z 升降至頂部、工具旋至物件表面與螺紋檢查系統、卡盤角度與夾爪復位。</li>
+        <li>Task A/B/C 進入各自 <code>Initializing</code> → <code>Idle</code>，發送 <code>TaskReadyMessage</code>。</li>
+      </ol>
+    </section>
+
+      </div>
+    </div>
+
+    <div class="layer" id="layer-stack">
+      <header class="layer-head">
+        <span class="layer-num">02</span>
+        <h2 class="layer-title">系統組成</h2>
+        <p class="layer-desc">硬體模組與軟體分層</p>
+      </header>
+      <div class="layer-body">
+
+<section id="hardware">
+      <h2>硬體模組</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h4>協作機器臂（ABB GoFa 10）</h4>
+          <p>工位間搬運螺栓；配合 6D 腕部力感測確認夾持與重量。</p>
+        </div>
+        <div class="card">
+          <h4>Hand-E 夾爪</h4>
+          <p>依螺栓直徑動態開合；拾取、對位、釋放。</p>
+        </div>
+        <div class="card">
+          <h4>立體空間識別及抓取系統（Zivid）</h4>
+          <p>識別托盤 RGB-D；進料 Detection（Task A）。</p>
+        </div>
+        <div class="card">
+          <h4>物件表面與螺紋檢查系統（Lucid + Hik）</h4>
+          <p>頭部/側面/桿部表面影像；Inspection（Task C）。</p>
+        </div>
+        <div class="card">
+          <h4>三菱 FX5 PLC</h4>
+          <p>G-code 執行器；卡盤、夾爪、清潔器、刷子、Z 升降、工具旋轉、振動器、訊號塔、距離感測。</p>
+        </div>
+      </div>
+      <h3>PLC 副軸與周邊（G-code 編排）</h3>
+      <table class="compact">
+        <thead><tr><th>軸/子系統</th><th>功能</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr><td>Axis 1</td><td>回转卡盤旋轉</td><td>側面 60° 翻面、桿部 120° 分段；與機器人互鎖（v3.7 修正）</td></tr>
+          <tr><td>Axis 2</td><td>卡盤夾爪</td><td>依螺栓頭尺寸對齊感測、夾緊/釋放</td></tr>
+          <tr><td>Axis 3</td><td>工具線性 Z</td><td>物件表面與螺紋檢查系統垂直升降（桿部分段掃描）</td></tr>
+          <tr><td>Axis 4</td><td>工具旋轉切換</td><td>物件表面與螺紋檢查系統 ↔ 螺紋清潔刷</td></tr>
+          <tr><td>振動器 A / B</td><td>進料 / 識別托盤</td><td>Task A 進料最多 3 輪，力度遞增</td></tr>
+          <tr><td>清潔器 / 刷子</td><td>氣吹 / 螺紋槽清潔</td><td>Task B 清潔步驟</td></tr>
+          <tr><td>距離感測</td><td>頭部前端、卡盤夾爪</td><td><code>AbicsRobotAndPLC</code> head offset 修正</td></tr>
+          <tr><td>訊號塔</td><td>運行 / 閒置 / 錯誤</td><td>產線狀態指示</td></tr>
+        </tbody>
+      </table>
+      <p>PLC 專案與 HMI：<code>PLC/PLC.gx3</code>、<code>P104-HMI.GTX</code>。目前約 v3.8.x（振動上升緣、雷射開關等），待辦見 <code>PLC/readme.txt</code>。</p>
+
+      <h3>夾爪開合規則（Task B）</h3>
+      <table class="compact">
+        <thead><tr><th>情境</th><th>開合量（相對螺栓直徑 D）</th></tr></thead>
+        <tbody>
+          <tr><td>拾取前打開</td><td>D + 4 mm</td></tr>
+          <tr><td>拾取閉合</td><td>D − 1 mm</td></tr>
+          <tr><td>垂直對位輕釋放</td><td>D + 1 mm（允許軸向微轉）</td></tr>
+          <tr><td>完全釋放</td><td>D + 4 mm</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+<section id="software">
+      <h2>軟體模組對照</h2>
+      <table>
+        <thead>
+          <tr><th>設計名稱</th><th>說明</th><th>程式庫路徑</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>System Flow Manager</td>
+            <td>整體 Job、Task A/B/C、模組連線與共享狀態</td>
+            <td><code>software/hk.asrc.abics.flow/</code></td>
+          </tr>
+          <tr>
+            <td>Yigene Motion Path Planner</td>
+            <td>工位 prepare pose 間自由路徑（碰撞檢查）</td>
+            <td><code>software/hk.asrc.abics.client.planner/</code></td>
+          </tr>
+          <tr>
+            <td>Path Processor</td>
+            <td>路徑轉 RRC 腳本並下發機器人</td>
+            <td><code>software/hk.asrc.abics.motion/</code></td>
+          </tr>
+          <tr>
+            <td>Bolt 3D Detector</td>
+            <td>RGB-D 分割、型號與抓取姿態</td>
+            <td><code>software/hk.asrc.abics.client.detect/</code></td>
+          </tr>
+          <tr>
+            <td>Bolt 2D Inspector</td>
+            <td>ZMQ 客戶端；對接 Python 檢測服務</td>
+            <td><code>software/hk.asrc.abics.client.inspect/</code></td>
+          </tr>
+          <tr>
+            <td>GCode Engine / Generator</td>
+            <td>PLC 副軸控制；參數化 G-code 產生</td>
+            <td><code>software/hk.asrc.abics.gcode.engine/</code>、<code>gcode.generator/</code></td>
+          </tr>
+          <tr>
+            <td>ABICS UI</td>
+            <td>主操作介面、托盤與機器人狀態</td>
+            <td><code>software/hk.asrc.abics.main.UI/</code></td>
+          </tr>
+          <tr>
+            <td>共用資料模型</td>
+            <td>螺栓、姿態、PLC、檢測結果 JSON</td>
+            <td><code>software/hk.asrc.abics.data/</code></td>
+          </tr>
+          <tr>
+            <td>Rbb 模組框架</td>
+            <td>模組註冊、FSM 函式結果、通訊抽象</td>
+            <td><code>software/hk.asrc.rbb.module/</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Visual Studio 方案：<code>software/P104.sln</code>（含 <code>hardware</code>、<code>flow</code> 方案資料夾）。</p>
+
+      <h3>示範與工具專案</h3>
+      <table class="compact">
+        <thead><tr><th>專案</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><code>hk.asrc.abics.flow.demo</code></td><td>流程管理器獨立除錯</td></tr>
+          <tr><td><code>hk.asrc.abics.gcode.engine.demo</code></td><td>G-code 執行與 PLC 通訊測試</td></tr>
+          <tr><td><code>hk.asrc.abics.gcode.generator.demo</code></td><td>卡盤參數化 G-code 產生</td></tr>
+          <tr><td><code>hk.asrc.abics.client.inspect.demo</code></td><td>2D 檢測客戶端與標定</td></tr>
+          <tr><td><code>hk.asrc.abics.camera.*.demo</code></td><td>相機單元測試</td></tr>
+          <tr><td><code>hk.asrc.abics.thread.demo</code></td><td>本機 ONNX 螺紋處理</td></tr>
+          <tr><td><code>hk.asrc.abics.motion</code></td><td>運動控制示範 UI</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+      </div>
+    </div>
+
+    <div class="layer" id="layer-flow">
+      <header class="layer-head">
+        <span class="layer-num">03</span>
+        <h2 class="layer-title">流程與任務</h2>
+        <p class="layer-desc">訊息契約、FSM、運動規劃與演示</p>
+      </header>
+      <div class="layer-body">
+
+<section id="messages">
+      <h2>任務間訊息協定</h2>
+      <p>定義於 <code>task.message.cs</code>，經 <code>TaskMessageWrapper</code> 傳遞（含優先級、可選 ACK）。</p>
+      <table>
+        <thead><tr><th>類型</th><th>方向</th><th>觸發時機</th><th>主要欄位</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>StartJob</code></td><td>UI → Task A</td><td>使用者按啟動</td>
+            <td><code>JobConfigId</code>, <code>NeedInitialization</code></td>
+          </tr>
+          <tr>
+            <td><code>BoltReady</code></td><td>Task A → Task B</td><td>拾取佇列就緒</td>
+            <td><code>PickQueue</code>, <code>CurrentBolt</code>, <code>RemainingCount</code></td>
+          </tr>
+          <tr>
+            <td><code>BoltComplete</code></td><td>Task B → Task A</td><td>單顆螺栓流程結束</td>
+            <td><code>BoltId</code>, <code>IsQualified</code>, <code>Result</code> (AbicsEvaluationData)</td>
+          </tr>
+          <tr>
+            <td><code>InspectionStart</code></td><td>Task B → Task C</td><td>進入某檢查工位</td>
+            <td><code>Bolt</code>, <code>InspectionType</code>, <code>HeadOffsetDistance</code>, <code>ClampRotationAngle</code></td>
+          </tr>
+          <tr>
+            <td><code>InspectionComplete</code></td><td>Task C → Task B</td><td>2D 檢查與 PLC 復位完成</td>
+            <td><code>BoltId</code>, <code>InspectionType</code>, <code>Result</code> (缺陷列表)</td>
+          </tr>
+          <tr>
+            <td><code>JobComplete</code></td><td>Task A → UI</td><td>識別托盤無可拾取螺栓</td>
+            <td><code>SuccessCount</code>, <code>FailCount</code>, <code>Reason</code></td>
+          </tr>
+          <tr>
+            <td><code>TaskReady</code></td><td>各 Task</td><td>初始化完成</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3><code>InspectionType</code> 與 2D 請求對應</h3>
+      <table class="compact">
+        <thead><tr><th>流程枚舉</th><th>視角</th><th>ZMQ <code>inspection_type</code></th><th>C# 命令</th></tr></thead>
+        <tbody>
+          <tr><td><code>HeadFrontView</code></td><td>頭部頂面</td><td><code>head</code></td><td><code>CheckHeadFront</code></td></tr>
+          <tr><td><code>HeadSideView</code></td><td>頭部側面（2 輪×3 面）</td><td><code>head</code></td><td><code>CheckHeadFront</code>（側面頭部）</td></tr>
+          <tr><td><code>ShaftView</code></td><td>桿部螺紋/缺陷</td><td><code>side</code></td><td><code>CheckVertical</code></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+<section id="tasks">
+      <h2>三任務 FSM 詳解</h2>
+      <p><span class="tag-warn">注意</span>：Task A 為 <em>Detection</em>（進料識別），Task C 為 <em>Inspection</em>（品質檢查），兩者職責不同。</p>
+
+      <div class="flow-row">
+        <div class="flow-box"><strong>Task A</strong><span>輸入識別 · 振動進料 · 拾取佇列</span></div>
+        <span class="arrow">→</span>
+        <div class="flow-box"><strong>Task B</strong><span>機器人 PnP · 清潔 · 對位 · 分揀</span></div>
+        <span class="arrow">↔</span>
+        <div class="flow-box"><strong>Task C</strong><span>2D 拍攝 · 頭/側/軸檢查 · G-code 卡盤</span></div>
+      </div>
+
+      <h3>Task A — 輸入識別 <a href="#demo-task-a" style="font-size:0.85rem;color:var(--accent)">▶ Demo</a> · <a href="#ai-3d" style="font-size:0.85rem;color:var(--accent)">3D 算法</a></h3>
+      <ol>
+        <li>等待 UI 啟動 Job，重置統計與輸出托盤 UI。</li>
+        <li>Zivid 擷取識別托盤 RGB-D → 3D 引擎（SAM → PCA → ICP → 6D Model Sorting）→ 渲染結果。</li>
+        <li>無螺栓或靠邊過多 → 振動進料（最多 3 輪）→ 再掃描。</li>
+        <li>評分選最佳螺栓，計算 pick prepare / pick pose，推送拾取佇列。</li>
+        <li>向 Task B 發送「螺栓就緒」，等待「螺栓完成」。</li>
+      </ol>
+
+      <h3>Task B — 機器人 PnP <a href="#demo-task-b" style="font-size:0.85rem;color:var(--accent)">▶ Demo</a></h3>
+      <ol>
+        <li>自拾取佇列載入螺栓評估資料，執行拾取與夾持確認。</li>
+        <li>空氣清潔 → 頭部水平檢查工位（距離感測修正 head offset）→ 觸發 Task C 頭部頂視檢查。</li>
+        <li>垂直裝夾：卡盤夾六角頭，多輪 60° 翻面側視檢查（共 6 面）。</li>
+        <li>桿部軸向分段掃描（相機 Z 步進 + 卡盤 120° 分段）。</li>
+        <li>依結果放置輸出托盤或廢料，回報 Task A。</li>
+      </ol>
+
+      <h3>Task C — 檢查任務 <a href="#demo-task-c" style="font-size:0.85rem;color:var(--accent)">▶ Demo</a> · <a href="#ai-2d" style="font-size:0.85rem;color:var(--accent)">YOLO</a></h3>
+      <ol>
+        <li>初始化：物件表面與螺紋檢查系統高度、工具旋至卡盤、卡盤與夾爪歸零。</li>
+        <li>依檢查類型：頭部前端 / 頭部側面 / 螺栓軸。</li>
+        <li>Lucid 擷圖 → YOLO 檢測服務（ZMQ / Docker）。</li>
+        <li>結果寫入螺栓評估資料，回覆 Task B「檢查完成」。</li>
+      </ol>
+
+      <h3>生命週期</h3>
+      <table>
+        <thead>
+          <tr><th>階段</th><th>主要動作</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>系統初始化</td><td>載入 DB 連線 → 模組連線 → 預設 Job → 等待 UI 啟動</td></tr>
+          <tr><td>任務初始化</td><td>硬體歸位 → 夾爪/機器人 standby → PLC 初始化 G-code</td></tr>
+          <tr><td>Job 執行</td><td>Task A/B/C 並行循環直至識別托盤螺栓處理完畢</td></tr>
+          <tr><td>異常/取消</td><td>卡盤螺栓取回、手上螺栓放回識別托盤、退回 standby</td></tr>
+        </tbody>
+      </table>
+      <p>枚舉定義：<code>task.state.cs</code>。敘述性步驟：<code>readme.cn.md</code>。</p>
+
+      <details>
+        <summary>Task A 主狀態 + 子狀態（<code>TaskAState</code> / <code>TaskASubState</code>）</summary>
+        <table class="compact">
+          <thead><tr><th>主狀態</th><th>子狀態（節選）</th></tr></thead>
+          <tbody>
+            <tr><td>Initializing</td><td>—</td></tr>
+            <tr><td>Idle</td><td>WaitingForStartJob</td></tr>
+            <tr><td>CapturingTray3DData</td><td>ScanningTray3D</td></tr>
+            <tr><td>IdentifyingBolts</td><td>SendingTray3DToDetector → RenderingDetectionResult → JudgingDetectionResult</td></tr>
+            <tr><td>FeedingBolts</td><td>StartingVibrationA → StartingVibrationB</td></tr>
+            <tr><td>LaunchInspectionJob</td><td>CalculatingPosesAndBuildingData → SendingReadyAndWaitingComplete</td></tr>
+          </tbody>
+        </table>
+        <p>評分邏輯：依螺栓大小、是否靠托盤邊緣、拾取姿態品質排序；靠邊時拾取姿態向托盤中心傾斜。取前 3 顆結果計算 prepare/pick pose，最高分進 <code>EvalPathList</code>。</p>
+      </details>
+
+      <details>
+        <summary>Task B 主狀態 + 子狀態（<code>TaskBState</code> / <code>TaskBSubState</code>）</summary>
+        <table class="compact">
+          <thead><tr><th>主狀態</th><th>關鍵子狀態鏈</th></tr></thead>
+          <tbody>
+            <tr><td>Initializing</td><td>MovingToStandby</td></tr>
+            <tr><td>Idle</td><td>WaitingForBoltReady</td></tr>
+            <tr><td>PickingFromTray</td><td>MovingToPickPrepareAndOpening → MovingToPickPoseAndClosing → CheckingGripperForBolt</td></tr>
+            <tr><td>CleaningBolt</td><td>MovingToCleanPrepare → MovingToCleanPose → StartingCleaning</td></tr>
+            <tr><td>InspectingHorizontal</td><td>MoveingToMeasureHeadOffset → AdjustingAndReadingSensor → SendingInspectionMessage → …</td></tr>
+            <tr><td>InspectingVertical</td><td>AdjustingClampForHead → ClampGrippingBolt → SwitchingClampSurface（60°）→ WaitingForInspectionComplete</td></tr>
+            <tr><td>PlacingToOutputTray</td><td>MovingToOutputPrepare → MovingToOutputOrDiscard</td></tr>
+          </tbody>
+        </table>
+        <p>拾取失敗：回 standby 並通知 Task A 重選螺栓。頭部不合格：跳過垂直/軸向，直接 PlacingToOutputTray。</p>
+      </details>
+
+      <details>
+        <summary>Task C 主狀態 + 子狀態（<code>TaskCState</code> / <code>TaskCSubState</code>）</summary>
+        <table class="compact">
+          <thead><tr><th>主狀態</th><th>關鍵子狀態</th></tr></thead>
+          <tbody>
+            <tr><td>Initializing</td><td>Moving2DToOrigin → Rotating2DToClamp → RotatingClampToOrigin → HomingClampGripper</td></tr>
+            <tr><td>Idle</td><td>WaitingForInspectionStart → GettingBoltEvaluationData → SwitchingInspectionType</td></tr>
+            <tr><td>InspectingHeadFront</td><td>CapturingHeadImage → InspectingHeadFrontDefect</td></tr>
+            <tr><td>InspectingHeadSide</td><td>RotatingClampToSide → CapturingSideImage → InspectingSideDefect</td></tr>
+            <tr><td>InspectingShaft</td><td>Moving2DSegmentally → RotatingClampToSegment → CapturingShaftImage → InspectingShaftDefect</td></tr>
+            <tr><td>InspectionCompleted</td><td>Returning2DToOrigin → SendingInspectionComplete</td></tr>
+          </tbody>
+        </table>
+        <p>頭部側面：2 組 × 卡盤每次 120°，共 6 個六角面。桿部：依估計長度 Z 向分段 + 圓周三等分 120°。</p>
+      </details>
+    </section>
+
+<section id="motion">
+      <h2>機器人運動設計</h2>
+      <h3>位姿模型（<code>AbicsWorkingPose</code>）</h3>
+      <table class="compact">
+        <thead><tr><th>屬性</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr><td><code>IsTarget</code></td><td>true = 工作點；false = 準備點（大範圍移動用規劃器）</td></tr>
+          <tr><td><code>PairedPoseId</code></td><td>prepare 與 target 配對 ID</td></tr>
+          <tr><td><code>Pose</code> / <code>Joints</code></td><td>進入順序執行，退出逆序；有 Joints 時優先</td></tr>
+        </tbody>
+      </table>
+      <h3>軌跡類型</h3>
+      <ul>
+        <li><span class="tag-ok">prepare → prepare</span> — 碰撞檢查開啟，Yigene 規劃器，ServoJ；座標系 wcs/wobj0/tool0。</li>
+        <li><span class="tag-ok">prepare → target</span> — MoveL 直線，規劃器關閉。</li>
+        <li><span class="tag-ok">target → target</span> — 同 MoveL（例：head offset 測量點 → 檢查焦平面）。</li>
+      </ul>
+      <p><code>PlanPath</code> 可在規劃前對 planner 執行 <code>LoadObject("bolt","gripper")</code> 載入碰撞模型。規劃結果寫入 <code>AbicsPickPath.EntryToPrepare</code> 等關節序列，再轉 RRC Script。</p>
+
+      <h3>頭部 offset 雷射修正（<code>AbicsRobotAndPLC</code>）</h3>
+      <pre class="json">laser_std = -7.8  // 常數
+Offset = headLaserDistance - laser_std
+headRealDistance = headOffset + (headLaserDistance - laser_std)
+// headOffset 來自 3D 識別；headLaserDistance 來自 PLC 感測</pre>
+      <p>修正後確保螺栓頭部表面落在物件表面與螺紋檢查系統焦平面，再觸發 <code>HeadFrontView</code> 檢查。</p>
+    </section>
+
+<section id="demos">
+      <h2>任務演示影片（YouTube）</h2>
+      <p>在下方各區塊的 <code>data-url</code> 貼上 YouTube 連結。請用<strong>本地 HTTP 伺服器</strong>開啟本 wiki（勿雙擊 HTML），否則可能出現錯誤 153。</p>
+      <p class="youtube-file-hint" id="youtube-file-hint" hidden>
+        偵測到 <code>file://</code> 開啟方式，無法內嵌播放。請在 <code>wiki</code> 目錄執行
+        <code>python -m http.server 8080</code>，再開啟
+        <a href="http://localhost:8080/index.html" style="color:var(--accent)">http://localhost:8080/index.html</a>
+      </p>
+
+      <article class="task-demo-card" id="demo-task-a">
+        <div class="task-label">Task A · Input Detection</div>
+        <h3>進料識別與 3D 拾取</h3>
+        <p>Zivid 掃描 → SAM 分割 → PCA/ICP 姿態 → 6D 模型排序 → 推送拾取佇列給 Task B。</p>
+        <p><span class="ai-chip">SAM</span><span class="ai-chip">PCA</span><span class="ai-chip">ICP</span><span class="ai-chip">6D Model Sorting</span></p>
+        <p class="slot-hint">編輯本檔：搜尋 <code>id="demo-task-a"</code>，在下方 <code>data-url=""</code> 填入影片 URL，例如 <code>https://www.youtube.com/watch?v=XXXXXXXX</code></p>
+        <div class="youtube-slot" data-url="">
+          <div class="youtube-placeholder">
+            <strong>Task A 演示影片</strong>
+            <span>data-url 尚未設定</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-demo-card" id="demo-task-b">
+        <div class="task-label">Task B · Robot PnP</div>
+        <h3>機器人搬運與對位</h3>
+        <p>拾取、空氣清潔、雷射 head offset、卡盤裝夾與分揀（無獨立深度模型，依 Task A 姿態與規劃器運動）。</p>
+        <p class="slot-hint">編輯：搜尋 <code>id="demo-task-b"</code> → 設定 <code>data-url</code></p>
+        <div class="youtube-slot" data-url="">
+          <div class="youtube-placeholder">
+            <strong>Task B 演示影片</strong>
+            <span>data-url 尚未設定</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="task-demo-card" id="demo-task-c">
+        <div class="task-label">Task C · Bolt Inspection</div>
+        <h3>2D 品質檢測</h3>
+        <p>Lucid 拍攝 → YOLO 結構與缺陷 → ISO 量測判定 → 回傳 Task B。</p>
+        <p><span class="ai-chip">YOLO</span><span class="ai-chip">BSv5</span><span class="ai-chip">BRCv3</span></p>
+        <p class="slot-hint">編輯：搜尋 <code>id="demo-task-c"</code> → 設定 <code>data-url</code></p>
+        <div class="youtube-slot" data-url="">
+          <div class="youtube-placeholder">
+            <strong>Task C 演示影片</strong>
+            <span>data-url 尚未設定</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+      </div>
+    </div>
+
+    <div class="layer" id="layer-vision">
+      <header class="layer-head">
+        <span class="layer-num">04</span>
+        <h2 class="layer-title">視覺與 AI</h2>
+        <p class="layer-desc">3D 拾取管線、2D YOLO 檢測、服務協定與結果展示</p>
+      </header>
+      <div class="layer-body">
+        <div class="content-block" id="block-3d">
+          <h3 class="block-title">立體空間識別及抓取 · Task A（Zivid）</h3>
+
+<section id="ai-3d">
+      <h2>3D 拾取算法（SAM · PCA · ICP · 6D）</h2>
+      <p>
+        識別托盤上的螺栓拾取任務由外部 <strong>3D Detection</strong> 服務處理（<code>hk.asrc.abics.client.detect</code>），
+        對 Zivid RGB-D 點雲執行下列視覺與幾何 AI 管線。品質指標寫入 <code>AbicsDetectedBolt.pca_sta</code>、<code>icp_sta</code>。
+      </p>
+      <div class="ai-pipeline">
+        <div class="step"><strong>1. SAM</strong>Segment Anything<br>實例分割</div>
+        <span class="arr">→</span>
+        <div class="step"><strong>2. PCA</strong>Principal Component Analysis<br>主軸 / 姿態初估</div>
+        <span class="arr">→</span>
+        <div class="step"><strong>3. ICP</strong>ICP-based Pose Refinement<br>點雲配準精修</div>
+        <span class="arr">→</span>
+        <div class="step"><strong>4. 6D Model Sorting</strong>標準螺栓模型庫<br>型號與抓取排序</div>
+      </div>
+      <table>
+        <thead><tr><th>技術</th><th>作用</th><th>系統輸出</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ai-chip">SAM</span></td>
+            <td>在托盤 RGB/深度圖上分割各顆螺栓 mask，分離粘連與背景</td>
+            <td>每顆螺栓 ROI、mask 輪廓</td>
+          </tr>
+          <tr>
+            <td><span class="ai-chip">PCA</span></td>
+            <td>對分割點雲做主成分分析，估計螺栓軸線方向與延伸（頭/尾/CG）</td>
+            <td><code>3d_dir_vec</code>、<code>3d_end</code>、<code>pca_sta</code> [RMSE, MAE]</td>
+          </tr>
+          <tr>
+            <td><span class="ai-chip">ICP</span></td>
+            <td>將實測點雲與標準螺栓 CAD/模板點雲迭代配準，精修 6D 位姿</td>
+            <td><code>transform</code> (RrcPose)、<code>icp_sta</code> [FITNESS, RMSE]</td>
+          </tr>
+          <tr>
+            <td><span class="ai-chip">6D Model Sorting</span></td>
+            <td>比對多規格 M×L 模型，依配準分數、穩定度、托盤位置評分排序</td>
+            <td><code>shaft_diameter</code>、<code>3d_len</code>、<code>stability_score</code> → 拾取佇列</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Task A 取評分最高者計算 <code>pick prepare</code> / <code>pick pose</code>；靠托盤邊緣的螺栓會降低優先或觸發振動進料。</p>
+    </section>
+
+<section id="gallery-3d">
+      <h2>3D 識別結果圖庫</h2>
+      <p>將截圖放入 <code>wiki/images/3d/</code>，檔名與下方 <code>src</code> 一致（或修改 <code>src</code> 指向你的檔案）。支援 PNG / JPG。</p>
+      <div class="gallery">
+        <figure>
+          <div class="img-wrap"><img src="images/3d/tray-rgbd.png" alt="識別托盤 RGB-D" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>識別托盤 RGB-D 原圖 — <code>tray-rgbd.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/3d/sam-masks.png" alt="SAM 分割" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>SAM 螺栓實例分割疊圖 — <code>sam-masks.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/3d/pca-axis.png" alt="PCA 主軸" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>PCA 主軸與頭尾端點 — <code>pca-axis.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/3d/icp-alignment.png" alt="ICP 配準" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>ICP 點雲配準 / 模型疊合 — <code>icp-alignment.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/3d/6d-pick-pose.png" alt="拾取姿態" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>6D 排序後拾取姿態可視化 — <code>6d-pick-pose.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/3d/ui-detection-tray.png" alt="UI 識別托盤" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>ABICS UI 識別托盤渲染 — <code>ui-detection-tray.png</code></figcaption>
+        </figure>
+      </div>
+    </section>
+        </div>
+        <div class="content-block" id="block-2d">
+          <h3 class="block-title">物件表面與螺紋檢查 · Task C（Lucid）</h3>
+
+<section id="ai-2d">
+      <h2>2D 檢測算法（YOLO · BSv5 · BRCv3）</h2>
+      <p>
+        品質檢查由 <code>Bolt_Inspection_System</code> 內 <strong>YOLO</strong>（Ultralytics）實例分割/檢測模型驅動，
+        經 ZMQ 由 <code>AbicsInspectClient</code> 呼叫。幾何量測在 mask 基礎上結合 ISO 規格表驗證。
+      </p>
+      <p>
+        <span class="ai-chip">YOLO · BSv5</span>
+        <span class="ai-chip">HexHeadDetector</span>
+        <span class="ai-chip">BoltSideDetector</span>
+        <span class="ai-chip">YOLO · BRCv3</span>
+        <span class="ai-chip">BoltRustCrackDetector</span>
+      </p>
+      <table>
+        <thead><tr><th>模型 / 模組</th><th>YOLO 目標類別</th><th>檢查項</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>BSv5 — 頭部 (<code>hexagon_transformation_detection</code>)</td>
+            <td><code>bolt_head_hexagon</code></td>
+            <td>HEAD_STRUCTURE、六角內/外徑 (ISO)</td>
+          </tr>
+          <tr>
+            <td>BSv5 — 桿部 (<code>thread_transformation_detection</code>)</td>
+            <td><code>bolt_side_thread</code>, <code>bolt_side_shank</code>, <code>bolt_side_hexaprism</code></td>
+            <td>SIDE_STRUCTURE、節徑/小徑、PITCH；可疊加綠幕精修 mask</td>
+          </tr>
+          <tr>
+            <td>BRCv3 — 缺陷 (<code>bolt_rust_crack_detection</code>)</td>
+            <td>RUST、CRACK 實例</td>
+            <td>腐蝕面積、裂紋 bbox + confidence</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Task C 依視角觸發 <code>inspection_type: head | side</code>；UI/報告可重繪 <code>inspections[]</code> 標註框。</p>
+    </section>
+
+<section id="inspection">
+      <h2>2D 檢測服務與 ZMQ 協定</h2>
+      <p>
+        <code>Bolt_Inspection_System/</code> 提供可 Docker 部署的 ZMQ REP 服務，與 C#
+        <code>hk.asrc.abics.client.inspect</code> 以 REQ/REP 通訊（預設 <code>tcp://*:5657</code>）。
+        YOLO 算法見 <a href="#ai-2d">2D 檢測算法</a>；標註圖見 <a href="#gallery-2d">2D 標註結果圖庫</a>。
+      </p>
+      <div class="diagram">C# AbicsInspectClient                    Docker (bolt-inspection)
+  Connect / CheckHeadFront / CheckVertical          capture_server.py (ZMQ REP)
+         │  Frame0: metadata JSON                          │
+         │  Frame1: image bytes                            ▼
+         └──────────────────────────────────► inspection_manager.py
+                                                    ├ hexagon_transformation (BSv5)
+                                                    ├ thread_transformation (BSv5)
+                                                    └ bolt_rust_crack (BRCv3)
+                                              models/ · specifications/iso_specification.csv
+</div>
+      <h3>ZMQ 請求（2 幀）</h3>
+      <pre class="json">Frame 0: metadata JSON
+Frame 1: BGR uint8 原始 bytes (width × height × channels)
+
+// metadata 必填欄位
+bolt_id, inspection_type ("head"|"side"), bolt_model, bolt_length,
+pixel_to_mm_ratio, image_width, image_height, image_channels, image_dtype</pre>
+      <p>預設位址 <code>tcp://127.0.0.1:5657</code>；客戶端 <code>LinkInfo</code> 範例：<code>-server tcp://host:5657 -iso_csv ./iso_specification.csv -tolerance 0.1</code></p>
+
+      <h3>回應 <code>status</code></h3>
+      <ul>
+        <li><code>pass</code> — 所有 <code>inspection_result</code> 為 <code>NORMAL</code></li>
+        <li><code>fail</code> — 任一 <code>DEFECTED</code>（含 RUST/CRACK）</li>
+        <li><code>error</code> — 模型或管線異常</li>
+      </ul>
+
+      <h3>檢測項目（<code>inspections[]</code>）</h3>
+      <table class="compact">
+        <thead><tr><th>inspection_type</th><th>適用視角</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr><td>HEAD_STRUCTURE</td><td>head</td><td>YOLO 結構 <code>bolt_head_hexagon</code></td></tr>
+          <tr><td>SIDE_STRUCTURE</td><td>side</td><td>thread / shank / hexaprism</td></tr>
+          <tr><td>HEX_OUT_DIAMETER / HEX_IN_DIAMETER</td><td>head</td><td>對 ISO 外徑/內徑</td></tr>
+          <tr><td>THREAD_PITCH_DIAMETER / THREAD_MINOR_DIAMETER</td><td>side</td><td>螺紋節徑、小徑</td></tr>
+          <tr><td>PITCH</td><td>side</td><td>螺距段量測</td></tr>
+          <tr><td>RUST / CRACK</td><td>both</td><td>BRCv3 缺陷檢測</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Python 管線（<code>InspectionManager</code>）</h3>
+      <ul>
+        <li><code>HexHeadDetector</code> (BSv5) — 頭部幾何與六角量測</li>
+        <li><code>BoltSideDetector</code> (BSv5) — 桿部結構與螺紋量測</li>
+        <li><code>BoltRustCrackDetector</code> (BRCv3) — 鏽蝕與裂紋</li>
+        <li><code>ISOSpecLoader</code> — <code>specifications/iso_specification.csv</code></li>
+      </ul>
+      <p>模型與 <code>pixel_to_mm_ratio</code> 見 <code>functions/_config.yaml</code>；執行檔 <code>capture_server.py</code>，v2 見 <code>capture_server_v2.py</code> / <code>inspection_manager_v2.py</code>。</p>
+
+      <h3>Docker 部署（摘要）</h3>
+      <pre class="json">docker build -t bolt-inspection:v1.0 .
+docker run -d --gpus all -p 5657:5657 --name bolt_inspection_server bolt-inspection:v1.0</pre>
+      <p>詳見 <code>zmq_format.cn.md</code>、<code>zmq_format_v2.cn.md</code>。</p>
+    </section>
+
+<section id="gallery-2d">
+      <h2>2D 標註結果圖庫</h2>
+      <p>將標註結果圖放入 <code>wiki/images/2d/</code>。可從檢測服務輸出或依 <code>inspections[]</code> 本地重繪。</p>
+      <div class="gallery">
+        <figure>
+          <div class="img-wrap"><img src="images/2d/head-structure-yolo.png" alt="頭部 YOLO" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>頭部 YOLO — bolt_head_hexagon — <code>head-structure-yolo.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/2d/head-hex-diameter.png" alt="六角量測" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>六角內/外徑量測 (peaks/troughs) — <code>head-hex-diameter.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/2d/side-thread-yolo.png" alt="桿部螺紋" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>桿部 YOLO — thread / shank — <code>side-thread-yolo.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/2d/side-pitch-measure.png" alt="螺距" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>螺距段 PITCH 標註 — <code>side-pitch-measure.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/2d/rust-crack-yolo.png" alt="鏽蝕裂紋" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>YOLO BRCv3 — RUST / CRACK — <code>rust-crack-yolo.png</code></figcaption>
+        </figure>
+        <figure>
+          <div class="img-wrap"><img src="images/2d/report-pass-fail.png" alt="判定總覽" onerror="this.closest('figure').classList.add('missing')"></div>
+          <figcaption>pass / fail 綜合標註圖 — <code>report-pass-fail.png</code></figcaption>
+        </figure>
+      </div>
+    </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="layer" id="layer-ref">
+      <header class="layer-head">
+        <span class="layer-num">05</span>
+        <h2 class="layer-title">參考資料</h2>
+        <p class="layer-desc">資料模型、程式庫目錄與延伸文件</p>
+      </header>
+      <div class="layer-body">
+
+<section id="data">
+      <h2>資料結構詳解</h2>
+      <h3><code>AbicsFsmTaskShareData</code>（流程共享）</h3>
+      <table class="compact">
+        <thead><tr><th>欄位</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><code>DetectedBolts</code></td><td>本輪 3D 識別列表</td></tr>
+          <tr><td><code>EvalPathList</code></td><td>評分後拾取路徑佇列</td></tr>
+          <tr><td><code>CurrentBoltId</code> / <code>CurrentInspectId</code></td><td>當前處理索引</td></tr>
+          <tr><td><code>CaptureResult</code> / <code>Capture2dResult</code></td><td>模組執行結果快取</td></tr>
+          <tr><td><code>RobotAndPLC</code></td><td>雷射/offset 狀態</td></tr>
+          <tr><td><code>AxisStatus[4]</code></td><td>PLC 四軸狀態（預設轉速 360/360/360/600）</td></tr>
+          <tr><td><code>inspectionResultDatas</code></td><td>2D 檢測累積結果</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>AbicsDetectedBolt</code>（3D 識別輸出）</h3>
+      <table class="compact">
+        <thead><tr><th>JSON / 屬性</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr><td><code>bbox</code>, <code>2d_end</code>, <code>3d_end</code></td><td>影像與機器人座標端點</td></tr>
+          <tr><td><code>3d_dir_vec</code>, <code>3d_len</code>, <code>shaft_diameter</code></td><td>方向、長度、桿徑</td></tr>
+          <tr><td><code>transform</code></td><td>標準模型到實測的 <code>RrcPose</code></td></tr>
+          <tr><td><code>pca_sta</code>, <code>icp_sta</code></td><td>擬合品質 [RMSE, MAE] / [FITNESS, RMSE]</td></tr>
+          <tr><td><code>stability_score</code></td><td>識別穩定度（Task A 評分用）</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>AbicsEvaluationData</code>（單顆螺栓全生命週期）</h3>
+      <table class="compact">
+        <thead><tr><th>區塊</th><th>欄位</th></tr></thead>
+        <tbody>
+          <tr><td>幾何/抓取</td><td><code>BoltLength</code>, <code>ShaftDiameter</code>, <code>Weight</code>, <code>HeadOffset</code>, <code>PnpPose</code></td></tr>
+          <tr><td>識別快照</td><td><code>DetectedData</code></td></tr>
+          <tr><td>檢查結果</td><td><code>HeadFrontInspectionResult</code>, <code>HeadSideInspectionResult</code>, <code>ShaftInspectionResult</code>（各含 <code>IsOk</code>, <code>Defects</code>）</td></tr>
+          <tr><td>結論</td><td><code>Conclusion</code>（可接 LLM+RAG）</td></tr>
+        </tbody>
+      </table>
+
+      <h3><code>AbicsDefectData</code></h3>
+      <p>缺陷名稱、類型、置信度、邊界框等，由檢測引擎或 ZMQ 回傳解析後填入 <code>InspectionCompleteMessage.Result</code>。</p>
+
+      <p>3D 拾取算法見 <a href="#ai-3d">SAM / PCA / ICP</a>；2D 檢測見 <a href="#ai-2d">YOLO 模型</a>。結果圖見 <a href="#gallery-3d">3D 識別結果圖庫</a>、<a href="#gallery-2d">2D 標註結果圖庫</a>。</p>
+    </section>
+
+<section id="repo">
+      <h2>程式庫目錄結構</h2>
+      <table>
+        <thead><tr><th>路徑</th><th>內容</th></tr></thead>
+        <tbody>
+          <tr><td><code>software/P104.sln</code></td><td>主方案（見下表全專案清單）</td></tr>
+          <tr><td><code>Bolt_Inspection_System/</code></td><td><code>capture_server.py</code>, <code>inspection_manager.py</code>, <code>functions/</code>, <code>models/</code>, <code>tests/</code>, Dockerfile</td></tr>
+          <tr><td><code>PLC/</code></td><td>GX Works3 / HMI 專案</td></tr>
+          <tr><td><code>Auto Annotation/</code></td><td>訓練資料標註輔助</td></tr>
+          <tr><td><code>wiki/</code></td><td>本 Wiki</td></tr>
+        </tbody>
+      </table>
+
+      <h3>P104.sln 專案一覽</h3>
+      <details open>
+        <summary>核心產線</summary>
+        <table class="compact">
+          <tbody>
+            <tr><td><code>hk.asrc.abics.main.UI</code></td><td>主 WPF 操作介面</td></tr>
+            <tr><td><code>hk.asrc.abics.flow</code></td><td>AbicsFlowManager、Task A/B/C</td></tr>
+            <tr><td><code>hk.asrc.abics.data</code></td><td>螺栓、姿態、系統 DB 模型</td></tr>
+            <tr><td><code>hk.asrc.abics.gcode.engine</code></td><td>PLC G-code 執行 Rbb 模組</td></tr>
+            <tr><td><code>hk.asrc.abics.gcode.generator</code></td><td>參數化 G-code 產生</td></tr>
+            <tr><td><code>hk.asrc.abics.robot.gofa</code></td><td>ABB GoFa 適配</td></tr>
+            <tr><td><code>hk.asrc.abics.gripper</code></td><td>Hand-E 夾爪</td></tr>
+            <tr><td><code>hk.asrc.abics.plc</code></td><td>FX5 通訊</td></tr>
+            <tr><td><code>hk.asrc.abics.camera.zivid</code></td><td>立體空間識別及抓取系統</td></tr>
+            <tr><td><code>hk.asrc.abics.camera.hik</code></td><td>光源</td></tr>
+            <tr><td><code>hk.asrc.rbb.camera.lucid</code></td><td>物件表面與螺紋檢查系統驅動</td></tr>
+            <tr><td><code>hk.asrc.abics.client.detect</code></td><td>3D 螺栓識別客戶端</td></tr>
+            <tr><td><code>hk.asrc.abics.client.inspect</code></td><td>2D ZMQ 檢測客戶端</td></tr>
+            <tr><td><code>hk.asrc.abics.client.planner</code></td><td>路徑規劃客戶端</td></tr>
+            <tr><td><code>hk.asrc.abics.motion</code></td><td>軌跡處理與下發</td></tr>
+            <tr><td><code>hk.asrc.rbb.db</code></td><td>MongoDB</td></tr>
+            <tr><td><code>hk.asrc.rbb.module</code></td><td>Rbb 模組基礎</td></tr>
+            <tr><td><code>hk.asrc.abics.UI</code></td><td>共用 UI 元件</td></tr>
+            <tr><td><code>hk.asrc.abics.thread.process</code></td><td>本機 ONNX 螺紋（可選路徑）</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+<section id="docs">
+      <h2>延伸文件（倉庫內）</h2>
+      <ul class="docs-list">
+        <li><a href="../software/hk.asrc.abics.flow/readme.cn.md">ABICS 系統模組與逐步狀態敘述（最完整流程文檔）</a></li>
+        <li><a href="../Bolt_Inspection_System/zmq_format.cn.md">ZMQ 檢測協定、inspections 欄位、Docker、C# 客戶端</a></li>
+        <li><a href="../Bolt_Inspection_System/zmq_format_v2.cn.md">ZMQ 協定 v2 變更</a></li>
+        <li><a href="../PLC/readme.txt">PLC / HMI 版本紀錄與 TODO</a></li>
+        <li><code>software/hk.asrc.abics.flow/task.state.cs</code> — 三任務 FSM 枚舉權威來源</li>
+        <li><code>software/hk.asrc.abics.flow/task.message.cs</code> — 跨任務訊息契約</li>
+        <li><code>software/hk.asrc.abics.data/bolt.cs</code> — 螺栓與評估資料模型</li>
+      </ul>
+      <p>重新整理瀏覽器即可查看最新 Wiki；Markdown 連結需從 repo 根目錄相對路徑開啟。</p>
+    </section>
+
+      </div>
+    </div>
+
+      </main></main>
+
+      <footer>
+        P104-ABICS Project Wiki · 內容摘錄自專案設計文件與原始碼結構 · 最後更新 2026-06
+      </footer>
+    </div>
+  </div>
+
+  <button type="button" class="sidebar-toggle" id="sidebar-toggle" aria-controls="sidebar" aria-expanded="false">目錄</button>
+  <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+  <script>
+    (function () {
+      var sidebar = document.getElementById('sidebar');
+      var toggle = document.getElementById('sidebar-toggle');
+      var overlay = document.getElementById('sidebar-overlay');
+
+      function setSidebarOpen(open) {
+        sidebar.classList.toggle('is-open', open);
+        overlay.classList.toggle('is-visible', open);
+        document.body.classList.toggle('sidebar-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        overlay.hidden = !open;
+      }
+
+      toggle.addEventListener('click', function () {
+        setSidebarOpen(!sidebar.classList.contains('is-open'));
+      });
+      overlay.addEventListener('click', function () { setSidebarOpen(false); });
+
+      document.querySelectorAll('.sidebar-nav a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (window.matchMedia('(max-width: 960px)').matches) setSidebarOpen(false);
+        });
+      });
+
+      var navLinks = Array.prototype.slice.call(
+        document.querySelectorAll('.sidebar-nav ul a[href^="#"]')
+      );
+      var sections = navLinks.map(function (link) {
+        var id = link.getAttribute('href').slice(1);
+        var el = document.getElementById(id);
+        return el ? { link: link, el: el } : null;
+      }).filter(Boolean);
+
+      function updateActive() {
+        var y = window.scrollY + 100;
+        var current = sections[0];
+        sections.forEach(function (item) {
+          if (item.el.offsetTop <= y) current = item;
+        });
+        navLinks.forEach(function (l) { l.classList.remove('is-active'); });
+        if (current) current.link.classList.add('is-active');
+      }
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+
+      function youtubeId(url) {
+        if (!url) return null;
+        var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|live\/)|v=)([\w-]{11})/);
+        return m ? m[1] : null;
+      }
+
+      function buildYoutubeEmbed(id, watchUrl) {
+        if (location.protocol === 'file:') {
+          return '<a class="youtube-fallback" href="' + watchUrl + '" target="_blank" rel="noopener noreferrer">' +
+            '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="YouTube 縮圖">' +
+            '<span>▶ 在 YouTube 觀看（file:// 無法內嵌）</span></a>';
+        }
+        var origin = encodeURIComponent(location.origin);
+        return '<iframe title="YouTube demo" src="https://www.youtube-nocookie.com/embed/' + id +
+          '?rel=0&amp;modestbranding=1&amp;origin=' + origin + '" ' +
+          'referrerpolicy="strict-origin-when-cross-origin" ' +
+          'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+          'allowfullscreen loading="lazy"></iframe>';
+      }
+
+      if (location.protocol === 'file:') {
+        var hint = document.getElementById('youtube-file-hint');
+        if (hint) hint.hidden = false;
+      }
+
+      document.querySelectorAll('.youtube-slot').forEach(function (el) {
+        var url = (el.getAttribute('data-url') || '').trim();
+        var id = youtubeId(url);
+        if (!id) return;
+        var watchUrl = 'https://www.youtube.com/watch?v=' + id;
+        el.innerHTML = buildYoutubeEmbed(id, watchUrl);
+      });
+      document.querySelectorAll('.gallery img').forEach(function (img) {
+        if (!img.complete || img.naturalWidth === 0) {
+          img.addEventListener('error', function () {
+            img.closest('figure') && img.closest('figure').classList.add('missing');
+          }, { once: true });
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="P104-ABICS 螺栓自動檢測分揀產線 — 立體空間識別及抓取、協作機器臂搬運、物件表面與螺紋檢查與自動分揀。">
+  <title>P104-ABICS · 螺栓智能檢測分揀系統</title>
+  <style>
+    :root {
+      --bg: #0a0e14;
+      --surface: #141c28;
+      --surface2: #1e2a3d;
+      --text: #eef2f8;
+      --muted: #8b9cb3;
+      --accent: #3d9cf5;
+      --accent2: #5eead4;
+      --ok: #34d399;
+      --warn: #fbbf24;
+      --border: #2a384f;
+      --max: 1140px;
+      --nav-h: 64px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    section[id] { scroll-margin-top: calc(var(--nav-h) + 1rem); }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Nav */
+    .topnav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      background: rgba(10, 14, 20, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .topnav-brand {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .topnav-brand span { color: var(--accent2); font-weight: 600; }
+    .topnav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .topnav-links a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .topnav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #2563eb);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(61, 156, 245, 0.35);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    @media (max-width: 720px) {
+      .topnav-links a:not(.btn) { display: none; }
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 4.5rem 0 5rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(61, 156, 245, 0.22), transparent),
+        radial-gradient(ellipse 40% 30% at 90% 60%, rgba(94, 234, 212, 0.08), transparent);
+      pointer-events: none;
+    }
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+    .hero-badge {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(94, 234, 212, 0.08);
+      border: 1px solid rgba(94, 234, 212, 0.25);
+      border-radius: 999px;
+    }
+    .hero h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(2rem, 5vw, 2.85rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-lead {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 32em;
+      margin: 0 0 1.75rem;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .hero-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+    }
+    .hero-flow {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--muted);
+      white-space: pre;
+      margin: 0;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .hero-stat strong {
+      display: block;
+      font-size: 1.5rem;
+      color: var(--accent2);
+      font-weight: 700;
+    }
+    .hero-stat span { font-size: 0.82rem; color: var(--muted); }
+
+    /* Sections */
+    .section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .section-head {
+      text-align: center;
+      max-width: 36em;
+      margin: 0 auto 2.5rem;
+    }
+    .section-head h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+    .section-head p { margin: 0; color: var(--muted); }
+
+    /* Features */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.35rem 1.4rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(61, 156, 245, 0.4); }
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(61, 156, 245, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 0.85rem;
+    }
+    .feature-card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.05rem;
+    }
+    .feature-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Pipeline */
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .pipeline { grid-template-columns: 1fr; }
+    }
+    .pipe-step {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .pipe-step .label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .pipe-step h3 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+    .pipe-step p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+    .pipe-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+    .chip {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--accent2);
+    }
+
+    /* Showcase */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 768px) {
+      .showcase-grid { grid-template-columns: 1fr; }
+    }
+    .showcase-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .showcase-panel h3 {
+      margin: 0;
+      padding: 1rem 1.15rem;
+      font-size: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .showcase-img {
+      aspect-ratio: 16 / 10;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .showcase-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .showcase-img.missing::after {
+      content: "圖片待補 · wiki/images/";
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .showcase-img.missing img { display: none; }
+    .showcase-panel p {
+      margin: 0;
+      padding: 0.85rem 1.15rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* Demo videos */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+    .demo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .demo-card h4 {
+      margin: 0;
+      padding: 1rem 1.1rem 0.35rem;
+      font-size: 1rem;
+    }
+    .demo-card p {
+      margin: 0;
+      padding: 0 1.1rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .youtube-slot {
+      aspect-ratio: 16 / 9;
+      background: #000;
+      position: relative;
+    }
+    .youtube-slot iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .youtube-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 1rem;
+      text-align: center;
+    }
+    a.youtube-fallback {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-decoration: none;
+      color: inherit;
+    }
+    a.youtube-fallback img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+    a.youtube-fallback span {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.75);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    /* Hardware */
+    .hw-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .hw-table th,
+    .hw-table td {
+      padding: 0.65rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    .hw-table th {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .hw-table tr:hover td { background: rgba(61, 156, 245, 0.04); }
+    .hw-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    /* CTA */
+    .cta {
+      margin: 0 1.5rem 3rem;
+      max-width: var(--max);
+      margin-left: auto;
+      margin-right: auto;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(61, 156, 245, 0.15), rgba(94, 234, 212, 0.08));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .cta h2 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+    .cta p { margin: 0 0 1.25rem; color: var(--muted); }
+    .cta-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+
+    footer {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <nav class="topnav">
+    <a class="topnav-brand" href="product.html">P104-<span>ABICS</span></a>
+    <div class="topnav-links">
+      <a href="#features">功能</a>
+      <a href="#pipeline">流程</a>
+      <a href="#ai">視覺 AI</a>
+      <a href="#demo">演示</a>
+      <a href="#hardware">平台</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-badge">Industrial Vision · Cobot · AI QC</span>
+        <h1>螺栓<em>全自動</em>檢測分揀產線</h1>
+        <p class="hero-lead">
+          ABICS（Automated Bolt Inspection &amp; Classification System）整合立體空間識別及抓取、
+          協作機器臂搬運與物件表面與螺紋檢查，實現進料托盤到合格/報廢分揀的端到端閉環。
+        </p>
+        <div class="hero-actions">
+          <a href="#demo" class="btn btn-primary">觀看演示</a>
+          <a href="#features" class="btn btn-ghost">了解功能</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <pre class="hero-flow">進料托盤 ──振動──► 識別托盤
+                      │
+              Zivid + 3D AI
+                      │
+         Task A ──BoltReady──► Task B（GoFa）
+                      │           │
+                      │      清潔·對位·卡盤
+                      │           │
+         Task C ◄──Inspection───┘
+           YOLO + ISO
+                      │
+              合格托盤 / 廢料箱</pre>
+      </div>
+    </div>
+    <div class="wrap hero-stats">
+      <div class="hero-stat">
+        <strong>3</strong>
+        <span>並行任務（A/B/C）狀態機驅動</span>
+      </div>
+      <div class="hero-stat">
+        <strong>雙系統</strong>
+        <span>立體抓取 vs 表面螺紋檢查</span>
+      </div>
+      <div class="hero-stat">
+        <strong>全線</strong>
+        <span>協作機器臂 · PLC · AI 服務一體編排</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>核心能力</h2>
+        <p>面向振動進料、姿態隨機的螺栓場景，以模組化軟硬體協同取代人工全檢。</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">◎</div>
+          <h3>立體空間識別及抓取</h3>
+          <p>Zivid RGB-D 掃描，SAM 分割與 PCA/ICP 配準，輸出 6D 抓取姿態與穩定度評分。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">↗</div>
+          <h3>協作機器臂 PnP</h3>
+          <p>ABB GoFa + Hand-E 夾爪，路徑規劃與碰撞檢查，多工位清潔、對位與自動分揀。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">◈</div>
+          <h3>物件表面與螺紋檢查</h3>
+          <p>YOLO 結構與缺陷檢測，結合 ISO 規格量測，ZMQ 服務化部署，與主控解耦。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">⚙</div>
+          <h3>PLC 副軸編排</h3>
+          <p>卡盤、振動送料、清潔、工具切換由 G-code 引擎驅動 FX5，與協作機器臂節拍同步。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">⟳</div>
+          <h3>三任務 FSM</h3>
+          <p>Task A/B/C 訊息互鎖，Detection 與 Inspection 職責分離，狀態可觀測、易除錯。</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">▣</div>
+          <h3>操作與追溯</h3>
+          <p>WPF 主控 UI、托盤視覺化、檢測結果累積與 MongoDB 設備配置管理。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pipeline">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>三線並行流程</h2>
+        <p>進料識別、協作機器臂搬運、品質檢測三條循環任務透過訊息佇列協同完成單顆螺栓生命週期。</p>
+      </div>
+      <div class="pipeline">
+        <article class="pipe-step">
+          <div class="label">Task A</div>
+          <h3>進料識別</h3>
+          <p>振動散料 → 立體空間掃描 → 評分排序 → 推送拾取佇列，通知 Task B。</p>
+          <div class="pipe-chips">
+            <span class="chip">SAM</span><span class="chip">PCA</span><span class="chip">ICP</span><span class="chip">Zivid</span>
+          </div>
+        </article>
+        <article class="pipe-step">
+          <div class="label">Task B</div>
+          <h3>協作機器臂 PnP</h3>
+          <p>拾取、空氣清潔、雷射 head offset、卡盤裝夾，觸發表面與螺紋檢查並依結果分揀。</p>
+          <div class="pipe-chips">
+            <span class="chip">GoFa</span><span class="chip">路徑規劃</span><span class="chip">G-code</span>
+          </div>
+        </article>
+        <article class="pipe-step">
+          <div class="label">Task C</div>
+          <h3>螺栓檢測</h3>
+          <p>Lucid 多視角拍攝，YOLO 結構/缺陷 + ISO 量測，回傳 pass/fail 驅動分揀。</p>
+          <div class="pipe-chips">
+            <span class="chip">YOLO</span><span class="chip">BSv5</span><span class="chip">BRCv3</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ai">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>視覺與 AI</h2>
+        <p>立體空間識別及抓取負責「抓哪顆、怎麼抓」；物件表面與螺紋檢查負責「能不能用」——職責清晰、算力各取所長。</p>
+      </div>
+      <div class="showcase-grid">
+        <div class="showcase-panel">
+          <h3>立體空間識別及抓取 · Task A</h3>
+          <div class="showcase-img" id="img-3d">
+            <img src="images/3d/sam-masks.png" alt="SAM 分割結果" onerror="document.getElementById('img-3d').classList.add('missing')">
+          </div>
+          <p>SAM 實例分割 → PCA 主軸 → ICP 配準 → 6D 拾取姿態排序</p>
+        </div>
+        <div class="showcase-panel">
+          <h3>物件表面與螺紋檢查 · Task C</h3>
+          <div class="showcase-img" id="img-2d">
+            <img src="images/2d/head-structure-yolo.png" alt="YOLO 頭部檢測" onerror="document.getElementById('img-2d').classList.add('missing')">
+          </div>
+          <p>六角結構、螺紋量測、鏽蝕裂紋檢測，對照 ISO 規格表自動判定</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="demo">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>現場演示</h2>
+        <p>建議以本地 HTTP 開啟頁面以正常播放嵌入影片（<code>python -m http.server 8080</code>）。</p>
+      </div>
+      <div class="demo-grid">
+        <article class="demo-card">
+          <h4>Task A · 進料識別</h4>
+          <p>立體空間掃描與散料拾取規劃</p>
+          <div class="youtube-slot" data-url="https://www.youtube.com/watch?v=lNzLdL6zD-c">
+            <div class="youtube-placeholder"><span>載入影片中…</span></div>
+          </div>
+        </article>
+        <article class="demo-card">
+          <h4>Task B · 協作機器臂搬運</h4>
+          <p>拾取、清潔、對位與分揀</p>
+          <div class="youtube-slot" data-url="https://www.youtube.com/watch?v=lNzLdL6zD-c">
+            <div class="youtube-placeholder"><span>載入影片中…</span></div>
+          </div>
+        </article>
+        <article class="demo-card">
+          <h4>Task C · 物件表面與螺紋檢查</h4>
+          <p>多視角 YOLO 檢測（影片待補）</p>
+          <div class="youtube-slot" data-url="">
+            <div class="youtube-placeholder"><strong>演示待上線</strong><span>於 product.html 設定 data-url</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="hardware">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>硬體平台</h2>
+        <p>多廠商設備透過 Rbb 模組與流程管理器統一接入。</p>
+      </div>
+      <div class="hw-wrap">
+        <table class="hw-table">
+          <thead><tr><th>模組</th><th>型號 / 角色</th></tr></thead>
+          <tbody>
+            <tr><td>協作機器臂</td><td>ABB GoFa 10 — 工位間搬運</td></tr>
+            <tr><td>夾爪</td><td>OnRobot Hand-E — 抓取與放置</td></tr>
+            <tr><td>立體空間識別及抓取系統</td><td>Zivid — 識別托盤 RGB-D</td></tr>
+            <tr><td>物件表面與螺紋檢查系統</td><td>Lucid + Hik 光源 — 表面與螺紋檢查</td></tr>
+            <tr><td>PLC</td><td>三菱 FX5 — 卡盤、振動、清潔、感測</td></tr>
+            <tr><td>主控</td><td>C# / WPF · MongoDB 配置 · Docker AI 服務</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta wrap" id="contact">
+    <h2>感興趣？</h2>
+    <p>歡迎透過演示影片與上方功能介紹了解系統能力；如需進一步交流請與專案負責人聯絡。</p>
+    <div class="cta-actions">
+      <a href="#demo" class="btn btn-primary">觀看演示</a>
+      <a href="#features" class="btn btn-ghost">瀏覽功能</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>P104-ABICS · Automated Bolt Inspection &amp; Classification System</p>
+  </footer>
+
+  <script>
+    (function () {
+      function youtubeId(url) {
+        if (!url) return null;
+        var m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|live\/)|v=)([\w-]{11})/);
+        return m ? m[1] : null;
+      }
+      var isFile = location.protocol === 'file:';
+      document.querySelectorAll('.youtube-slot').forEach(function (el) {
+        var url = (el.getAttribute('data-url') || '').trim();
+        var id = youtubeId(url);
+        if (!id) return;
+        var watchUrl = 'https://www.youtube.com/watch?v=' + id;
+        if (isFile) {
+          el.innerHTML = '<a class="youtube-fallback" href="' + watchUrl + '" target="_blank" rel="noopener">' +
+            '<img src="https://img.youtube.com/vi/' + id + '/hqdefault.jpg" alt="">' +
+            '<span>在 YouTube 開啟</span></a>';
+        } else {
+          var origin = location.origin && location.origin !== 'null' ? location.origin : '';
+          el.innerHTML = '<iframe title="Demo" src="https://www.youtube-nocookie.com/embed/' + id +
+            '?rel=0" referrerpolicy="strict-origin-when-cross-origin"' +
+            (origin ? ' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" origin="' + origin + '"' : '') +
+            ' allowfullscreen></iframe>';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

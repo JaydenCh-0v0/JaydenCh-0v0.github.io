@@ -8,7 +8,8 @@
         "experience": "经历",
         "skills": "技能",
         "projects": "项目",
-        "contact": "联系"
+        "contact": "联系",
+        "sponsorAria": "在 GitHub 上赞助我"
     },
     "theme": {
         "toDark": "切换深色模式",

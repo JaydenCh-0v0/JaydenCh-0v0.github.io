@@ -36,6 +36,12 @@ function applyTranslations(data) {
         }
     });
 
+    document.querySelectorAll('[data-i18n-aria]').forEach(element => {
+        const keyPath = element.getAttribute('data-i18n-aria');
+        const value = getNestedValue(data, keyPath);
+        if (value) element.setAttribute('aria-label', value);
+    });
+
     updateThemeToggleLabel();
     initTypewriters();
 }

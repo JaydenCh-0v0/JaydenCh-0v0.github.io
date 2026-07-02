@@ -131,6 +131,41 @@ body {
     gap: 0.5rem;
 }
 
+.nav-sponsor {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fce7f3;
+    border: 1px solid rgba(191, 57, 137, 0.22);
+    border-radius: 8px;
+    color: #bf3989;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-sponsor:hover,
+.nav-sponsor:focus-visible {
+    color: #fff;
+    border-color: rgba(191, 57, 137, 0.55);
+    background: #bf3989;
+}
+
+[data-theme="dark"] .nav-sponsor {
+    background: rgba(191, 57, 137, 0.16);
+    border-color: rgba(219, 97, 162, 0.28);
+    color: #f472b6;
+}
+
+[data-theme="dark"] .nav-sponsor:hover,
+[data-theme="dark"] .nav-sponsor:focus-visible {
+    color: #fff;
+    border-color: rgba(191, 57, 137, 0.55);
+    background: #bf3989;
+}
+
 .theme-toggle,
 .language-toggle {
     width: 38px;

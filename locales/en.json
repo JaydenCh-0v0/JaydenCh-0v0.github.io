@@ -8,7 +8,8 @@
         "experience": "Experience",
         "skills": "Skills",
         "projects": "Projects",
-        "contact": "Contact"
+        "contact": "Contact",
+        "sponsorAria": "Sponsor me on GitHub"
     },
     "theme": {
         "toDark": "Switch to dark mode",

@@ -10,6 +10,10 @@
         "projects": "Projects",
         "contact": "Contact"
     },
+    "theme": {
+        "toDark": "Switch to dark mode",
+        "toLight": "Switch to light mode"
+    },
     "hero": {
         "eyebrow": "Jayden CHEUNG",
         "title": "AI & Robotics <span class='highlight'>Engineer</span>",
@@ -40,6 +44,7 @@
     },
     "education": {
         "title": "Education",
+        "subtitle": "Thank you to every professor who shared their knowledge with me",
         "polyu": {
             "degree": "MSc. Artificial Intelligence and Big Data Computing",
             "school": "Hong Kong Polytechnic University",
@@ -58,6 +63,7 @@
     },
     "experience": {
         "title": "Work Experience",
+        "subtitle": "Thank you to the companies that helped me grow along the way",
         "asrc": {
             "title": "Research Associate, Engineer",
             "company": "Aviation Services Research Centre (ASRC)",

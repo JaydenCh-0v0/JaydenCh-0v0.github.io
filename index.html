@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n-key="pageTitle">Jayden Cheung — AI & Robotics Engineer</title>
     <link rel="icon" href="art/icon.jpg" type="image/jpeg">
-    <link rel="stylesheet" href="style.css">
+    <script>
+        (function () {
+            const stored = localStorage.getItem('theme');
+            const theme = stored === 'dark' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css?v=20260721">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
@@ -29,18 +36,29 @@
                 <a href="#projects" class="nav-link" data-i18n-key="nav.projects">Projects</a>
                 <a href="#contact" class="nav-link" data-i18n-key="nav.contact">Contact</a>
             </div>
-            <div class="language-switcher">
-                <select id="language-selector" aria-label="Language">
-                    <option value="en">English</option>
-                    <option value="zh-CN">简体中文</option>
-                    <option value="zh-HK">繁體中文</option>
-                </select>
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+                    <i class="fas fa-moon theme-icon-moon" aria-hidden="true"></i>
+                    <i class="fas fa-sun theme-icon-sun" aria-hidden="true"></i>
+                </button>
+                <div class="language-switcher">
+                    <button type="button" class="language-toggle" id="language-toggle" aria-label="Language" aria-expanded="false" aria-haspopup="true">
+                        <i class="fas fa-globe" aria-hidden="true"></i>
+                    </button>
+                    <div class="language-menu" id="language-menu" role="menu" hidden>
+                        <button type="button" role="menuitem" class="language-option is-active" data-lang="en">English</button>
+                        <button type="button" role="menuitem" class="language-option" data-lang="zh-CN">简体中文</button>
+                        <button type="button" role="menuitem" class="language-option" data-lang="zh-HK">繁體中文</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
     <section id="home" class="hero">
-        <div class="hero-bg-grid" aria-hidden="true"></div>
+        <div class="hero-bg-grid" aria-hidden="true">
+            <div class="hero-grid-particles"></div>
+        </div>
         <div class="hero-container">
             <div class="hero-content">
                 <p class="hero-eyebrow" data-i18n-key="hero.eyebrow">Jayden CHEUNG</p>
@@ -133,38 +151,59 @@
 
     <section id="education" class="education">
         <div class="container">
-            <h2 class="section-title" data-i18n-key="education.title">Education</h2>
+            <div class="section-header">
+                <h2 class="section-title" data-i18n-key="education.title">Education</h2>
+                <p class="section-subtitle typewriter" data-typewriter data-i18n-key="education.subtitle" aria-live="polite"></p>
+            </div>
             <div class="education-grid">
-                <article class="edu-card">
-                    <div class="edu-header">
-                        <div>
-                            <h3 data-i18n-key="education.polyu.degree">MSc. Artificial Intelligence and Big Data Computing</h3>
-                            <h4 data-i18n-key="education.polyu.school">Hong Kong Polytechnic University</h4>
+                <article class="edu-card collapse-item edu-card--polyu">
+                    <div class="edu-card-bg-layer edu-card-bg-layer--left" aria-hidden="true"></div>
+                    <div class="edu-card-bg-layer edu-card-bg-layer--right" aria-hidden="true"></div>
+                    <button type="button" class="collapse-trigger edu-header" aria-expanded="false" aria-controls="edu-polyu-panel">
+                        <div class="collapse-trigger-main">
+                            <div>
+                                <h3 data-i18n-key="education.polyu.degree">MSc. Artificial Intelligence and Big Data Computing</h3>
+                                <h4 data-i18n-key="education.polyu.school">Hong Kong Polytechnic University</h4>
+                            </div>
+                            <div class="edu-meta">
+                                <span class="edu-date" data-i18n-key="education.polyu.date">Sept 2024 – Aug 2025</span>
+                            </div>
                         </div>
-                        <div class="edu-meta">
-                            <span class="edu-date" data-i18n-key="education.polyu.date">Sept 2024 – Aug 2025</span>
+                        <span class="collapse-icon" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div id="edu-polyu-panel" class="collapse-panel" aria-hidden="true">
+                        <div class="collapse-panel-inner">
+                            <ul class="edu-highlights">
+                                <li data-i18n-key="education.polyu.proj1">An Aluminum Plate Oxidation Detection Model Based on Hyperspectral Imaging and Deep Learning</li>
+                                <li data-i18n-key="education.polyu.proj2">RAG application — Scholars' personal paper search and question answering system</li>
+                            </ul>
                         </div>
                     </div>
-                    <ul class="edu-highlights">
-                        <li data-i18n-key="education.polyu.proj1">An Aluminum Plate Oxidation Detection Model Based on Hyperspectral Imaging and Deep Learning</li>
-                        <li data-i18n-key="education.polyu.proj2">RAG application — Scholars' personal paper search and question answering system</li>
-                    </ul>
                 </article>
-                <article class="edu-card">
-                    <div class="edu-header">
-                        <div>
-                            <h3 data-i18n-key="education.cityu.degree">BEng. Computer and Data Engineering</h3>
-                            <h4 data-i18n-key="education.cityu.school">City University of Hong Kong</h4>
+                <article class="edu-card collapse-item edu-card--cityu">
+                    <div class="edu-card-bg-layer edu-card-bg-layer--left" aria-hidden="true"></div>
+                    <div class="edu-card-bg-layer edu-card-bg-layer--right" aria-hidden="true"></div>
+                    <button type="button" class="collapse-trigger edu-header" aria-expanded="false" aria-controls="edu-cityu-panel">
+                        <div class="collapse-trigger-main">
+                            <div>
+                                <h3 data-i18n-key="education.cityu.degree">BEng. Computer and Data Engineering</h3>
+                                <h4 data-i18n-key="education.cityu.school">City University of Hong Kong</h4>
+                            </div>
+                            <div class="edu-meta">
+                                <span class="edu-date" data-i18n-key="education.cityu.date">Sept 2021 – Jun 2024</span>
+                            </div>
                         </div>
-                        <div class="edu-meta">
-                            <span class="edu-date" data-i18n-key="education.cityu.date">Sept 2021 – Jun 2024</span>
+                        <span class="collapse-icon" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div id="edu-cityu-panel" class="collapse-panel" aria-hidden="true">
+                        <div class="collapse-panel-inner">
+                            <ul class="edu-highlights">
+                                <li data-i18n-key="education.cityu.proj1">Non-Dominated Sorting Genetic Algorithm II for GPS Antenna Optimization</li>
+                                <li data-i18n-key="education.cityu.proj2">Underwater Robotics Team Member</li>
+                                <li data-i18n-key="education.cityu.proj3">Teaching assistant for Data Structures and Java Programming</li>
+                            </ul>
                         </div>
                     </div>
-                    <ul class="edu-highlights">
-                        <li data-i18n-key="education.cityu.proj1">Non-Dominated Sorting Genetic Algorithm II for GPS Antenna Optimization</li>
-                        <li data-i18n-key="education.cityu.proj2">Underwater Robotics Team Member</li>
-                        <li data-i18n-key="education.cityu.proj3">Teaching assistant for Data Structures and Java Programming</li>
-                    </ul>
                 </article>
             </div>
         </div>
@@ -172,64 +211,77 @@
 
     <section id="experience" class="experience">
         <div class="container">
-            <h2 class="section-title" data-i18n-key="experience.title">Work Experience</h2>
+            <div class="section-header">
+                <h2 class="section-title" data-i18n-key="experience.title">Work Experience</h2>
+                <p class="section-subtitle typewriter" data-typewriter data-i18n-key="experience.subtitle" aria-live="polite"></p>
+            </div>
             <div class="experience-list">
-                <article class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <h3 data-i18n-key="experience.asrc.title">Research Associate, Engineer</h3>
-                            <h4 data-i18n-key="experience.asrc.company">Aviation Services Research Centre (ASRC)</h4>
-                            <span class="exp-badge" data-i18n-key="experience.asrc.type">Full-time</span>
+                <article class="exp-card collapse-item">
+                    <button type="button" class="collapse-trigger exp-header" aria-expanded="false" aria-controls="exp-asrc-panel">
+                        <div class="collapse-trigger-main">
+                            <div>
+                                <h3 data-i18n-key="experience.asrc.title">Research Associate, Engineer</h3>
+                                <h4 data-i18n-key="experience.asrc.company">Aviation Services Research Centre (ASRC)</h4>
+                                <span class="exp-badge" data-i18n-key="experience.asrc.type">Full-time</span>
+                            </div>
+                            <span class="exp-date" data-i18n-key="experience.asrc.date">Jun 2024 – Present</span>
                         </div>
-                        <span class="exp-date" data-i18n-key="experience.asrc.date">Jun 2024 – Present</span>
-                    </div>
-
-                    <div class="exp-project">
-                        <h5 data-i18n-key="experience.asrc.p1.title">Aviation Coating and Paint Analysis</h5>
-                        <ul>
-                            <li data-i18n-key="experience.asrc.p1.li1">Investigated hyperspectral imaging (HSI) feasibility for oxidation degree estimation and analyzed the correlation between HSI and oxidation corrosion depth for Boeing, HAECO, and HAESL</li>
-                            <li data-i18n-key="experience.asrc.p1.li2">Processed and analyzed hyperspectral datasets with four hundred spectral bands, line charts for corrosion assessment</li>
-                            <li data-i18n-key="experience.asrc.p1.li3">Implemented a novel CNN model in the aluminum oxidation depth detection system, achieving an accuracy of 0.846 — became one of ASRC's product prototypes for assessing oxidation under coatings</li>
-                        </ul>
-                    </div>
-
-                    <div class="exp-project">
-                        <h5 data-i18n-key="experience.asrc.p2.title">Automatic Bolt Inspection, Cleaning, and Sorting</h5>
-                        <ul>
-                            <li data-i18n-key="experience.asrc.p2.li1">Designed an AI-powered robotic vision system for automated bolt defect detection including cracks, deformities, and surface imperfections</li>
-                            <li data-i18n-key="experience.asrc.p2.li2">Developed a hybrid 2D/3D vision pipeline for an ABB robot arm using 2D PCA for bolt localization and 3D ICP for precise 6-DoF picking</li>
-                            <li data-i18n-key="experience.asrc.p2.li3">Developed Ladder Logic for Siemens CPU-1215c PLC controlling a 4-axis robotic system with G-code PC interface</li>
-                            <li data-i18n-key="experience.asrc.p2.li4">Built a Windows application using C# and XAML for image processing, PLC monitoring, and REST API integration</li>
-                            <li data-i18n-key="experience.asrc.p2.li5">Developed a Python Inspection System with SAM3, deformity detection, and rust/crack segmentation, containerized with Docker — reduced CPU usage from 11.1% to 4.9% and processing time from 1.858s to 1.308s</li>
-                        </ul>
+                        <span class="collapse-icon" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div id="exp-asrc-panel" class="collapse-panel" aria-hidden="true">
+                        <div class="collapse-panel-inner">
+                            <div class="exp-project">
+                                <h5 data-i18n-key="experience.asrc.p1.title">Aviation Coating and Paint Analysis</h5>
+                                <ul>
+                                    <li data-i18n-key="experience.asrc.p1.li1">Investigated hyperspectral imaging (HSI) feasibility for oxidation degree estimation and analyzed the correlation between HSI and oxidation corrosion depth for Boeing, HAECO, and HAESL</li>
+                                    <li data-i18n-key="experience.asrc.p1.li2">Processed and analyzed hyperspectral datasets with four hundred spectral bands, line charts for corrosion assessment</li>
+                                    <li data-i18n-key="experience.asrc.p1.li3">Implemented a novel CNN model in the aluminum oxidation depth detection system, achieving an accuracy of 0.846 — became one of ASRC's product prototypes for assessing oxidation under coatings</li>
+                                </ul>
+                            </div>
+                            <div class="exp-project">
+                                <h5 data-i18n-key="experience.asrc.p2.title">Automatic Bolt Inspection, Cleaning, and Sorting</h5>
+                                <ul>
+                                    <li data-i18n-key="experience.asrc.p2.li1">Designed an AI-powered robotic vision system for automated bolt defect detection including cracks, deformities, and surface imperfections</li>
+                                    <li data-i18n-key="experience.asrc.p2.li2">Developed a hybrid 2D/3D vision pipeline for an ABB robot arm using 2D PCA for bolt localization and 3D ICP for precise 6-DoF picking</li>
+                                    <li data-i18n-key="experience.asrc.p2.li3">Developed Ladder Logic for Siemens CPU-1215c PLC controlling a 4-axis robotic system with G-code PC interface</li>
+                                    <li data-i18n-key="experience.asrc.p2.li4">Built a Windows application using C# and XAML for image processing, PLC monitoring, and REST API integration</li>
+                                    <li data-i18n-key="experience.asrc.p2.li5">Developed a Python Inspection System with SAM3, deformity detection, and rust/crack segmentation, containerized with Docker — reduced CPU usage from 11.1% to 4.9% and processing time from 1.858s to 1.308s</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </article>
 
-                <article class="exp-card">
-                    <div class="exp-header">
-                        <div>
-                            <h3 data-i18n-key="experience.metron.title">Software Engineer</h3>
-                            <h4 data-i18n-key="experience.metron.company">Metron Hong Kong Limited</h4>
-                            <span class="exp-badge" data-i18n-key="experience.metron.type">Full-time &amp; Part-time</span>
+                <article class="exp-card collapse-item">
+                    <button type="button" class="collapse-trigger exp-header" aria-expanded="false" aria-controls="exp-metron-panel">
+                        <div class="collapse-trigger-main">
+                            <div>
+                                <h3 data-i18n-key="experience.metron.title">Software Engineer</h3>
+                                <h4 data-i18n-key="experience.metron.company">Metron Hong Kong Limited</h4>
+                                <span class="exp-badge" data-i18n-key="experience.metron.type">Full-time &amp; Part-time</span>
+                            </div>
+                            <span class="exp-date" data-i18n-key="experience.metron.date">Sept 2020 – Jun 2024</span>
                         </div>
-                        <span class="exp-date" data-i18n-key="experience.metron.date">Sept 2020 – Jun 2024</span>
-                    </div>
-
-                    <div class="exp-project">
-                        <h5 data-i18n-key="experience.metron.p1.title">Automatic Pool Control System</h5>
-                        <ul>
-                            <li data-i18n-key="experience.metron.p1.li1">Developed an automated water quality monitoring and chemical dosing system using LabVIEW for Ocean Park Water World</li>
-                            <li data-i18n-key="experience.metron.p1.li2">Implemented real-time data acquisition and PID control for pH, chlorine, and temperature with alarm management and predictive maintenance</li>
-                        </ul>
-                    </div>
-
-                    <div class="exp-project">
-                        <h5 data-i18n-key="experience.metron.p2.title">Mobile Laser Scanning and Imagery System</h5>
-                        <ul>
-                            <li data-i18n-key="experience.metron.p2.li1">Developed C# applications for processing mobile laser scanning point cloud data for Freetech and GovHK Highways Department</li>
-                            <li data-i18n-key="experience.metron.p2.li2">Implemented C++ algorithms for 3D point cloud processing and automated road surface condition analysis</li>
-                            <li data-i18n-key="experience.metron.p2.li3">Created automated reporting tools for highway condition assessment with GIS integration</li>
-                        </ul>
+                        <span class="collapse-icon" aria-hidden="true"><i class="fas fa-chevron-down"></i></span>
+                    </button>
+                    <div id="exp-metron-panel" class="collapse-panel" aria-hidden="true">
+                        <div class="collapse-panel-inner">
+                            <div class="exp-project">
+                                <h5 data-i18n-key="experience.metron.p1.title">Automatic Pool Control System</h5>
+                                <ul>
+                                    <li data-i18n-key="experience.metron.p1.li1">Developed an automated water quality monitoring and chemical dosing system using LabVIEW for Ocean Park Water World</li>
+                                    <li data-i18n-key="experience.metron.p1.li2">Implemented real-time data acquisition and PID control for pH, chlorine, and temperature with alarm management and predictive maintenance</li>
+                                </ul>
+                            </div>
+                            <div class="exp-project">
+                                <h5 data-i18n-key="experience.metron.p2.title">Mobile Laser Scanning and Imagery System</h5>
+                                <ul>
+                                    <li data-i18n-key="experience.metron.p2.li1">Developed C# applications for processing mobile laser scanning point cloud data for Freetech and GovHK Highways Department</li>
+                                    <li data-i18n-key="experience.metron.p2.li2">Implemented C++ algorithms for 3D point cloud processing and automated road surface condition analysis</li>
+                                    <li data-i18n-key="experience.metron.p2.li3">Created automated reporting tools for highway condition assessment with GIS integration</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </article>
             </div>
@@ -398,6 +450,6 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=20260721"></script>
 </body>
 </html>

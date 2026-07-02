@@ -10,6 +10,10 @@
         "projects": "項目",
         "contact": "聯絡"
     },
+    "theme": {
+        "toDark": "切換深色模式",
+        "toLight": "切換淺色模式"
+    },
     "hero": {
         "eyebrow": "Jayden CHEUNG",
         "title": "AI 與機械人 <span class='highlight'>工程師</span>",
@@ -40,6 +44,7 @@
     },
     "education": {
         "title": "教育背景",
+        "subtitle": "感謝傳授我知識的每位教授",
         "polyu": {
             "degree": "人工智能與大數據計算 理學碩士",
             "school": "香港理工大學",
@@ -58,6 +63,7 @@
     },
     "experience": {
         "title": "工作經歷",
+        "subtitle": "感謝帶領我共同成長的企業們",
         "asrc": {
             "title": "研究助理、工程師",
             "company": "航空服務研究中心 (ASRC)",

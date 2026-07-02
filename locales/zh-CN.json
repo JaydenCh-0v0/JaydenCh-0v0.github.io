@@ -1,108 +1,163 @@
 {
-    "pageTitle": "JaydenCh-0v0 - 个人主页",
+    "pageTitle": "Jayden Cheung — AI 与机器人工程师",
     "nav": {
         "logo": "Jayden Cheung",
         "home": "首页",
-        "about": "关于我",
-        "experience": "工作经历",
+        "about": "关于",
+        "education": "教育",
+        "experience": "经历",
         "skills": "技能",
         "projects": "项目",
-        "contact": "联系我"
+        "contact": "联系"
     },
     "hero": {
-        "title": "你好，我是 <span class='highlight'>Jayden</span>",
-        "subtitle": "全栈开发者 | 游戏开发者 | 技术爱好者",
-        "description": "热爱编程，专注于创造优秀的数字体验。拥有丰富的全栈开发经验， 对游戏开发和Web技术充满热情。",
-        "learnMore": "了解更多",
+        "eyebrow": "Jayden CHEUNG",
+        "title": "AI 与机器人 <span class='highlight'>工程师</span>",
+        "subtitle": "ASRC 研究助理 · 人工智能与大数据计算硕士",
+        "description": "专注于高光谱成像、计算机视觉与工业自动化交叉领域的智能检测系统，服务于航空与基础设施行业。",
+        "viewWork": "查看作品",
         "contactMe": "联系我",
-        "profileName": "Jayden Cheung",
-        "profileRole": "全栈开发者"
+        "profileName": "Jayden CHEUNG",
+        "profileRole": "研究助理 & 工程师",
+        "tag1": "计算机视觉",
+        "tag2": "深度学习",
+        "tag3": "机器人"
     },
     "about": {
         "title": "关于我",
-        "p1": "我是一名热情的全栈开发者，拥有多年的软件开发经验。我热爱学习新技术，解决复杂的技术问题，并致力于创建用户友好的应用程序。",
-        "p2": "除了编程，我对游戏开发也有浓厚的兴趣，尤其是在Godot引擎上进行2D和3D游戏开发。我相信技术可以改变世界，我的目标是通过代码创造价值。",
-        "expYearsNum": "3+",
-        "expYearsText": "年经验",
-        "projectsCompletedNum": "20+",
-        "projectsCompletedText": "完成项目",
-        "techStacksNum": "5+",
-        "techStacksText": "技术栈"
+        "p1": "我是航空服务研究中心（ASRC）的研究助理与工程师，专注于航空维修领域的 AI 智能检测系统。工作涵盖高光谱成像、深度学习、机器人视觉及 PLC 控制自动化。",
+        "p2": "拥有香港理工大学人工智能与大数据计算硕士学位及香港城市大学计算机与数据工程学士学位，我将学术研究与工程实践相结合——从 CNN、YOLO 和 RAG 模型到部署于生产环境的全栈检测应用平台。",
+        "expYearsNum": "4+",
+        "expYearsText": "年工作经验",
+        "degreeNum": "2",
+        "degreeText": "个学位",
+        "hl1Title": "航空检测",
+        "hl1Desc": "为 Boeing、HAECO 及 HAESL 开发 HSI 氧化检测",
+        "hl2Title": "机器人自动化",
+        "hl2Desc": "ABB 视觉流水线与西门子 PLC 控制系统",
+        "hl3Title": "AI 与视觉",
+        "hl3Desc": "CNN、SAM3、基于 Docker 的检测 API"
+    },
+    "education": {
+        "title": "教育背景",
+        "polyu": {
+            "degree": "人工智能与大数据计算 理学硕士",
+            "school": "香港理工大学",
+            "date": "2024年9月 – 2025年8月",
+            "proj1": "基于高光谱成像与深度学习的铝板氧化检测模型",
+            "proj2": "RAG 应用 — 学者个人论文检索与问答系统"
+        },
+        "cityu": {
+            "degree": "计算机与数据工程 工学学士",
+            "school": "香港城市大学",
+            "date": "2021年9月 – 2024年6月",
+            "proj1": "基于 NSGA-II 的 GPS 天线优化",
+            "proj2": "水下机器人团队成员",
+            "proj3": "数据结构与 Java 编程课程助教"
+        }
     },
     "experience": {
         "title": "工作经历",
-        "fullstackTitle": "全栈开发者",
-        "company1": "某科技公司",
-        "date1": "2022 - 至今",
-        "desc1": "负责前端和后端开发，使用React、Node.js、Python等技术栈。参与多个大型项目的开发和维护，提高系统性能和用户体验。",
-        "li1_1": "开发和维护多个Web应用",
-        "li1_2": "优化数据库查询，提高系统性能30%",
-        "li1_3": "参与代码审查和技术方案设计",
-        "frontendTitle": "前端开发者",
-        "company2": "某互联网公司",
-        "date2": "2021 - 2022",
-        "desc2": "专注于前端开发，使用Vue.js、React等现代框架。负责用户界面的设计和实现，确保良好的用户体验。",
-        "li2_1": "开发响应式Web应用",
-        "li2_2": "与UI/UX设计师合作",
-        "li2_3": "优化页面加载速度",
-        "gameDevInternTitle": "游戏开发实习生",
-        "company3": "某游戏工作室",
-        "date3": "2020 - 2021",
-        "desc3": "使用Godot引擎开发2D游戏，学习游戏开发流程和最佳实践。参与多个小型游戏项目的开发。",
-        "li3_1": "使用GDScript开发游戏逻辑",
-        "li3_2": "设计游戏关卡和用户界面",
-        "li3_3": "参与游戏测试和优化"
+        "asrc": {
+            "title": "研究助理、工程师",
+            "company": "航空服务研究中心 (ASRC)",
+            "type": "全职",
+            "date": "2024年6月 – 至今",
+            "p1": {
+                "title": "航空涂层与油漆分析",
+                "li1": "研究高光谱成像（HSI）在氧化程度评估中的可行性，分析 HSI 与氧化腐蚀深度之间的相关性，服务于 Boeing、HAECO 及 HAESL",
+                "li2": "处理并分析包含四百个光谱波段的高光谱数据集，生成腐蚀评估折线图",
+                "li3": "在铝板氧化深度检测系统中实现新型 CNN 模型，准确率达 0.846，成为 ASRC 产品原型之一，可评估涂层下铝合金的氧化程度"
+            },
+            "p2": {
+                "title": "螺栓自动检测、清洁与分拣",
+                "li1": "设计并实现 AI 驱动的机器人视觉系统，自动检测螺栓裂纹、变形及表面缺陷",
+                "li2": "为 ABB 机械臂开发混合 2D/3D 视觉流水线，使用 2D PCA 快速定位螺栓，3D ICP 实现精确六自由度抓取",
+                "li3": "为西门子 CPU-1215c PLC 编写梯形图程序，控制四轴机器人系统（夹爪、滑轨、转台、刷子）及 G-code PC 接口",
+                "li4": "使用 C# 和 XAML 构建 Windows 应用，实现图像处理、PLC 信号监控及检测系统 REST API 集成",
+                "li5": "开发基于 Python 的检测系统，集成 SAM3、变形检测及锈蚀裂纹分割模型，使用 Docker 容器化部署 API 服务，CPU 使用率从 11.1% 降至 4.9%，处理时间从 1.858s 降至 1.308s"
+            }
+        },
+        "metron": {
+            "title": "软件工程师",
+            "company": "Metron Hong Kong Limited",
+            "type": "全职 & 兼职",
+            "date": "2020年9月 – 2024年6月",
+            "p1": {
+                "title": "泳池自动控制系统",
+                "li1": "使用 LabVIEW 为海洋公园水上乐园开发自动化水质监测与化学投药系统",
+                "li2": "实现 pH、氯含量及温度的实时数据采集与 PID 控制，包含报警管理、历史数据记录及预测性维护功能"
+            },
+            "p2": {
+                "title": "移动激光扫描与影像系统",
+                "li1": "为 Freetech 及香港政府路政署开发 C# 应用，处理移动激光扫描点云数据",
+                "li2": "实现 C++ 三维点云处理算法及道路表面状况自动分析",
+                "li3": "创建自动化报告工具，用于公路状况评估与维护规划，集成 GIS 功能"
+            }
+        }
     },
     "skills": {
         "title": "技能与专长",
-        "frontendCategory": "前端开发",
-        "htmlCss": "HTML/CSS",
-        "javascript": "JavaScript",
-        "react": "React",
-        "vuejs": "Vue.js",
-        "backendCategory": "后端开发",
-        "nodejs": "Node.js",
-        "python": "Python",
-        "mysql": "MySQL",
-        "mongodb": "MongoDB",
-        "gameDevCategory": "游戏开发",
-        "godotEngine": "Godot 引擎",
-        "gdscript": "GDScript",
-        "csharp": "C#",
-        "unity": "Unity"
+        "aiCategory": "AI 与机器学习",
+        "ai1": "深度学习 / CNN",
+        "ai2": "高光谱成像",
+        "ai3": "SAM / SAM3",
+        "ai4": "RAG 系统",
+        "ai5": "NSGA-II",
+        "visionCategory": "计算机视觉与机器人",
+        "vision1": "2D/3D 视觉流水线",
+        "vision2": "PCA 与 ICP",
+        "vision3": "ABB 机械臂",
+        "vision4": "点云处理",
+        "vision5": "缺陷检测",
+        "softwareCategory": "软件工程",
+        "sw1": "Python",
+        "sw2": "C# / XAML",
+        "sw3": "C++",
+        "sw4": "Docker / REST API",
+        "sw5": "LabVIEW",
+        "automationCategory": "工业自动化",
+        "auto1": "西门子 PLC",
+        "auto2": "梯形图",
+        "auto3": "G-code 接口",
+        "auto4": "PID 控制",
+        "auto5": "GIS 集成"
     },
     "projects": {
         "title": "精选项目",
-        "proj": {
-            "rpgTitle": "简单 RPG 游戏",
-            "rpgDesc": "使用Godot引擎开发的2D角色扮演游戏，具有完整的游戏系统。",
-            "rpgTechGodot": "Godot",
-            "rpgTechGDScript": "GDScript",
-            "rpgTech2D": "2D游戏",
-            "ecommerceTitle": "电子商务管理系统",
-            "ecommerceDesc": "一个全栈电子商务管理平台，包括用户管理、产品管理、订单处理等功能。",
-            "ecommerceTechReact": "React",
-            "ecommerceTechNodejs": "Node.js",
-            "ecommerceTechMysql": "MySQL",
-            "taskAppTitle": "任务管理应用",
-            "taskAppDesc": "一个现代任务管理应用，支持团队协作和实时更新。",
-            "taskAppTechVuejs": "Vue.js",
-            "taskAppTechPython": "Python",
-            "taskAppTechMongodb": "MongoDB",
-            "viewProject": "查看项目",
-            "githubLink": "GitHub"
+        "p1": {
+            "title": "铝板氧化检测",
+            "desc": "基于 CNN 的高光谱成像系统，实现涂层下氧化的无损评估，准确率 84.6%，已部署为 ASRC 产品原型。"
+        },
+        "p2": {
+            "title": "螺栓检测系统",
+            "desc": "端到端 AI 机器人系统，集成 2D/3D 视觉、PLC 自动化、C# 界面及 Docker 化 Python 检测 API。"
+        },
+        "p3": {
+            "title": "学者 RAG 系统",
+            "desc": "检索增强生成应用，支持学者个人论文检索与智能问答。"
+        },
+        "p4": {
+            "title": "泳池控制系统",
+            "desc": "基于 LabVIEW 的自动化水质监测与化学投药系统，服务于海洋公园水上乐园。"
+        },
+        "p5": {
+            "title": "道路扫描系统",
+            "desc": "移动激光扫描点云处理及公路状况自动报告，集成 GIS 功能。"
         }
     },
     "contact": {
         "title": "联系我",
-        "subtitle": "让我们开始对话",
-        "description": "如果您对我的工作感兴趣或有任何合作机会，请随时联系我！",
+        "subtitle": "欢迎联系",
+        "description": "欢迎研究合作、工程机会及技术交流。",
         "emailLabel": "电子邮件",
         "githubLabel": "GitHub",
         "linkedinLabel": "LinkedIn",
-        "sendMessage": "发送消息"
+        "ctaTitle": "准备合作？",
+        "ctaDesc": "发送邮件联系我，我通常会在 1–2 个工作日内回复。",
+        "ctaButton": "发送邮件"
     },
     "footer": {
-        "copyright": "&copy; 2024 Jayden Cheung. 保留所有权利。"
+        "copyright": "&copy; 2026 Jayden Cheung. 保留所有权利。"
     }
 }

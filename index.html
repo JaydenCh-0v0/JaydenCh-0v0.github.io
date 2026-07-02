@@ -1,32 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-CN"> <!-- Default language, will be updated by JavaScript -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n-key="pageTitle">JaydenCh-0v0 - Personal Homepage</title>
-    <link rel="icon" href="art/icon.jpg" type="image/jpeg"> <!-- Added favicon -->
+    <title data-i18n-key="pageTitle">Jayden Cheung — AI & Robotics Engineer</title>
+    <link rel="icon" href="art/icon.jpg" type="image/jpeg">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
                 <a href="#home" data-i18n-key="nav.logo">Jayden Cheung</a>
             </div>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
             <div class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link" data-i18n-key="nav.home">Home</a>
-                <a href="#about" class="nav-link" data-i18n-key="nav.about">About Me</a>
+                <a href="#about" class="nav-link" data-i18n-key="nav.about">About</a>
+                <a href="#education" class="nav-link" data-i18n-key="nav.education">Education</a>
                 <a href="#experience" class="nav-link" data-i18n-key="nav.experience">Experience</a>
                 <a href="#skills" class="nav-link" data-i18n-key="nav.skills">Skills</a>
                 <a href="#projects" class="nav-link" data-i18n-key="nav.projects">Projects</a>
                 <a href="#contact" class="nav-link" data-i18n-key="nav.contact">Contact</a>
             </div>
-            <!-- Language Switcher -->
             <div class="language-switcher">
-                <select id="language-selector">
+                <select id="language-selector" aria-label="Language">
                     <option value="en">English</option>
                     <option value="zh-CN">简体中文</option>
                     <option value="zh-HK">繁體中文</option>
@@ -35,24 +39,31 @@
         </div>
     </nav>
 
-    <!-- 首页部分 -->
     <section id="home" class="hero">
+        <div class="hero-bg-grid" aria-hidden="true"></div>
         <div class="hero-container">
             <div class="hero-content">
-                <h1 class="hero-title" data-i18n-key="hero.title">Hi, I'm <span class="highlight">Jayden</span></h1>
-                <p class="hero-subtitle" data-i18n-key="hero.subtitle">Full-stack Developer | Game Developer | Tech Enthusiast</p>
+                <p class="hero-eyebrow" data-i18n-key="hero.eyebrow">Jayden CHEUNG</p>
+                <h1 class="hero-title" data-i18n-key="hero.title">AI &amp; Robotics <span class="highlight">Engineer</span></h1>
+                <p class="hero-subtitle" data-i18n-key="hero.subtitle">Research Associate at ASRC · MSc AI &amp; Big Data Computing</p>
                 <p class="hero-description" data-i18n-key="hero.description">
-                    Passionate about programming, focused on creating excellent digital experiences.
-                    Possessing rich full-stack development experience, enthusiastic about game development and Web technologies.
+                    Building intelligent inspection systems at the intersection of hyperspectral imaging,
+                    computer vision, and industrial automation for aviation and infrastructure.
                 </p>
+                <div class="hero-meta">
+                    <a href="mailto:JaydenCheung360@gmail.com" class="meta-chip">
+                        <i class="fas fa-envelope"></i>
+                        <span>JaydenCheung360@gmail.com</span>
+                    </a>
+                </div>
                 <div class="hero-buttons">
-                    <a href="#about" class="btn btn-primary" data-i18n-key="hero.learnMore">Learn More</a>
-                    <a href="#contact" class="btn btn-secondary" data-i18n-key="hero.contactMe">Contact Me</a>
-                    <div class="social-links-hero">
-                        <a href="https://github.com/JaydenCh-0v0"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
+                    <a href="#experience" class="btn btn-primary" data-i18n-key="hero.viewWork">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary" data-i18n-key="hero.contactMe">Get in Touch</a>
+                </div>
+                <div class="social-links-hero">
+                    <a href="https://github.com/JaydenCh-0v0" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/jayden-cheung-5a0ab7228" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:JaydenCheung360@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
             <div class="hero-image">
@@ -60,334 +71,328 @@
                     <div class="profile-avatar">
                         <img src="art/icon.jpg" alt="Jayden Cheung">
                     </div>
-                    <h3 data-i18n-key="hero.profileName">Jayden Cheung</h3>
-                    <div data-i18n-key="hero.profileRole">AI Engineer</div>
+                    <h3 data-i18n-key="hero.profileName">Jayden CHEUNG</h3>
+                    <p class="profile-role" data-i18n-key="hero.profileRole">Research Associate &amp; Engineer</p>
+                    <div class="profile-tags">
+                        <span data-i18n-key="hero.tag1">Computer Vision</span>
+                        <span data-i18n-key="hero.tag2">Deep Learning</span>
+                        <span data-i18n-key="hero.tag3">Robotics</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 关于我部分 -->
     <section id="about" class="about">
         <div class="container">
             <h2 class="section-title" data-i18n-key="about.title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p data-i18n-key="about.p1">
-                        I am a passionate full-stack developer with years of software development experience.
-                        I love learning new technologies, solving complex technical problems, and am committed to creating
-                        user-friendly applications.
+                        I am a research associate and engineer at the Aviation Services Research Centre (ASRC),
+                        specializing in AI-powered inspection systems for aviation maintenance. My work spans
+                        hyperspectral imaging, deep learning, robotic vision, and PLC-controlled automation.
                     </p>
                     <p data-i18n-key="about.p2">
-                        In addition to programming, I have a strong interest in game development, especially using the Godot engine
-                        for 2D and 3D game development. I believe technology can change the world, and my goal
-                        is to create value through code.
+                        With an MSc in Artificial Intelligence and Big Data Computing from PolyU and a BEng in
+                        Computer and Data Engineering from CityU, I combine academic rigor with hands-on
+                        engineering — from CNN, YOLO, and RAG models to full-stack inspection platforms
+                        deployed in production environments.
                     </p>
                     <div class="about-stats">
                         <div class="stat">
-                            <h3 data-i18n-key="about.expYearsNum">3+</h3>
-                            <p data-i18n-key="about.expYearsText">Years of Experience</p>
+                            <h3 data-i18n-key="about.expYearsNum">4+</h3>
+                            <p data-i18n-key="about.expYearsText">Years Experience</p>
                         </div>
                         <div class="stat">
-                            <h3 data-i18n-key="about.projectsCompletedNum">20+</h3>
-                            <p data-i18n-key="about.projectsCompletedText">Projects Completed</p>
-                        </div>
-                        <div class="stat">
-                            <h3 data-i18n-key="about.techStacksNum">5+</h3>
-                            <p data-i18n-key="about.techStacksText">Tech Stacks</p>
+                            <h3 data-i18n-key="about.degreeNum">2</h3>
+                            <p data-i18n-key="about.degreeText">Degrees</p>
                         </div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <div class="image-placeholder">
-                        <i class="fas fa-code"></i>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <i class="fas fa-plane"></i>
+                        <h4 data-i18n-key="about.hl1Title">Aviation Inspection</h4>
+                        <p data-i18n-key="about.hl1Desc">HSI oxidation detection for Boeing, HAECO &amp; HAESL</p>
+                    </div>
+                    <div class="highlight-card">
+                        <i class="fas fa-robot"></i>
+                        <h4 data-i18n-key="about.hl2Title">Robotic Automation</h4>
+                        <p data-i18n-key="about.hl2Desc">ABB vision pipeline &amp; Siemens PLC control systems</p>
+                    </div>
+                    <div class="highlight-card">
+                        <i class="fas fa-brain"></i>
+                        <h4 data-i18n-key="about.hl3Title">AI &amp; Vision</h4>
+                        <p data-i18n-key="about.hl3Desc">CNN, SAM3, Docker-based inspection APIs</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 工作经历部分 -->
+    <section id="education" class="education">
+        <div class="container">
+            <h2 class="section-title" data-i18n-key="education.title">Education</h2>
+            <div class="education-grid">
+                <article class="edu-card">
+                    <div class="edu-header">
+                        <div>
+                            <h3 data-i18n-key="education.polyu.degree">MSc. Artificial Intelligence and Big Data Computing</h3>
+                            <h4 data-i18n-key="education.polyu.school">Hong Kong Polytechnic University</h4>
+                        </div>
+                        <div class="edu-meta">
+                            <span class="edu-date" data-i18n-key="education.polyu.date">Sept 2024 – Aug 2025</span>
+                        </div>
+                    </div>
+                    <ul class="edu-highlights">
+                        <li data-i18n-key="education.polyu.proj1">An Aluminum Plate Oxidation Detection Model Based on Hyperspectral Imaging and Deep Learning</li>
+                        <li data-i18n-key="education.polyu.proj2">RAG application — Scholars' personal paper search and question answering system</li>
+                    </ul>
+                </article>
+                <article class="edu-card">
+                    <div class="edu-header">
+                        <div>
+                            <h3 data-i18n-key="education.cityu.degree">BEng. Computer and Data Engineering</h3>
+                            <h4 data-i18n-key="education.cityu.school">City University of Hong Kong</h4>
+                        </div>
+                        <div class="edu-meta">
+                            <span class="edu-date" data-i18n-key="education.cityu.date">Sept 2021 – Jun 2024</span>
+                        </div>
+                    </div>
+                    <ul class="edu-highlights">
+                        <li data-i18n-key="education.cityu.proj1">Non-Dominated Sorting Genetic Algorithm II for GPS Antenna Optimization</li>
+                        <li data-i18n-key="education.cityu.proj2">Underwater Robotics Team Member</li>
+                        <li data-i18n-key="education.cityu.proj3">Teaching assistant for Data Structures and Java Programming</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section id="experience" class="experience">
         <div class="container">
             <h2 class="section-title" data-i18n-key="experience.title">Work Experience</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n-key="exp.fullstackTitle">Full-stack Developer</h3>
-                        <h4 data-i18n-key="exp.company1">A Tech Company</h4>
-                        <span class="timeline-date" data-i18n-key="exp.date1">2022 - Present</span>
-                        <p data-i18n-key="exp.desc1">
-                            Responsible for front-end and back-end development, using tech stacks like React, Node.js, Python.
-                            Participated in the development and maintenance of multiple large-scale projects, improving system performance and user experience.
-                        </p>
+            <div class="experience-list">
+                <article class="exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 data-i18n-key="experience.asrc.title">Research Associate, Engineer</h3>
+                            <h4 data-i18n-key="experience.asrc.company">Aviation Services Research Centre (ASRC)</h4>
+                            <span class="exp-badge" data-i18n-key="experience.asrc.type">Full-time</span>
+                        </div>
+                        <span class="exp-date" data-i18n-key="experience.asrc.date">Jun 2024 – Present</span>
+                    </div>
+
+                    <div class="exp-project">
+                        <h5 data-i18n-key="experience.asrc.p1.title">Aviation Coating and Paint Analysis</h5>
                         <ul>
-                            <li data-i18n-key="exp.li1_1">Developed and maintained multiple web applications</li>
-                            <li data-i18n-key="exp.li1_2">Optimized database queries, improving system performance by 30%</li>
-                            <li data-i18n-key="exp.li1_3">Participated in code reviews and technical solution design</li>
+                            <li data-i18n-key="experience.asrc.p1.li1">Investigated hyperspectral imaging (HSI) feasibility for oxidation degree estimation and analyzed the correlation between HSI and oxidation corrosion depth for Boeing, HAECO, and HAESL</li>
+                            <li data-i18n-key="experience.asrc.p1.li2">Processed and analyzed hyperspectral datasets with four hundred spectral bands, line charts for corrosion assessment</li>
+                            <li data-i18n-key="experience.asrc.p1.li3">Implemented a novel CNN model in the aluminum oxidation depth detection system, achieving an accuracy of 0.846 — became one of ASRC's product prototypes for assessing oxidation under coatings</li>
                         </ul>
                     </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n-key="exp.frontendTitle">Front-end Developer</h3>
-                        <h4 data-i18n-key="exp.company2">An Internet Company</h4>
-                        <span class="timeline-date" data-i18n-key="exp.date2">2021 - 2022</span>
-                        <p data-i18n-key="exp.desc2">
-                            Focused on front-end development, using modern frameworks like Vue.js, React.
-                            Responsible for the design and implementation of user interfaces, ensuring a good user experience.
-                        </p>
+
+                    <div class="exp-project">
+                        <h5 data-i18n-key="experience.asrc.p2.title">Automatic Bolt Inspection, Cleaning, and Sorting</h5>
                         <ul>
-                            <li data-i18n-key="exp.li2_1">Developed responsive web applications</li>
-                            <li data-i18n-key="exp.li2_2">Collaborated with UI/UX designers</li>
-                            <li data-i18n-key="exp.li2_3">Optimized page loading speed</li>
+                            <li data-i18n-key="experience.asrc.p2.li1">Designed an AI-powered robotic vision system for automated bolt defect detection including cracks, deformities, and surface imperfections</li>
+                            <li data-i18n-key="experience.asrc.p2.li2">Developed a hybrid 2D/3D vision pipeline for an ABB robot arm using 2D PCA for bolt localization and 3D ICP for precise 6-DoF picking</li>
+                            <li data-i18n-key="experience.asrc.p2.li3">Developed Ladder Logic for Siemens CPU-1215c PLC controlling a 4-axis robotic system with G-code PC interface</li>
+                            <li data-i18n-key="experience.asrc.p2.li4">Built a Windows application using C# and XAML for image processing, PLC monitoring, and REST API integration</li>
+                            <li data-i18n-key="experience.asrc.p2.li5">Developed a Python Inspection System with SAM3, deformity detection, and rust/crack segmentation, containerized with Docker — reduced CPU usage from 11.1% to 4.9% and processing time from 1.858s to 1.308s</li>
                         </ul>
                     </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-marker"></div>
-                    <div class="timeline-content">
-                        <h3 data-i18n-key="exp.gameDevInternTitle">Game Development Intern</h3>
-                        <h4 data-i18n-key="exp.company3">A Game Studio</h4>
-                        <span class="timeline-date" data-i18n-key="exp.date3">2020 - 2021</span>
-                        <p data-i18n-key="exp.desc3">
-                            Developed 2D games using the Godot engine, learning game development processes and best practices.
-                            Participated in the development of multiple small game projects.
-                        </p>
+                </article>
+
+                <article class="exp-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 data-i18n-key="experience.metron.title">Software Engineer</h3>
+                            <h4 data-i18n-key="experience.metron.company">Metron Hong Kong Limited</h4>
+                            <span class="exp-badge" data-i18n-key="experience.metron.type">Full-time &amp; Part-time</span>
+                        </div>
+                        <span class="exp-date" data-i18n-key="experience.metron.date">Sept 2020 – Jun 2024</span>
+                    </div>
+
+                    <div class="exp-project">
+                        <h5 data-i18n-key="experience.metron.p1.title">Automatic Pool Control System</h5>
                         <ul>
-                            <li data-i18n-key="exp.li3_1">Developed game logic using GDScript</li>
-                            <li data-i18n-key="exp.li3_2">Designed game levels and user interfaces</li>
-                            <li data-i18n-key="exp.li3_3">Participated in game testing and optimization</li>
+                            <li data-i18n-key="experience.metron.p1.li1">Developed an automated water quality monitoring and chemical dosing system using LabVIEW for Ocean Park Water World</li>
+                            <li data-i18n-key="experience.metron.p1.li2">Implemented real-time data acquisition and PID control for pH, chlorine, and temperature with alarm management and predictive maintenance</li>
                         </ul>
                     </div>
-                </div>
+
+                    <div class="exp-project">
+                        <h5 data-i18n-key="experience.metron.p2.title">Mobile Laser Scanning and Imagery System</h5>
+                        <ul>
+                            <li data-i18n-key="experience.metron.p2.li1">Developed C# applications for processing mobile laser scanning point cloud data for Freetech and GovHK Highways Department</li>
+                            <li data-i18n-key="experience.metron.p2.li2">Implemented C++ algorithms for 3D point cloud processing and automated road surface condition analysis</li>
+                            <li data-i18n-key="experience.metron.p2.li3">Created automated reporting tools for highway condition assessment with GIS integration</li>
+                        </ul>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- 技能部分 -->
     <section id="skills" class="skills">
         <div class="container">
-            <h2 class="section-title" data-i18n-key="skills.title">Skills & Expertise</h2>
+            <h2 class="section-title" data-i18n-key="skills.title">Skills &amp; Expertise</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3 data-i18n-key="skills.frontendCategory">Front-end Development</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.htmlCss">HTML/CSS</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.javascript">JavaScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.react">React</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.vuejs">Vue.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                        </div>
+                    <h3><i class="fas fa-brain"></i> <span data-i18n-key="skills.aiCategory">AI &amp; Machine Learning</span></h3>
+                    <div class="skill-tags">
+                        <span data-i18n-key="skills.ai1">Deep Learning / CNN</span>
+                        <span data-i18n-key="skills.ai2">Hyperspectral Imaging</span>
+                        <span data-i18n-key="skills.ai3">SAM / SAM3</span>
+                        <span data-i18n-key="skills.ai4">RAG Systems</span>
+                        <span data-i18n-key="skills.ai5">NSGA-II</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3 data-i18n-key="skills.backendCategory">Back-end Development</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.nodejs">Node.js</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.python">Python</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.mysql">MySQL</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.mongodb">MongoDB</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
+                    <h3><i class="fas fa-eye"></i> <span data-i18n-key="skills.visionCategory">Computer Vision &amp; Robotics</span></h3>
+                    <div class="skill-tags">
+                        <span data-i18n-key="skills.vision1">2D/3D Vision Pipeline</span>
+                        <span data-i18n-key="skills.vision2">PCA &amp; ICP</span>
+                        <span data-i18n-key="skills.vision3">ABB Robot Arm</span>
+                        <span data-i18n-key="skills.vision4">Point Cloud Processing</span>
+                        <span data-i18n-key="skills.vision5">Defect Detection</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3 data-i18n-key="skills.gameDevCategory">Game Development</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.godotEngine">Godot Engine</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.gdscript">GDScript</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.csharp">C#</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <span data-i18n-key="skills.unity">Unity</span>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 60%"></div>
-                            </div>
-                        </div>
+                    <h3><i class="fas fa-code"></i> <span data-i18n-key="skills.softwareCategory">Software Engineering</span></h3>
+                    <div class="skill-tags">
+                        <span data-i18n-key="skills.sw1">Python</span>
+                        <span data-i18n-key="skills.sw2">C# / XAML</span>
+                        <span data-i18n-key="skills.sw3">C++</span>
+                        <span data-i18n-key="skills.sw4">Docker / REST API</span>
+                        <span data-i18n-key="skills.sw5">LabVIEW</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-cogs"></i> <span data-i18n-key="skills.automationCategory">Industrial Automation</span></h3>
+                    <div class="skill-tags">
+                        <span data-i18n-key="skills.auto1">Siemens PLC</span>
+                        <span data-i18n-key="skills.auto2">Ladder Logic</span>
+                        <span data-i18n-key="skills.auto3">G-code Interface</span>
+                        <span data-i18n-key="skills.auto4">PID Control</span>
+                        <span data-i18n-key="skills.auto5">GIS Integration</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 项目部分 -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title" data-i18n-key="projects.title">Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
+                <article class="project-card">
+                    <div class="project-icon"><i class="fas fa-microscope"></i></div>
                     <div class="project-content">
-                        <h3 data-i18n-key="proj.rpgTitle">Simple RPG Game</h3>
-                        <p data-i18n-key="proj.rpgDesc">A 2D role-playing game developed using the Godot engine, featuring a complete game system.</p>
+                        <h3 data-i18n-key="projects.p1.title">Aluminum Oxidation Detection</h3>
+                        <p data-i18n-key="projects.p1.desc">CNN-based HSI system for non-destructive oxidation assessment under coatings — 84.6% accuracy, deployed as ASRC product prototype.</p>
                         <div class="project-tech">
-                            <span data-i18n-key="proj.rpgTechGodot">Godot</span>
-                            <span data-i18n-key="proj.rpgTechGDScript">GDScript</span>
-                            <span data-i18n-key="proj.rpgTech2D">2D Game</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small" data-i18n-key="proj.viewProject">View Project</a>
-                            <a href="#" class="btn btn-small btn-outline" data-i18n-key="proj.githubLink">GitHub</a>
+                            <span>Python</span><span>CNN</span><span>HSI</span>
                         </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-shopping-cart"></i>
-                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-icon"><i class="fas fa-robot"></i></div>
                     <div class="project-content">
-                        <h3 data-i18n-key="proj.ecommerceTitle">E-commerce Management System</h3>
-                        <p data-i18n-key="proj.ecommerceDesc">A full-stack e-commerce management platform, including user management, product management, order processing, and other functions.</p>
+                        <h3 data-i18n-key="projects.p2.title">Bolt Inspection System</h3>
+                        <p data-i18n-key="projects.p2.desc">End-to-end AI robotic system with 2D/3D vision, PLC automation, C# UI, and Dockerized Python inspection API.</p>
                         <div class="project-tech">
-                            <span data-i18n-key="proj.ecommerceTechReact">React</span>
-                            <span data-i18n-key="proj.ecommerceTechNodejs">Node.js</span>
-                            <span data-i18n-key="proj.ecommerceTechMysql">MySQL</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small" data-i18n-key="proj.viewProject">View Project</a>
-                            <a href="#" class="btn btn-small btn-outline" data-i18n-key="proj.githubLink">GitHub</a>
+                            <span>C#</span><span>ABB</span><span>SAM3</span><span>Docker</span>
                         </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <i class="fas fa-tasks"></i>
-                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-icon"><i class="fas fa-book-open"></i></div>
                     <div class="project-content">
-                        <h3 data-i18n-key="proj.taskAppTitle">Task Management Application</h3>
-                        <p data-i18n-key="proj.taskAppDesc">A modern task management application supporting team collaboration and real-time updates.</p>
+                        <h3 data-i18n-key="projects.p3.title">Scholar RAG System</h3>
+                        <p data-i18n-key="projects.p3.desc">Retrieval-augmented generation application for scholars' personal paper search and question answering.</p>
                         <div class="project-tech">
-                            <span data-i18n-key="proj.taskAppTechVuejs">Vue.js</span>
-                            <span data-i18n-key="proj.taskAppTechPython">Python</span>
-                            <span data-i18n-key="proj.taskAppTechMongodb">MongoDB</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="#" class="btn btn-small" data-i18n-key="proj.viewProject">View Project</a>
-                            <a href="#" class="btn btn-small btn-outline" data-i18n-key="proj.githubLink">GitHub</a>
+                            <span>RAG</span><span>NLP</span><span>LLM</span>
                         </div>
                     </div>
-                </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-icon"><i class="fas fa-water"></i></div>
+                    <div class="project-content">
+                        <h3 data-i18n-key="projects.p4.title">Pool Control System</h3>
+                        <p data-i18n-key="projects.p4.desc">LabVIEW-based automated water quality monitoring and chemical dosing for Ocean Park Water World.</p>
+                        <div class="project-tech">
+                            <span>LabVIEW</span><span>PID</span><span>DAQ</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="project-card">
+                    <div class="project-icon"><i class="fas fa-road"></i></div>
+                    <div class="project-content">
+                        <h3 data-i18n-key="projects.p5.title">Road Scanning System</h3>
+                        <p data-i18n-key="projects.p5.desc">Mobile laser scanning point cloud processing and automated highway condition reporting with GIS.</p>
+                        <div class="project-tech">
+                            <span>C#</span><span>C++</span><span>GIS</span>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
 
-    <!-- 联系我部分 -->
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title" data-i18n-key="contact.title">Contact Me</h2>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3 data-i18n-key="contact.subtitle">Let's start a conversation</h3>
-                    <p data-i18n-key="contact.description">If you are interested in my work or have any collaboration opportunities, feel free to contact me!</p>
+                    <h3 data-i18n-key="contact.subtitle">Let's connect</h3>
+                    <p data-i18n-key="contact.description">Open to research collaborations, engineering opportunities, and technical discussions.</p>
                     <div class="contact-items">
-                        <div class="contact-item">
+                        <a href="mailto:JaydenCheung360@gmail.com" class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <div>
                                 <h4 data-i18n-key="contact.emailLabel">Email</h4>
-                                <p>jayden.cheung@example.com</p>
+                                <p>JaydenCheung360@gmail.com</p>
                             </div>
-                        </div>
-                        <div class="contact-item">
+                        </a>
+                        <a href="https://github.com/JaydenCh-0v0" class="contact-item" target="_blank" rel="noopener">
                             <i class="fab fa-github"></i>
                             <div>
                                 <h4 data-i18n-key="contact.githubLabel">GitHub</h4>
                                 <p>github.com/JaydenCh-0v0</p>
                             </div>
-                        </div>
-                        <div class="contact-item">
+                        </a>
+                        <a href="https://linkedin.com/in/jayden-cheung-5a0ab7228" class="contact-item" target="_blank" rel="noopener">
                             <i class="fab fa-linkedin"></i>
                             <div>
                                 <h4 data-i18n-key="contact.linkedinLabel">LinkedIn</h4>
-                                <p>linkedin.com/in/jayden-cheung</p>
+                                <p>linkedin.com/in/jayden-cheung-5a0ab7228</p>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" data-i18n-placeholder-key="contact.namePlaceholder" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" data-i18n-placeholder-key="contact.emailPlaceholder" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" data-i18n-placeholder-key="contact.subjectPlaceholder" placeholder="Subject" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea rows="5" data-i18n-placeholder-key="contact.messagePlaceholder" placeholder="Your Message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" data-i18n-key="contact.sendMessage">Send Message</button>
-                    </form>
+                <div class="contact-cta">
+                    <div class="cta-card">
+                        <i class="fas fa-paper-plane"></i>
+                        <h3 data-i18n-key="contact.ctaTitle">Ready to collaborate?</h3>
+                        <p data-i18n-key="contact.ctaDesc">Send me an email — I typically respond within 1–2 business days.</p>
+                        <a href="mailto:JaydenCheung360@gmail.com" class="btn btn-primary" data-i18n-key="contact.ctaButton">Send Email</a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p data-i18n-key="footer.copyright">&copy; 2024 Jayden Cheung. All rights reserved.</p>
+                <p data-i18n-key="footer.copyright">&copy; 2026 Jayden Cheung. All rights reserved.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="https://github.com/JaydenCh-0v0" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/jayden-cheung-5a0ab7228" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:JaydenCheung360@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
         </div>

@@ -139,7 +139,7 @@ body {
     justify-content: center;
     background: #fce7f3;
     border: 1px solid rgba(191, 57, 137, 0.22);
-    border-radius: 8px;
+    border-radius: 50%;
     color: #bf3989;
     font-size: 0.85rem;
     text-decoration: none;
@@ -175,7 +175,7 @@ body {
     justify-content: center;
     background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 50%;
     color: var(--text-muted);
     cursor: pointer;
     transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
